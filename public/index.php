@@ -2,22 +2,24 @@
 require_once '../includes/db.php';
 require_once '../includes/header.php';
 //echo "Database connected successfully";
-/* 1. Write SQL */
+
+//the data target to be fetch
 $sql = "SELECT posts.title, posts.content, posts.created_at
         FROM posts
         WHERE posts.status = 'published'
         ORDER BY posts.created_at DESC";
 
-/* 2. Prepare query */
+//for security
 $stmt = $pdo->prepare($sql);
 
-/* 3. Execute query */
+//actual excecution
 $stmt->execute();
 
-/* 4. Fetch results */
+//fetch result
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<!-- rendering the fetch data -->
 <h1>Latest Posts</h1>
 
 <?php if ($posts): ?>
