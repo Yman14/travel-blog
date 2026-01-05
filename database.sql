@@ -50,3 +50,13 @@ VALUES (
   1,
   'published'
 );
+
+
+--------------------------------------------------
+-- create sample admin
+--password123
+INSERT INTO admins (username, password)
+VALUES (
+  'admin',
+  '$2y$10$wHnqgP9Z2FJwU5sN7x5QFe4Fj8lZpV8Yd0mQ4nQv3r0jHnZ5RZPpS'
+);
