@@ -4,7 +4,7 @@ require_once '../includes/header.php';
 //echo "Database connected successfully";
 
 //the data target to be fetch
-$sql = "SELECT posts.title, posts.content, posts.created_at
+$sql = "SELECT posts.id, posts.title, posts.content, posts.created_at
         FROM posts
         WHERE posts.status = 'published'
         ORDER BY posts.created_at DESC";
@@ -25,7 +25,11 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php if ($posts): ?>
     <?php foreach ($posts as $post): ?>
         <article>
-            <h2><?php echo htmlspecialchars($post['title']); ?></h2>
+            <h2>
+                <a href="post.php?id=<?php echo $post['id']; ?>" rel="nonreferrer">
+                    <?php echo htmlspecialchars($post['title']); ?>
+                </a>
+            </h2>
             <p><?php echo htmlspecialchars($post['content']); ?></p>
             <small>Published on <?php echo $post['created_at']; ?></small>
         </article>
