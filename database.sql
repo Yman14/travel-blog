@@ -41,3 +41,12 @@ VALUES (
   1,
   'published'
 );
+
+INSERT INTO posts (title, slug, content, category_id, status)
+VALUES (
+  'My First Trip to Cebu',
+  'my-first-trip-to-cebu',
+  'This is my second travel post content.',
+  1,
+  'published'
+);
