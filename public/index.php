@@ -26,7 +26,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php foreach ($posts as $post): ?>
         <article>
             <h2>
-                <a href="post.php?id=<?php echo $post['id']; ?>" rel="nonreferrer">
+                <a href="post.php?id=<?php echo $post['id']; ?>">
                     <?php echo htmlspecialchars($post['title']); ?>
                 </a>
             </h2>
