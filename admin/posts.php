@@ -19,3 +19,45 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Posts</title>
+</head>
+<body>
+
+<h1>All Posts</h1>
+
+<p><a href="create-post.php">Create New Post</a></p>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+
+    <?php foreach ($posts as $post): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($post['title']); ?></td>
+            <td><?php echo htmlspecialchars($post['category']); ?></td>
+            <td><?php echo $post['status']; ?></td>
+            <td><?php echo $post['created_at']; ?></td>
+            <td>
+                <a href="edit-post.php?id=<?php echo $post['id']; ?>">Edit</a> |
+                <a href="delete-post.php?id=<?php echo $post['id']; ?>"
+                   onclick="return confirm('Delete this post?');">
+                   Delete
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+<p><a href="dashboard.php">Back to dashboard</a></p>
+
+</body>
+</html>
