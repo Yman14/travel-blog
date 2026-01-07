@@ -1,4 +1,7 @@
 <?php
+//disable error display(added here incase htaccess fail)
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
 $host = 'localhost';
 $db   = 'travel_blog';

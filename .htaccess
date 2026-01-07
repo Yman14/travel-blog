@@ -1,3 +1,31 @@
+# ----------------------------------------------------------------------
+# 1. PHP Error Handling
+# ----------------------------------------------------------------------
+
+# Hide errors from visitors (Security)
+php_flag display_errors Off
+php_flag display_startup_errors Off
+
+# Enable internal logging for developers
+php_flag log_errors On
+
+# Log ALL errors (32767 is E_ALL in PHP 8.x)
+php_value error_reporting 32767
+
+# Optional: Specify your own log file name
+# php_value error_log /home/username/public_html/php_error.log
+
+
+# ----------------------------------------------------------------------
+# 2. Security: Protect Sensitive Files
+# ----------------------------------------------------------------------
+
 <FilesMatch "\.(env|sql|ini|log)$">
-    Deny from all
+    # Modern Apache 2.4 syntax
+    Require all denied
 </FilesMatch>
+
+# Also block access to the .htaccess file itself
+<Files .htaccess>
+    Require all denied
+</Files>
