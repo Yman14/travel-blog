@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $success = 'Post created successfully.';
     }
 }
+?>
 
 //admin form html
 <!DOCTYPE html>
