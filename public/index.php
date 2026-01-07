@@ -46,3 +46,4 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 require_once '../includes/footer.php';
+?>

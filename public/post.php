@@ -1,6 +1,5 @@
 <?php
 require_once '../includes/db.php';
-require_once '../includes/header.php';
 
 //verify if id from url exist
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -23,8 +22,11 @@ $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $postId, PDO::PARAM_INT);
 $stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
+
+require_once '../includes/header.php';
 ?>
 
+<!-- html -->
 <!-- display result -->
 <?php if ($post): ?>
     <article>
@@ -38,3 +40,4 @@ $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <?php
 require_once '../includes/footer.php';
+?>

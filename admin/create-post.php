@@ -8,7 +8,6 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 require_once '../includes/db.php';
-require_once '../includes/header.php';
 
 //fetch categories
 $sql = "SELECT id, name FROM categories ORDER BY name ASC";
@@ -48,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $success = 'Post created successfully.';
     }
 }
+
+$page_title = "Create New Post";
+require_once '../includes/header.php';
 ?>
 
 <!-- //admin form html -->
@@ -103,5 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php
     require_once '../includes/footer.php';
+?>
 
 

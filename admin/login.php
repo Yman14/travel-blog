@@ -25,15 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Invalid login credentials';
     }
 }
+
+$page_title = 'Admin Login';
+require_once '../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Login</title>
-</head>
-<body>
-
+<!-- html -->
 <h1>Admin Login</h1>
 
 <?php if ($error): ?>
@@ -46,5 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Login</button>
 </form>
 
-</body>
-</html>
+<?php
+require_once '../includes/footer.php';
+?>

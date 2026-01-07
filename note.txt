@@ -1,0 +1,8 @@
+remaining task
+
+UI POLISH & RESPONSIVENESS, 
+SEO & LEGAL PAGES, 
+PERFORMANCE & SECURITY CHECKS
+
+bug found
+can access login page even if log in

@@ -18,15 +18,12 @@ $sql = "SELECT posts.id, posts.title, posts.status, posts.created_at, categories
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$page_title="Manage Posts";
+require_once '../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Manage Posts</title>
-</head>
-<body>
-
+<!-- html -->
 <h1>All Posts</h1>
 
 <p><a href="create-post.php">Create New Post</a></p>
@@ -59,5 +56,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <p><a href="dashboard.php">Back to dashboard</a></p>
 
-</body>
-</html>
+
+<?php
+require_once '../includes/footer.php';
+?>

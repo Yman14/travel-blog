@@ -65,15 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $success = 'Post updated successfully.';
     }
 }
+
+require_once '../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Post</title>
-</head>
-<body>
-
+<!-- html -->
 <h1>Edit Post</h1>
 
 <?php if ($error): ?><p style="color:red;"><?php echo $error; ?></p><?php endif; ?>
@@ -103,5 +99,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <p><a href="posts.php">Back to posts</a></p>
 
-</body>
-</html>
+<?php
+require_once '../includes/footer.php';

@@ -6,16 +6,11 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
+$page_title = "Dashboard";
 require_once '../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-</head>
-<body>
-
+<!-- html -->
 <h1>Dashboard</h1>
 <p>You are logged in.</p>
 
@@ -23,8 +18,6 @@ require_once '../includes/header.php';
 
 <a href="logout.php">Logout</a>
 
-</body>
-</html>
-
 <?php 
 require_once '../includes/footer.php';
+?>
