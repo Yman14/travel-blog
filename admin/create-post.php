@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-//admin form html
+<!-- //admin form html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,5 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
+
+<?php
+    require_once '../includes/footer.php';
 
 
