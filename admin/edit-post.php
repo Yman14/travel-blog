@@ -15,3 +15,14 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $postId = (int) $_GET['id'];
+
+/* Fetch post */
+$sql = "SELECT * FROM posts WHERE id = :id LIMIT 1";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $postId, PDO::PARAM_INT);
+$stmt->execute();
+$post = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$post) {
+    die('Post not found');
+}
