@@ -66,3 +66,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Post</title>
+</head>
+<body>
+
+<h1>Edit Post</h1>
+
+<?php if ($error): ?><p style="color:red;"><?php echo $error; ?></p><?php endif; ?>
+<?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
+
+<form method="post">
+    <input type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
+
+    <select name="category_id">
+        <?php foreach ($cats as $cat): ?>
+            <option value="<?php echo $cat['id']; ?>"
+                <?php if ($cat['id'] == $post['category_id']) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($cat['name']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select><br><br>
+
+    <textarea name="content" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
+
+    <select name="status">
+        <option value="draft" <?php if ($post['status'] === 'draft') echo 'selected'; ?>>Draft</option>
+        <option value="published" <?php if ($post['status'] === 'published') echo 'selected'; ?>>Published</option>
+    </select><br><br>
+
+    <button type="submit">Update Post</button>
+</form>
+
+<p><a href="posts.php">Back to posts</a></p>
+
+</body>
+</html>
