@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($title === '' || $content === '') {
         $error = 'Title and content are required.';
     } else {
+        // slug generation
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
         $sql = "INSERT INTO posts (title, slug, content, category_id, status)
