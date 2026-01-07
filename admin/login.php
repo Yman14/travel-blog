@@ -4,6 +4,7 @@ require_once '../includes/db.php';
 
 $error = '';
 
+//fetch the data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    //verify password and redirect to the dashboard 
     if ($admin && password_verify($password, $admin['password'])) {
         $_SESSION['admin_id'] = $admin['id'];
         header('Location: dashboard.php');
