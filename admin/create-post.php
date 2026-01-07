@@ -48,3 +48,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+//admin form html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Post</title>
+</head>
+<body>
+
+<h1>Create New Post</h1>
+
+<?php if (!empty($error)): ?>
+    <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+<?php endif; ?>
+
+<?php if ($success): ?>
+    <p style="color:green;"><?php echo $success; ?></p>
+<?php endif; ?>
+
+
+<form method="post">
+
+    <label>Title</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label>Category</label><br>
+    <select name="category_id" required>
+        <?php foreach ($categories as $cat): ?>
+            <option value="<?php echo $cat['id']; ?>">
+                <?php echo htmlspecialchars($cat['name']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select><br><br>
+
+    <label>Content</label><br>
+    <textarea name="content" rows="8" required></textarea><br><br>
+
+    <label>Status</label><br>
+    <select name="status">
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+    </select><br><br>
+
+    <button type="submit">Create Post</button>
+
+</form>
+
+<p><a href="dashboard.php">Back to dashboard</a></p>
+
+</body>
+</html>
+
+
