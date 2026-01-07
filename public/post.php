@@ -30,7 +30,7 @@ $post = $stmt->fetch(PDO::FETCH_ASSOC);
     <article>
         <h1><?php echo htmlspecialchars($post['title']); ?></h1>
         <small>Published on <?php echo $post['created_at']; ?></small>
-        <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
+        <p><?php echo nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
     </article>
 <?php else: ?>
     <p>Post not found.</p>
