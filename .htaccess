@@ -29,3 +29,21 @@ php_value error_reporting 32767
 <Files .htaccess>
     Require all denied
 </Files>
+
+# ----------------------------------------------------------------------
+# 3. URL Rewriting (Clean URLs)
+# ----------------------------------------------------------------------
+#not yet use, will come back later
+RewriteEngine On
+
+# Ensure images, CSS, and JS files load normally
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite /post/my-title to /public/post.php?slug=my-title
+RewriteRule ^post/([a-zA-Z0-9-]+)/?$ public/post.php?slug=$1 [L,QSA]
+
+
+# ----------------------------------------------------------------------
+# 4.
+# ----------------------------------------------------------------------
