@@ -9,3 +9,11 @@ if (!isset($_SESSION['admin_id'])) {
 
 require_once '../includes/db.php';
 require_once '../includes/header.php';
+
+//fetch categories
+$sql = "SELECT id, name FROM categories ORDER BY name ASC";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
