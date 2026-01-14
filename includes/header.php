@@ -33,8 +33,8 @@
     <nav>
         <a href="/travel-blog/public/index.php">Home</a>
         <a href="/travel-blog/public/blog.php">Blog</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="/travel-blog/public/about.php">About</a>
+        <a href="/travel-blog/public/contact.php">Contact</a>
     </nav>
 </header>
 
