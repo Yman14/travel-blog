@@ -33,7 +33,6 @@ php_value error_reporting 32767
 # ----------------------------------------------------------------------
 # 3. URL Rewriting (Clean URLs)
 # ----------------------------------------------------------------------
-#not yet use, will come back later
 RewriteEngine On
 
 # Ensure images, CSS, and JS files load normally
