@@ -31,7 +31,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </a>
             </h2>
             <p><?= htmlspecialchars($post['content']); ?></p>
-            <small>Published on <?= $post['created_at']; ?></small>
+            <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
         </article>
         <hr>
     <?php endforeach; ?>
