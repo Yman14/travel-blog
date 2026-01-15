@@ -1,4 +1,6 @@
-<?php require_once '../includes/header.php'; ?>
+<?php 
+$page_title = "Privacy Policy";
+require_once '../includes/header.php'; ?>
 
 <h1>Privacy Policy</h1>
 

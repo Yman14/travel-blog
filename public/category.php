@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/db.php';
+$page_title = "Categories";
 require_once '../includes/header.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

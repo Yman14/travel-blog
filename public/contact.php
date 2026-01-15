@@ -1,4 +1,6 @@
-<?php require_once '../includes/header.php'; ?>
+<?php 
+$page_title = "Contact";
+require_once '../includes/header.php'; ?>
 
 <h1>Contact</h1>
 

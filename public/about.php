@@ -1,4 +1,6 @@
-<?php require_once '../includes/header.php'; ?>
+<?php 
+$page_title = "About";
+require_once '../includes/header.php'; ?>
 
 <h1>About This Travel Blog</h1>
 
