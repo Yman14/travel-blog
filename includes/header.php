@@ -32,9 +32,10 @@
 <header>
     <nav>
         <a href="/travel-blog/public/index.php">Home</a>
-        <a href="/travel-blog/public/blog.php">Blog</a>
+        <a href="/travel-blog/public/category.php?id=1">Categories</a>
         <a href="/travel-blog/public/about.php">About</a>
         <a href="/travel-blog/public/contact.php">Contact</a>
+        <a href="/travel-blog/public/privacy-policy.php">Privacy Policy</a>
     </nav>
 </header>
 
