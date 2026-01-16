@@ -1,7 +1,5 @@
 <?php
 require_once '../includes/db.php';
-$page_title = "Categories";
-require_once '../includes/header.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die('Invalid category');
@@ -35,6 +33,11 @@ $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $categoryId, PDO::PARAM_INT);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//set title page to category
+$page_title = $category['name'];
+
+require_once '../includes/header.php';
 ?>
 
 <!-- display -->
