@@ -1,5 +1,6 @@
 <?php 
 require_once __DIR__ . '/db.php';
+define('BASE_URL', '/travel-blog');
 
 // Use the post title if it exists, otherwise use a default
 if (isset($post['title'])) {
@@ -32,7 +33,8 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
-    <link rel="stylesheet" href="/travel-blog/assets/css/style.css">
+    <!-- <link rel="stylesheet" href="/travel-blog/assets/css/style.css"> -->
+     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/styles.css">
 </head>
 <body>
 
@@ -40,11 +42,16 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <nav>
         <a href="/travel-blog/public/index.php">Home</a>
         
-        <?php foreach($navCategories as $cat): ?>
-            <a href="/travel-blog/public/category.php?id=<?=$cat['id']?>">
-                <?= htmlspecialchars($cat['name']); ?>
-            </a>
-        <?php endforeach ?>
+        <div class="dropdown">
+            <span>Categories ▾</span>
+            <div class="dropdown-content">
+                <?php foreach ($navCategories as $cat): ?>
+                    <a href="/public/category.php?id=<?php echo $cat['id']; ?>">
+                        <?php echo htmlspecialchars($cat['name']); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
         
         <a href="/travel-blog/public/about.php">About</a>
         <a href="/travel-blog/public/contact.php">Contact</a>
