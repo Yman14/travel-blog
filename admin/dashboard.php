@@ -1,13 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
 $page_title = "Dashboard";
-require_once '../includes/header.php';
+require_once 'includes/admin-header.php';
 ?>
 
 <!-- html -->
@@ -19,5 +12,5 @@ require_once '../includes/header.php';
 <a href="logout.php">Logout</a>
 
 <?php 
-require_once '../includes/footer.php';
+require_once 'includes/admin-footer.php';
 ?>

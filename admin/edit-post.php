@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-//access protection
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
+$page_title = "Edit Post";
+require_once 'includes/admin-header.php';
 require_once '../includes/db.php';
 
 //validate id url
@@ -65,8 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $success = 'Post updated successfully.';
     }
 }
-
-require_once '../includes/header.php';
 ?>
 
 <!-- html -->
@@ -100,4 +92,4 @@ require_once '../includes/header.php';
 <p><a href="posts.php">Back to posts</a></p>
 
 <?php
-require_once '../includes/footer.php';
+require_once 'includes/admin-footer.php';

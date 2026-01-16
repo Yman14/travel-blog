@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-//access protection
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
+$page_title = "Manage Posts";
+require_once 'includes/admin-header.php';
 require_once '../includes/db.php';
 
 //fetch datas
@@ -18,9 +12,6 @@ $sql = "SELECT posts.id, posts.title, posts.status, posts.created_at, categories
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$page_title="Manage Posts";
-require_once '../includes/header.php';
 ?>
 
 <!-- html -->
@@ -58,5 +49,5 @@ require_once '../includes/header.php';
 
 
 <?php
-require_once '../includes/footer.php';
+require_once 'includes/admin-footer.php';
 ?>

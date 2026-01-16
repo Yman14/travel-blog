@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-//only logged-in admins can access this page
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
+$page_title = "Create New Post";
+require_once 'includes/admin-header.php';
 require_once '../includes/db.php';
 
 //fetch categories
@@ -47,9 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $success = 'Post created successfully.';
     }
 }
-
-$page_title = "Create New Post";
-require_once '../includes/header.php';
 ?>
 
 <!-- //admin form html -->
@@ -104,7 +95,7 @@ require_once '../includes/header.php';
 </html>
 
 <?php
-    require_once '../includes/footer.php';
+    require_once 'includes/admin-footer.php';
 ?>
 
 
