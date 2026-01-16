@@ -6,3 +6,8 @@ PERFORMANCE & SECURITY CHECKS
 
 bug found
 can access login page even if log in
+
+missing
+images,categories edit,logout 
+
+the system is functionally complete, not operationally complete.

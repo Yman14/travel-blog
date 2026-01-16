@@ -2,7 +2,10 @@
 require_once '../includes/db.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    die('Invalid category');
+    require_once '../includes/header.php';
+    echo ('Invalid category');
+    require_once '../includes/footer.php';
+    exit;
 }
 
 $categoryId = (int) $_GET['id'];

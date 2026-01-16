@@ -46,7 +46,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <span>Categories ▾</span>
             <div class="dropdown-content">
                 <?php foreach ($navCategories as $cat): ?>
-                    <a href="/public/category.php?id=<?php echo $cat['id']; ?>">
+                    <a href="<?= BASE_URL ?>/public/category.php?id=<?php echo $cat['id']; ?>">
                         <?php echo htmlspecialchars($cat['name']); ?>
                     </a>
                 <?php endforeach; ?>

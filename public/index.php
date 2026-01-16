@@ -31,8 +31,16 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </a>
             </h2>
             <p>
-                <?= substr(strip_tags($post['content']), 0, 150); ?>...
-                <a href="/travel-blog/post/<?= $post['slug']; ?>"> Read more</a>
+                <?php
+                    $plainText = strip_tags($post['content']);
+                    $limit = 150;
+                    $snippet = mb_strimwidth($plainText, 0, $limit, "...");
+                    echo htmlspecialchars($snippet, ENT_QUOTES, 'UTF-8');
+                    // Logic: Only show link if the actual text is longer than the limit
+                    if (mb_strlen($plainText) > $limit): ?>
+                        <a href="/travel-blog/post/<?= $post['slug']; ?>"> Read more</a>
+                    <?php endif; 
+                ?>
             </p>
             <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
         </article>

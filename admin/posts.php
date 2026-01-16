@@ -39,13 +39,13 @@ require_once '../includes/header.php';
 
     <?php foreach ($posts as $post): ?>
         <tr>
-            <td><?php echo htmlspecialchars($post['title']); ?></td>
-            <td><?php echo htmlspecialchars($post['category']); ?></td>
-            <td><?php echo $post['status']; ?></td>
-            <td><?php echo $post['created_at']; ?></td>
+            <td><?= htmlspecialchars($post['title']); ?></td>
+            <td><?= htmlspecialchars($post['category']); ?></td>
+            <td><?= htmlspecialchars($post['status']); ?></td>
+            <td><?= htmlspecialchars($post['created_at']); ?></td>
             <td>
-                <a href="edit-post.php?id=<?php echo $post['id']; ?>">Edit</a> |
-                <a href="delete-post.php?id=<?php echo $post['id']; ?>"
+                <a href="edit-post.php?id=<?= $post['id']; ?>">Edit</a> |
+                <a href="delete-post.php?id=<?= $post['id']; ?>"
                    onclick="return confirm('Delete this post?');">
                    Delete
                 </a>

@@ -52,6 +52,7 @@ require_once '../includes/header.php';
         </p>
     </article>
 <?php else: ?>
+    <?php http_response_code(404); ?>
     <p>Post not found.</p>
 <?php endif; ?>
 
