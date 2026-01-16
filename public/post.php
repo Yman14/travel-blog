@@ -21,7 +21,7 @@ if ($slug === '' || !preg_match('/^[a-z0-9-]+$/', $slug)) {
 }
 
 //SQL for single post
-$sql = "SELECT title, content, created_at
+$sql = "SELECT title, content, created_at, category_id
         FROM posts
         WHERE slug = :slug AND status = 'published'
         LIMIT 1";
@@ -44,6 +44,12 @@ require_once '../includes/header.php';
         <h1><?php echo htmlspecialchars($post['title']); ?></h1>
         <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
         <p><?php echo nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
+        <p>
+            Category:
+            <a href="/travel-blog/public/category.php?id=<?= $post['category_id']; ?>">
+                View more
+            </a>
+        </p>
     </article>
 <?php else: ?>
     <p>Post not found.</p>
