@@ -27,10 +27,13 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <article>
             <h2>
                 <a href="/travel-blog/post/<?= $post['slug']; ?>">
-                    <?php echo htmlspecialchars($post['title']); ?>
+                    <?= htmlspecialchars($post['title']); ?>
                 </a>
             </h2>
-            <p><?= htmlspecialchars($post['content']); ?></p>
+            <p>
+                <?= substr(strip_tags($post['content']), 0, 150); ?>...
+                <a href="/travel-blog/post/<?= $post['slug']; ?>"> Read more</a>
+            </p>
             <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
         </article>
         <hr>
