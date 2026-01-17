@@ -3,22 +3,37 @@ $page_title = 'Create Category';
 require_once 'includes/admin-header.php';
 require_once '../includes/db.php';
 
+$error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
     if ($name !== '') {
+        //generate slug
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
-        $sql = "INSERT INTO categories (name, slug) VALUES (:name, :slug)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':slug', $slug);
-        $stmt->execute();
-        header('Location: categories.php');
+        // Check if the name ALREADY exists
+        $check = $pdo->prepare("SELECT id FROM categories WHERE slug = :slug");
+        $check->execute([':slug' => $slug]);
+        if ($check->fetch()) {
+        $error = "The category '$name' already exists. You cannot create duplicates.";
+        }else {
+            $sql = "INSERT INTO categories (name, slug) VALUES (:name, :slug)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':name', $name);
+            $stmt->bindValue(':slug', $slug);
+            $stmt->execute();
+            header('Location: categories.php');
         exit;
+        }
     }
 }
 ?>
 
 <h1>Add Category</h1>
+<!-- Logic: Only show the div if there is an actual error -->
+<?php if (!empty($error)): ?>
+    <div style="color: white; background-color: #d9534f; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
+        <strong>Error:</strong> <?= htmlspecialchars($error); ?>
+    </div>
+<?php endif; ?>
 
 <form method="post">
     <input type="text" name="name" required>
