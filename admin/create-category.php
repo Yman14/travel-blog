@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <h1>Add Category</h1>
 <!-- Logic: Only show the div if there is an actual error -->
 <?php if (!empty($error)): ?>
-    <div style="color: white; background-color: #d9534f; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
+    <div class="alert-error">
         <strong>Error:</strong> <?= htmlspecialchars($error); ?>
     </div>
 <?php endif; ?>

@@ -17,7 +17,7 @@ else {
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8'); ?></title>
-    <link rel="stylesheet" href="travel-blog/assets/css/admin.css">
+    <link rel="stylesheet" href="/travel-blog/assets/css/admin.css">
 </head>
 <body>
 
