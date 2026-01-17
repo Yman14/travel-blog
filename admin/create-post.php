@@ -1,7 +1,8 @@
 <?php
 $page_title = "Create New Post";
-require_once 'includes/admin-header.php';
-require_once '../includes/db.php';
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/admin-header.php';
 
 //fetch categories
 $sql = "SELECT id, name FROM categories ORDER BY name ASC";

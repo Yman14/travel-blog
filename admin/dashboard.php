@@ -1,6 +1,8 @@
 <?php
 $page_title = "Dashboard";
-require_once 'includes/admin-header.php';
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/admin-header.php';
 ?>
 
 <!-- html -->

@@ -1,17 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
-if(!$page_title){
-    $page_title = "Admin | Travel Blog";
-}
-else {
-    $page_title = "Admin | ". $page_title;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

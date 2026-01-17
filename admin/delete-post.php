@@ -1,12 +1,7 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-require_once '../includes/db.php';
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/admin-header.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die('Invalid ID');

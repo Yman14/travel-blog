@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //verify password and redirect to the dashboard 
     if ($admin && password_verify($password, $admin['password'])) {
         $_SESSION['admin_id'] = $admin['id'];
+        $_SESSION['user_role'] = 'admin';
         header('Location: dashboard.php');
         exit;
     } else {
