@@ -30,7 +30,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </h2>
                 <small class="post-meta">
-                    [Category] · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
+                    [Category] · <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
                 </small>
                 <p class="post-excerpt">
                     <?php
