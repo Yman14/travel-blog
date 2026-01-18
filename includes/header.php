@@ -56,7 +56,6 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         <a href="/travel-blog/public/about.php">About</a>
         <a href="/travel-blog/public/contact.php">Contact</a>
-        <a href="/travel-blog/public/privacy-policy.php">Privacy Policy</a>
     </nav>
 </header>
 
