@@ -40,16 +40,15 @@ require_once '../includes/header.php';
 <!-- html -->
 <!-- display result -->
 <?php if ($post): ?>
-    <article>
-        <h1><?php echo htmlspecialchars($post['title']); ?></h1>
-        <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
-        <p><?php echo nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
-        <p>
-            Category:
-            <a href="/travel-blog/public/category.php?id=<?= $post['category_id']; ?>">
-                View more
-            </a>
-        </p>
+    <article class="post-full">
+        <header>
+            <h1><?= htmlspecialchars($post['title']); ?></h1>
+            <small class="post-meta">
+                    <a href="/travel-blog/public/category.php?id=<?= $post['category_id']; ?>">[Category]</a>
+                     · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?>
+            </small>
+        </header>
+        <p class="post-body"><?= nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
     </article>
 <?php else: ?>
     <?php http_response_code(404); ?>
