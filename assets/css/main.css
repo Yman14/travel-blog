@@ -56,9 +56,19 @@ footer {
     padding-left: 1rem;
 }
 
+/* form normalization */
+input, textarea, button, select {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    cursor: pointer;
+}
 
 
-
+/* temp nav design */
 nav {
     display: flex;
     gap: 15px;
