@@ -22,6 +22,14 @@ header, footer {
 
 footer {
     border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* HEADER NAV */
@@ -35,6 +43,8 @@ footer {
     margin-right: 1rem;
     text-decoration: none;
 }
+
+
 
 /* MAIN CONTENT */
 .main-layout {
@@ -67,6 +77,8 @@ h1.title {
     background-color: #ddd;
 }
 
+
+
 /* BLOG LIST */
 .post-list article {
     border-bottom: 1px solid #e5e5e5;
@@ -74,11 +86,16 @@ h1.title {
 }
 
 
+
+
 /* SIDEBAR */
 .sidebar {
     border-left: 1px solid #e5e5e5;
     padding-left: 1rem;
 }
+
+
+
 
 /* form normalization */
 input, textarea, button, select {
@@ -90,6 +107,7 @@ input, textarea, button, select {
 button {
     cursor: pointer;
 }
+
 
 
 /* temp nav design */
