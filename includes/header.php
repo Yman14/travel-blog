@@ -34,12 +34,12 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title><?= htmlspecialchars($title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
     <!-- <link rel="stylesheet" href="/travel-blog/assets/css/style.css"> -->
-     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/styles.css">
+     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/main.css">
 </head>
 <body>
 
-<header>
-    <nav>
+<header class="site-header container">
+    <nav class="site-nav">
         <a href="/travel-blog/public/index.php">Home</a>
         
         <div class="dropdown">
@@ -59,4 +59,4 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </nav>
 </header>
 
-<main>
+<main class="container main-layout">

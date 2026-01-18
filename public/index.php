@@ -22,33 +22,48 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <!-- rendering the fetch data -->
 <h1>Latest Posts</h1>
 
-<?php if ($posts): ?>
-    <?php foreach ($posts as $post): ?>
-        <article>
-            <h2>
-                <a href="/travel-blog/post/<?= $post['slug']; ?>">
-                    <?= htmlspecialchars($post['title']); ?>
+<section class="post-list">
+    <?php if ($posts): ?>
+        <?php foreach ($posts as $post): ?>
+            <article>
+                <h2>
+                    <a href="/travel-blog/post/<?= $post['slug']; ?>">
+                        <?= htmlspecialchars($post['title']); ?>
+                    </a>
+                </h2>
+                <p>
+                    <?php
+                        $plainText = strip_tags($post['content']);
+                        $limit = 150;
+                        $snippet = mb_strimwidth($plainText, 0, $limit, "...");
+                        echo htmlspecialchars($snippet, ENT_QUOTES, 'UTF-8');
+                        // Logic: Only show link if the actual text is longer than the limit
+                        if (mb_strlen($plainText) > $limit): ?>
+                            <a href="/travel-blog/post/<?= $post['slug']; ?>"> Read more</a>
+                        <?php endif; 
+                    ?>
+                </p>
+                <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
+            </article>
+            <hr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No posts found.</p>
+    <?php endif; ?>
+</section>
+
+<aside class="sidebar">
+    <h3>Categories</h3>
+    <ul>
+        <?php foreach ($navCategories as $cat): ?>
+            <li>
+                <a href="category.php?id=<?php echo $cat['id']; ?>">
+                    <?php echo htmlspecialchars($cat['name']); ?>
                 </a>
-            </h2>
-            <p>
-                <?php
-                    $plainText = strip_tags($post['content']);
-                    $limit = 150;
-                    $snippet = mb_strimwidth($plainText, 0, $limit, "...");
-                    echo htmlspecialchars($snippet, ENT_QUOTES, 'UTF-8');
-                    // Logic: Only show link if the actual text is longer than the limit
-                    if (mb_strlen($plainText) > $limit): ?>
-                        <a href="/travel-blog/post/<?= $post['slug']; ?>"> Read more</a>
-                    <?php endif; 
-                ?>
-            </p>
-            <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
-        </article>
-        <hr>
-    <?php endforeach; ?>
-<?php else: ?>
-    <p>No posts found.</p>
-<?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</aside>
 
 <h1>Welcome to the Travel Blog</h1>
 <p>This is the homepage.</p>
