@@ -20,7 +20,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- rendering the fetch data -->
-<section class="post-list">
+<section class="post-list" role="main">
     <?php if ($posts): ?>
         <?php foreach ($posts as $post): ?>
             <article>
@@ -50,7 +50,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endif; ?>
 </section>
 
-<aside class="sidebar">
+<aside class="sidebar" role="complementary">
     <h3>Categories</h3>
     <ul>
         <?php foreach ($navCategories as $cat): ?>
