@@ -53,16 +53,22 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </section>
 
 <aside class="sidebar" role="complementary">
-    <h3>Categories</h3>
-    <ul>
-        <?php foreach ($navCategories as $cat): ?>
-            <li>
-                <a href="category.php?id=<?php echo $cat['id']; ?>">
-                    <?php echo htmlspecialchars($cat['name']); ?>
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <section class="sidebar-block">
+        <h3>Categories</h3>
+        <ul>
+            <?php foreach ($navCategories as $cat): ?>
+                <li>
+                    <a href="category.php?id=<?php echo $cat['id']; ?>">
+                        <?php echo htmlspecialchars($cat['name']); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+    <section class="sidebar-block">
+        <h3>Recent Posts</h3>
+        <!-- recent posts -->
+    </section>
 </aside>
 
 <?php
