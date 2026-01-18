@@ -20,8 +20,6 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- rendering the fetch data -->
-<h1>Latest Posts</h1>
-
 <section class="post-list">
     <?php if ($posts): ?>
         <?php foreach ($posts as $post): ?>
@@ -64,11 +62,6 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
     </ul>
 </aside>
-
-<h1>Welcome to the Travel Blog</h1>
-<p>This is the homepage.</p>
-
-
 
 <?php
 require_once '../includes/footer.php';

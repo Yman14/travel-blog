@@ -101,3 +101,12 @@ nav {
 .dropdown-content a:hover {
     background-color: #dfdfdf;
 }
+
+
+
+/* RESPONSIVE */
+@media (min-width: 768px) {
+    .main-layout {
+        grid-template-columns: 3fr 1fr;
+    }
+}
