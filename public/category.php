@@ -44,18 +44,19 @@ require_once '../includes/header.php';
 ?>
 
 <!-- display -->
-<h1><?= htmlspecialchars($category['name']); ?> Category Posts</h1>
+<h1 class="title"><?= htmlspecialchars($category['name']); ?> Category Posts</h1>
 
 <?php if (!$posts): ?>
     <p>No posts found.</p>
 <?php endif; ?>
-
-<?php foreach ($posts as $post): ?>
-    <h3>
-        <a href="post.php?slug=<?= $post['slug']; ?>">
-            <?= htmlspecialchars($post['title']); ?>
-        </a>
-    </h3>
-<?php endforeach; ?>
+<section class="category-post-list">
+    <?php foreach ($posts as $post): ?>
+        <h3 class="category-post">
+            <a href="post.php?slug=<?= $post['slug']; ?>">
+                <?= htmlspecialchars($post['title']); ?>
+            </a>
+        </h3>
+    <?php endforeach; ?>
+</section>
 
 <?php require_once '../includes/footer.php'; ?>

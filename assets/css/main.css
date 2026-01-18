@@ -42,6 +42,31 @@ footer {
     grid-template-columns: 1fr;
     gap: 2rem;
 }
+h1.title {
+    border: 2px solid red;
+    grid-column: 1 / -1;
+}
+.category-post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.category-post-list .category-post {
+    border-bottom: 2px solid #333;
+    border-radius: 20px;
+    padding-left: 1rem;
+}
+
+.category-post-list .category-post a{
+    padding-bottom: 1rem;
+    text-decoration: none;
+    color: #222; 
+}
+
+.category-post-list .category-post:hover{
+    background-color: #ddd;
+}
 
 /* BLOG LIST */
 .post-list article {
