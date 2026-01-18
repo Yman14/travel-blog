@@ -23,13 +23,16 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <section class="post-list" role="main">
     <?php if ($posts): ?>
         <?php foreach ($posts as $post): ?>
-            <article>
-                <h2>
+            <article class="post-preview">
+                <h2 class="post-title">
                     <a href="/travel-blog/post/<?= $post['slug']; ?>">
                         <?= htmlspecialchars($post['title']); ?>
                     </a>
                 </h2>
-                <p>
+                <small class="post-meta">
+                    [Category] · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
+                </small>
+                <p class="post-excerpt">
                     <?php
                         $plainText = strip_tags($post['content']);
                         $limit = 150;
@@ -41,7 +44,6 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endif; 
                     ?>
                 </p>
-                <small>Published on <?= htmlspecialchars($post['created_at']); ?></small>
             </article>
             <hr>
         <?php endforeach; ?>
