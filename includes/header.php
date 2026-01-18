@@ -39,9 +39,10 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
 <header class="site-header container">
-    <nav class="site-nav">
-        <a href="/travel-blog/public/index.php">Home</a>
-        
+    <div class="site-brand">
+        <h1><a href="/">Travel Blog</a></h1>
+    </div>
+    <nav class="site-nav">   
         <div class="dropdown">
             <span>Categories ▾</span>
             <div class="dropdown-content">
