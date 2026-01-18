@@ -47,8 +47,11 @@ require_once '../includes/header.php';
 <h1 class="title"><?= htmlspecialchars($category['name']); ?> Category Posts</h1>
 
 <?php if (!$posts): ?>
-    <p>No posts found.</p>
+    <div class="empty-state">
+        <p>No posts available.</p>
+    </div>
 <?php endif; ?>
+
 <section class="category-post-list">
     <?php foreach ($posts as $post): ?>
         <h3 class="category-post">

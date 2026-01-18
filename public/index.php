@@ -48,7 +48,9 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <hr>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>No posts found.</p>
+        <div class="empty-state">
+            <p>No posts available.</p>
+        </div>
     <?php endif; ?>
 </section>
 
