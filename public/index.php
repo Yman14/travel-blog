@@ -40,7 +40,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         echo htmlspecialchars($snippet, ENT_QUOTES, 'UTF-8');
                         // Logic: Only show link if the actual text is longer than the limit
                         if (mb_strlen($plainText) > $limit): ?>
-                            <a href="/travel-blog/post/<?= $post['slug']; ?>"> Read more</a>
+                            <a href="/travel-blog/post/<?= $post['slug']; ?>" class="post-readmore"> Read more</a>
                         <?php endif; 
                     ?>
                 </p>
