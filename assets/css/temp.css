@@ -37,6 +37,13 @@ body {
 }
 
 /* MAIN CONTENT */
+.admin-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+}
 
 .admin-section-header h1 {
     margin-bottom: 0.25rem;
@@ -45,14 +52,6 @@ body {
 .admin-section-header p {
     font-size: 0.9rem;
     color: var(--muted);
-}
-
-.admin-content {
-    max-width: 1000px;
-    margin: 2rem auto;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 20px;
 }
 
 
@@ -77,15 +76,35 @@ td, th {
 }
 
 /* form normalization */
-input, textarea, button, select {
+button {
+    cursor: pointer;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem; 
+    margin: .5rem;
+
+}
+
+button:hover {
+    background: var(--accent);
+}
+
+input, textarea, select {
     width: 100%;
     padding: 0.6rem;
     margin-bottom: 1rem;
 }
 
-button {
-    cursor: pointer;
+input, textarea {
+    border: 1px solid var(--border);
+    border-radius: 4px;
 }
+ul {
+    list-style-type: none;
+}
+
 
 
 
