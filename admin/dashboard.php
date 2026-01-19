@@ -12,7 +12,7 @@ $categoryCount = $pdo->query("SELECT COUNT(*) FROM categories")->fetchColumn();
  <section class="admin-section">
     <header class="admin-section-header">
         <h1>Dashboard</h1>
-        <p>Optional description</p>
+        <p>Manange account, posts, and categories. Display site statistics.</p>
     </header>
 
     <div class="admin-section-body">
