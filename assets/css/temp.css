@@ -19,6 +19,8 @@ body {
     background: #f6f6f6;
 }
 
+/* HEADER */
+
 .admin-header {
     background: var(--primary);
     padding: 1rem;
@@ -33,6 +35,8 @@ body {
     text-decoration: none;
     font-weight: 500;
 }
+
+/* MAIN CONTENT */
 
 .admin-section-header h1 {
     margin-bottom: 0.25rem;
@@ -51,6 +55,8 @@ body {
     border-radius: 20px;
 }
 
+
+/* FOOTER */
 .admin-footer {
     text-align: center;
     font-size: 0.9rem;
