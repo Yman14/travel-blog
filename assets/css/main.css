@@ -1,3 +1,12 @@
+:root {
+    --primary: #1f3a5f;
+    --accent: #2aa198;
+    --text: #222;
+    --muted: #666;
+    --border: #e5e5e5;
+    --bg-light: #fafafa;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +14,32 @@
 }
 
 body {
-    font-family: system-ui, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: #fff;
     line-height: 1.6;
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+    color: var(--primary);
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text);
 }
 
 /* GLOBAL LAYOUT */
@@ -16,20 +49,8 @@ body {
     padding: 1rem;
 }
 
-header, footer {
+header {
     border-bottom: 1px solid #ddd;
-}
-
-footer {
-    border-top: 1px solid #ddd;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 /* HEADER NAV */
@@ -37,13 +58,24 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1.5rem 0;
+}
+
+.site-brand h1 a {
+    text-decoration: none;
+    color: var(--primary);
 }
 
 .site-nav a {
     margin-right: 1rem;
     text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
 }
 
+.site-nav a:hover {
+    color: var(--accent);
+}
 
 
 /* MAIN CONTENT */
@@ -51,30 +83,6 @@ footer {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-}
-h1.title {
-    grid-column: 1 / -1;
-}
-.category-post-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.category-post-list .category-post {
-    border-bottom: 2px solid #333;
-    border-radius: 20px;
-    padding-left: 1rem;
-}
-
-.category-post-list .category-post a{
-    padding-bottom: 1rem;
-    text-decoration: none;
-    color: #222; 
-}
-
-.category-post-list .category-post:hover{
-    background-color: #ddd;
 }
 
 
@@ -85,7 +93,39 @@ h1.title {
     padding-bottom: 1rem;
 }
 
+.post-preview {
+    margin-bottom: 2rem;
+}
 
+.post-title a {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+.post-title a:hover {
+    text-decoration: underline;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    border: 2px solid red;
+}
+
+.post-excerpt {
+    color: var(--text);
+}
+
+.post-readmore {
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.post-readmore:hover {
+    text-decoration: underline;
+}
 
 
 /* SIDEBAR */
@@ -93,6 +133,39 @@ h1.title {
     border-left: 1px solid #e5e5e5;
     padding-left: 1rem;
 }
+
+.sidebar-block {
+    margin-bottom: 2rem;
+}
+
+.sidebar-block h3 {
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.25rem;
+}
+
+/* FOOTER */
+.site-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-nav a {
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.footer-nav a:hover {
+    color: var(--primary);
+}
+
 
 
 
@@ -142,6 +215,50 @@ nav {
 
 .dropdown-content a:hover {
     background-color: #dfdfdf;
+}
+
+
+/* Single POst */
+.post-full {
+    max-width: 720px;
+}
+
+.post-body p {
+    margin-bottom: 1.25rem;
+}
+
+.post-body img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+}
+
+
+
+/* Category page */
+h1.title {
+    grid-column: 1 / -1;
+}
+.category-post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.category-post-list .category-post {
+    border-bottom: 2px solid #333;
+    border-radius: 20px;
+    padding-left: 1rem;
+}
+
+.category-post-list .category-post a{
+    padding-bottom: 1rem;
+    text-decoration: none;
+    color: #222; 
+}
+
+.category-post-list .category-post:hover{
+    background-color: #ddd;
 }
 
 
