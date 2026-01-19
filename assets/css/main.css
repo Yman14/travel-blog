@@ -147,6 +147,26 @@ header {
     padding-bottom: 0.25rem;
 }
 
+.sidebar-block ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-block a {
+    margin-right: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--text);
+    border: solid;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+.sidebar-block a:hover {
+    color: var(--accent);
+}
+
 /* FOOTER */
 .site-footer {
     margin-top: 3rem;
