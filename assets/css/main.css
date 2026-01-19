@@ -41,6 +41,10 @@ p {
     margin-bottom: 1rem;
     color: var(--text);
 }
+ul {
+    list-style-type: none;
+}
+
 
 /* GLOBAL LAYOUT */
 .container {
@@ -110,7 +114,6 @@ header {
     font-size: 0.85rem;
     color: var(--muted);
     margin-bottom: 0.5rem;
-    border: 2px solid red;
 }
 
 .post-excerpt {
@@ -171,14 +174,30 @@ header {
 
 
 /* form normalization */
-input, textarea, button, select {
+button {
+    cursor: pointer;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem; 
+    margin: .5rem;
+
+}
+
+button:hover {
+    background: var(--accent);
+}
+
+input, textarea, select {
     width: 100%;
     padding: 0.6rem;
     margin-bottom: 1rem;
 }
 
-button {
-    cursor: pointer;
+input, textarea {
+    border: 1px solid var(--border);
+    border-radius: 4px;
 }
 
 
