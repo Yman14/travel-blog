@@ -18,6 +18,11 @@ $stmt->bindValue(':id', $postId, PDO::PARAM_INT);
 $stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// fetch gallery image
+$images = $pdo->prepare("SELECT * FROM post_images WHERE post_id = :id ORDER BY sort_order");
+$images->execute([':id' => $postId]);
+$images = $images->fetchAll();
+
 if (!$post) {
     die('Post not found');
 }
@@ -69,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
 
 <?php if ($post['featured_image']): ?>
-<img src="travel-blog/<?= $post['featured_image']; ?>" style="max-width:200px;">
+<img src="<?= UPLOAD_DIR .  $post['featured_image']; ?>" style="max-width:200px;">
 <?php endif; ?>
 
 <form method="post">
