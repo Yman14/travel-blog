@@ -90,9 +90,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //for gallery
         $postId = $pdo->lastInsertId();
         if (!empty($_FILES['gallery_images']['name'][0])) {
+            $galleryErrors = [];
+
             foreach ($_FILES['gallery_images']['tmp_name'] as $i => $tmp) {
                 if ($_FILES['gallery_images']['size'][$i] > 5 * 1024 * 1024) {
                     //not sure yet
+                    $galleryErrors[] = $_FILES['gallery_images']['name'][$i] . ' exceeds size limit.';
                     continue;
                 }
 
@@ -113,6 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':post_id' => $postId,
                     ':path' => date('Y/m/') . $name
                 ]);
+            }
+
+            if (!empty($galleryErrors)) {
+                $error .= '<br>' . implode('<br>', $galleryErrors);
             }
         }
 
