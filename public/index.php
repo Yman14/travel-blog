@@ -36,7 +36,9 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php
                     $image = UPLOAD_DIR . $post['featured_image'] ?: '/assets/images/default-post.jpg';
                     ?>
-                    <img src="<?= $image; ?>" class="image">
+                    <a href="/travel-blog/post/<?= $post['slug']; ?>">
+                        <img src="<?= $image; ?>" class="image">
+                    </a>
                 </div>
                 <p class="post-excerpt">
                     <?php
