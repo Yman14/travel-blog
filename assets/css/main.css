@@ -116,6 +116,12 @@ header {
     margin-bottom: 0.5rem;
 }
 
+.post-featured .image {
+    width: 100%;
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
 .post-excerpt {
     color: var(--text);
 }
@@ -259,7 +265,8 @@ nav {
 
 /* Single POst */
 .post-full {
-    max-width: 720px;
+    max-width: 100%;
+    grid-area: 1 / -1;
 }
 
 .post-body p {
@@ -270,6 +277,31 @@ nav {
     max-width: 100%;
     height: auto;
     margin: 1.5rem 0;
+}
+
+.post-gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px 10px;
+}
+
+.post-gallery img {
+  width: 100%;
+  max-width: 350px;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.post-gallery::after {
+  content: "";
+  width: 350px;
 }
 
 
