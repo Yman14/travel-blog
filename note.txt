@@ -7,8 +7,11 @@ PERFORMANCE & SECURITY CHECKS
 bug found
 can access login page even if log in
 no handler for the same category name in create new category
+error message in create Post
 
 missing
-images,categories edit,logout 
+gallery unlink
 
-The system is functionally complete, not operationally complete. Treat it as real product, not a hidden demo.
+fixed images upload
+pre deployment hardening (policy, about, contact)
+additional css
