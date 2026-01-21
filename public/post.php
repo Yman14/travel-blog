@@ -21,7 +21,7 @@ if ($slug === '' || !preg_match('/^[a-z0-9-]+$/', $slug)) {
 }
 
 //SQL for single post
-$sql = "SELECT title, content, created_at, category_id
+$sql = "SELECT title, content, created_at, category_id, featured_image
         FROM posts
         WHERE slug = :slug AND status = 'published'
         LIMIT 1";
@@ -31,6 +31,18 @@ $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':slug', $slug, PDO::PARAM_STR);
 $stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+//Fetcj gallery this time
+$stmt = $pdo->prepare("
+    SELECT file_path FROM post_images
+    WHERE post_id = (
+        SELECT id FROM posts WHERE slug = :slug LIMIT 1
+    )
+    ORDER BY sort_order
+");
+$stmt->execute([':slug' => $slug]);
+$gallery = $stmt->fetchAll();
 
 
 //display
@@ -48,7 +60,20 @@ require_once '../includes/header.php';
                      · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?>
             </small>
         </header>
+        <div class="post-featured">
+            <?php
+            $image = UPLOAD_DIR . $post['featured_image'] ?: '/assets/images/default-post.jpg';
+            ?>
+            <img src="<?= $image; ?>" class="image">
+        </div>
         <p class="post-body"><?= nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
+        <?php if ($gallery): ?>
+        <div class="post-gallery">
+            <?php foreach ($gallery as $img): ?>
+                <img src="<?=UPLOAD_DIR . $img['file_path']; ?>" loading="lazy">
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
     </article>
 <?php else: ?>
     <?php http_response_code(404); ?>
