@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $uploadDir . $filename
                 );
 
-                $featuredPath = '/assets/images/uploads/' . date('Y/m/') . $filename;
+                $featuredPath = date('Y/m/') . $filename;
             }
         }
 
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ");
                 $stmt->execute([
                     ':post_id' => $postId,
-                    ':path' => '/assets/images/uploads/' . date('Y/m/') . $name
+                    ':path' => date('Y/m/') . $name
                 ]);
             }
         }
