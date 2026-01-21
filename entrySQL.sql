@@ -28,6 +28,20 @@ CREATE TABLE posts (
         ON DELETE CASCADE
 );
 
+CREATE TABLE post_images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    alt_text VARCHAR(255) DEFAULT NULL,
+    sort_order INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_post_id (post_id),
+    CONSTRAINT fk_post_images_post
+        FOREIGN KEY (post_id)
+        REFERENCES posts(id)
+        ON DELETE CASCADE
+);
+
 --------------------------------------------------
 -- create sample data
 INSERT INTO categories (name, slug)
