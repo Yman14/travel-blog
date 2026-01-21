@@ -4,7 +4,7 @@ require_once '../includes/header.php';
 //echo "Database connected successfully";
 
 //the data target to be fetch
-$sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.created_at
+$sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.featured_image, posts.created_at, posts.category_id
         FROM posts
         WHERE posts.status = 'published'
         ORDER BY posts.created_at DESC";
@@ -32,6 +32,12 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <small class="post-meta">
                     [Category] · <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
                 </small>
+                <div class="post-featured">
+                    <?php
+                    $image = UPLOAD_DIR . $post['featured_image'] ?: '/assets/images/default-post.jpg';
+                    ?>
+                    <img src="<?= $image; ?>" class="image">
+                </div>
                 <p class="post-excerpt">
                     <?php
                         $plainText = strip_tags($post['content']);
