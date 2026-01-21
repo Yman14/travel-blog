@@ -36,41 +36,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($title === '' || $content === '') {
         $error = 'Title and content are required.';
-    } else {
-        //image upload
-        $uploadDir = '../assets/images/uploads/' . date('Y/m/') ;
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
+    }
+
+    //image upload
+    $uploadDir = UPLOAD_DIR . date('Y/m/') ;
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $featuredPath = null;
+
+    if (!empty($_FILES['featured_image']['name'])) {
+
+        if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
+            $error = 'Featured image too large.';
         }
 
-        $featuredPath = null;
-
-        if (!empty($_FILES['featured_image']['name'])) {
-
-            if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
-                $error = 'Featured image too large.';
-            }
-
-            $mime = mime_content_type($_FILES['featured_image']['tmp_name']);
-            if (!in_array($mime, ['image/jpeg','image/png','image/webp'])) {
-                $error = 'Invalid featured image type.';
-            }
-
-            if (!$error) {
-                $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
-                $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
-                move_uploaded_file(
-                    $_FILES['featured_image']['tmp_name'],
-                    $uploadDir . $filename
-                );
-
-                $featuredPath = date('Y/m/') . $filename;
-            }
+        $mime = mime_content_type($_FILES['featured_image']['tmp_name']);
+        if (!in_array($mime, ['image/jpeg','image/png','image/webp'])) {
+            $error = 'Invalid featured image type.';
         }
 
+        if (!$error) {
+            $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
+            $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
+            move_uploaded_file(
+                $_FILES['featured_image']['tmp_name'],
+                $uploadDir . $filename
+            );
+
+            $featuredPath = date('Y/m/') . $filename;
+        }
+    }
+    if(empty($error)){
         // slug generation
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
+        //For post
         $sql = "INSERT INTO posts (title, slug, content, featured_image, category_id, status)
                 VALUES (:title, :slug, :content, :featured_image, :category_id, :status)";
 
@@ -85,10 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $success = 'Post created successfully.';
 
+        //for gallery
         $postId = $pdo->lastInsertId();
         if (!empty($_FILES['gallery_images']['name'][0])) {
             foreach ($_FILES['gallery_images']['tmp_name'] as $i => $tmp) {
                 if ($_FILES['gallery_images']['size'][$i] > 5 * 1024 * 1024) {
+                    //not sure yet
                     continue;
                 }
 
