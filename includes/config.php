@@ -1,0 +1,27 @@
+<?php
+// Eror Display
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Define Paths
+define('BASE_URL', '/travel-blog/');
+define('UPLOAD_DIR', BASE_URL . 'assets/images/uploads/');
+
+// Database Credentials
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'travel_blog');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+
+//PDO Connection
+$dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+
+try {
+    $pdo = new PDO($dsn, DB_USER, DB_PASS, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+} catch (PDOException $e) {
+    error_log($e->getMessage()); 
+    die("Database connection failed. Please try again later.");
+}

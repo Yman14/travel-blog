@@ -1,6 +1,6 @@
 <?php
 $page_title = "Edit Post";
-require_once __DIR__ . '/../includes/db.php';
+require_once '../includes/config.php';
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/admin-header.php';
 
@@ -67,6 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php if ($error): ?><p style="color:red;"><?php echo $error; ?></p><?php endif; ?>
 <?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
+
+<?php if ($post['featured_image']): ?>
+<img src="travel-blog/<?= $post['featured_image']; ?>" style="max-width:200px;">
+<?php endif; ?>
 
 <form method="post">
     <input type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>

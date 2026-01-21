@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/db.php';
+require_once '../includes/config.php';
 
 //verify if id from url exist
 // if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

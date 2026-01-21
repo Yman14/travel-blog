@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/db.php';
+require_once '../includes/config.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     require_once '../includes/header.php';
