@@ -10,19 +10,6 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$postId = null;
-$galleryImages = [];
-if (!empty($postId)) {
-    $imgStmt = $pdo->prepare("
-        SELECT id, file_path
-        FROM post_images
-        WHERE post_id = :id
-        ORDER BY sort_order
-    ");
-    $imgStmt->execute([':id' => $postId]);
-    $galleryImages = $imgStmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
 
 //handle form submission
 $error = '';
@@ -34,95 +21,130 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category_id = (int) $_POST['category_id'];
     $status = $_POST['status'];
 
+    //validation
+    if (!in_array($status, ['draft', 'published'], true)) {
+        $error .= 'Invalid post status.<br>';
+    }
     if ($title === '' || $content === '') {
-        $error = 'Title and content are required.';
+        $error .= 'Title and content are required.<br>';
     }
 
     //image upload
-    $uploadDir = UPLOAD_DIR . date('Y/m/') ;
+    //create new directory if dont exist
+    $uploadDir =  '../assets/images/uploads/' . date('Y/m/') ;
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
 
     $featuredPath = null;
-
     if (!empty($_FILES['featured_image']['name'])) {
-
-        if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
-            $error = 'Featured image too large.';
+        if ($_FILES['featured_image']['error'] !== UPLOAD_ERR_OK) {
+            $error .= 'Featured image upload failed.<br>';
+        } else {
+            if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
+                $error .= 'Featured image too large.';
+            } else {
+                $mime = mime_content_type($_FILES['featured_image']['tmp_name']);
+                if (!in_array($mime, ['image/jpeg','image/png','image/webp'], true)) {
+                    $error .= 'Invalid featured image type.';
+                }
+            }
         }
 
-        $mime = mime_content_type($_FILES['featured_image']['tmp_name']);
-        if (!in_array($mime, ['image/jpeg','image/png','image/webp'])) {
-            $error = 'Invalid featured image type.';
-        }
-
-        if (!$error) {
+        if (empty($error)) {
             $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
             $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
-            move_uploaded_file(
-                $_FILES['featured_image']['tmp_name'],
-                $uploadDir . $filename
-            );
-
+            move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDir . $filename);
             $featuredPath = date('Y/m/') . $filename;
         }
     }
     if(empty($error)){
-        // slug generation
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
+        try{
+            $pdo->beginTransaction();
+            // slug generation
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
-        //For post
-        $sql = "INSERT INTO posts (title, slug, content, featured_image, category_id, status)
-                VALUES (:title, :slug, :content, :featured_image, :category_id, :status)";
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':title', $title);
-        $stmt->bindValue(':slug', $slug);
-        $stmt->bindValue(':content', $content);
-        $stmt->bindValue(':featured_image', $featuredPath);
-        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
-        $stmt->bindValue(':status', $status);
-
-        $stmt->execute();
-        $success = 'Post created successfully.';
-
-        //for gallery
-        $postId = $pdo->lastInsertId();
-        if (!empty($_FILES['gallery_images']['name'][0])) {
-            $galleryErrors = [];
-
-            foreach ($_FILES['gallery_images']['tmp_name'] as $i => $tmp) {
-                if ($_FILES['gallery_images']['size'][$i] > 5 * 1024 * 1024) {
-                    //not sure yet
-                    $galleryErrors[] = $_FILES['gallery_images']['name'][$i] . ' exceeds size limit.';
-                    continue;
-                }
-
-                $mime = mime_content_type($tmp);
-                if (!in_array($mime, ['image/jpeg','image/png','image/webp'])) {
-                    continue;
-                }
-
-                $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
-                $name = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-                move_uploaded_file($tmp, $uploadDir . $name);
-
-                $stmt = $pdo->prepare("
-                    INSERT INTO post_images (post_id, file_path)
-                    VALUES (:post_id, :path)
-                ");
-                $stmt->execute([
-                    ':post_id' => $postId,
-                    ':path' => date('Y/m/') . $name
-                ]);
+            //check slug for duplicate
+            $check = $pdo->prepare("SELECT id FROM posts WHERE slug = :slug LIMIT 1");
+            $check->execute([':slug' => $slug]);
+            if ($check->fetch()) {
+                throw new Exception('Duplicate title');
             }
 
-            if (!empty($galleryErrors)) {
-                $error .= '<br>' . implode('<br>', $galleryErrors);
+            //For post
+            $sql = "INSERT INTO posts (title, slug, content, featured_image, category_id, status)
+                    VALUES (:title, :slug, :content, :featured_image, :category_id, :status)";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':title', $title);
+            $stmt->bindValue(':slug', $slug);
+            $stmt->bindValue(':content', $content);
+            $stmt->bindValue(':featured_image', $featuredPath);
+            $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+            $stmt->bindValue(':status', $status);
+
+            $stmt->execute();
+
+            //for gallery
+            $postId = $pdo->lastInsertId();
+            if (!empty($_FILES['gallery_images']['name'][0])) {
+                $galleryErrors = [];
+
+                foreach ($_FILES['gallery_images']['tmp_name'] as $i => $tmp) {
+                    //prevents corrupted temp files reads
+                    if ($_FILES['gallery_images']['error'][$i] !== UPLOAD_ERR_OK) {
+                        $galleryErrors[] = $_FILES['gallery_images']['name'][$i] . ' upload failed.';
+                        continue;
+                    }
+                    //prevent large size image
+                    if ($_FILES['gallery_images']['size'][$i] > 5 * 1024 * 1024) {
+                        //not sure yet
+                        $galleryErrors[] = $_FILES['gallery_images']['name'][$i] . ' exceeds size limit.';
+                        continue;
+                    }
+
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mime = finfo_file($finfo, $tmp);
+                    finfo_close($finfo);
+                    if (!in_array($mime, ['image/jpeg','image/png','image/webp'])) {
+                        $galleryErrors[] = $_FILES['gallery_images']['name'][$i] . ' has invalid type.';
+                        continue;
+                    }
+
+                    $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
+                    $name = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+                    move_uploaded_file($tmp, $uploadDir . $name);
+
+                    $stmt = $pdo->prepare("
+                        INSERT INTO post_images (post_id, file_path)
+                        VALUES (:post_id, :path)
+                    ");
+                    $stmt->execute([
+                        ':post_id' => $postId,
+                        ':path' => date('Y/m/') . $name
+                    ]);
+                }
+
+                if (!empty($galleryErrors)) {
+                    throw new Exception(implode('; ', $galleryErrors));
+                }
             }
+
+            //successful process
+            $pdo->commit();
+            $success = 'Post created successfully.';
+        } catch (Throwable $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+                if (!empty($featuredPath)) {
+                    @unlink(UPLOAD_DIR . $featuredPath);
+                }
+            }
+            //error_log($e->getMessage());
+            $error = $e->getMessage() ?: 'Failed to create post.';
         }
-
+        
+        
     }
 }
 ?>
@@ -178,21 +200,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Create Post</button>
 
 </form>
-
-<?php if ($galleryImages): ?>
-    <h3>Gallery Images</h3>
-    <ul>
-        <?php foreach ($galleryImages as $img): ?>
-            <li>
-                <img src="<?= $img['file_path']; ?>" style="max-width:120px;">
-                <a href="delete-image.php?id=<?= $img['id']; ?>&post=<?= $postId; ?>"
-                   onclick="return confirm('Delete this image?')">
-                   Delete
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-<?php endif; ?>
 
 <p><a href="dashboard.php">Back to dashboard</a></p>
 
