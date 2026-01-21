@@ -1,7 +1,4 @@
 <?php 
-require_once __DIR__ . '/db.php';
-define('BASE_URL', '/travel-blog');
-
 // Use the post title if it exists, otherwise use a default
 if (isset($post['title'])) {
     $title = $post['title'];
@@ -34,7 +31,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title><?= htmlspecialchars($title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
     <!-- <link rel="stylesheet" href="/travel-blog/assets/css/style.css"> -->
-     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/main.css">
+     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css">
 </head>
 <body>
 
