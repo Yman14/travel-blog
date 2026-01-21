@@ -1,12 +1,12 @@
 <?php
 //disable error display(added here incase htaccess fail)
-ini_set('display_errors', 0);
-error_reporting(E_ALL);
+// ini_set('display_errors', 0);
+// error_reporting(E_ALL);
 
 //enable error display
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $host = 'localhost';
 $db   = 'travel_blog';
