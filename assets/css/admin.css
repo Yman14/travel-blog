@@ -54,6 +54,12 @@ body {
     color: var(--muted);
 }
 
+/* Edit Post */
+.post-featured {
+    max-width: 400px;
+    padding: 20px;
+}
+
 
 /* FOOTER */
 .admin-footer {
