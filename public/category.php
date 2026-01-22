@@ -54,8 +54,15 @@ require_once '../includes/header.php';
 
 <section class="category-post-list">
     <?php foreach ($posts as $post): ?>
+        <?php
+            if($post['featured_image']){
+                $image = UPLOAD_DIR . $post['featured_image'];
+            }else{
+                $image = '/travel-blog/assets/images/default-post.jpg';
+            }
+        ?>
         <article class="category-post">
-            <img src= "<?= UPLOAD_DIR . $post['featured_image']?>" class="category-post-featured">
+            <img src= "<?= $image?>" class="category-post-featured">
             <h3 class="category-post-title">
                 <a href="post.php?slug=<?= $post['slug']; ?>">
                     <?= htmlspecialchars($post['title']); ?>
