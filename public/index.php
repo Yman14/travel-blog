@@ -19,6 +19,13 @@ $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<div class="hero-section">
+    <img src= "/travel-blog/assets/images/hero.jpg" class="hero-image">
+    <div class="hero-content">
+        <div class="hero-title">Hero Title</div>
+        <p class="hero-description">about blog</p>
+    </div>
+</div>
 <!-- rendering the fetch data -->
 <section class="post-list" role="main">
     <?php if ($posts): ?>

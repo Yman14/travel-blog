@@ -48,7 +48,7 @@ ul {
 
 /* GLOBAL LAYOUT */
 .container {
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 1rem;
 }
@@ -89,9 +89,21 @@ header {
     gap: 2rem;
 }
 
+.hero-section {
+    grid-column: 1 / -1;
+}
+
+.hero-image {
+    width: 100%;
+    object-fit: cover;
+}
+
 
 
 /* BLOG LIST */
+.post-list {
+    grid-column: 1;
+}
 .post-list article {
     border-bottom: 1px solid #e5e5e5;
     padding-bottom: 1rem;
