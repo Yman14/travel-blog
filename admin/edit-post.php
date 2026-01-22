@@ -19,9 +19,17 @@ $stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // fetch gallery image
-$images = $pdo->prepare("SELECT * FROM post_images WHERE post_id = :id ORDER BY sort_order");
-$images->execute([':id' => $postId]);
-$images = $images->fetchAll();
+$galleryImages = [];
+if (!empty($postId)) {
+    $imgStmt = $pdo->prepare("
+        SELECT id, file_path
+        FROM post_images
+        WHERE post_id = :id
+        ORDER BY sort_order
+    ");
+    $imgStmt->execute([':id' => $postId]);
+    $galleryImages = $imgStmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 if (!$post) {
     die('Post not found');
@@ -74,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
 
 <?php if ($post['featured_image']): ?>
-<img src="<?= UPLOAD_DIR .  $post['featured_image']; ?>" style="max-width:200px;">
+<img src="<?= UPLOAD_DIR .  $post['featured_image']; ?>" class="post-featured">
 <?php endif; ?>
 
 <form method="post">
@@ -90,7 +98,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </select><br><br>
 
     <textarea name="content" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
-
+    <?php if ($galleryImages): ?>
+        <h3>Gallery Images</h3>
+        <ul>
+            <?php foreach ($galleryImages as $img): ?>
+                <li>
+                    <img src="<?=UPLOAD_DIR . $img['file_path']; ?>" style="max-width:120px;">
+                    <a href="delete-image.php?id=<?= $img['id']; ?>&post=<?= $postId; ?>"
+                    onclick="return confirm('Delete this image?')">
+                    Delete
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
     <select name="status">
         <option value="draft" <?php if ($post['status'] === 'draft') echo 'selected'; ?>>Draft</option>
         <option value="published" <?php if ($post['status'] === 'published') echo 'selected'; ?>>Published</option>
