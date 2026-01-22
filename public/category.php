@@ -26,7 +26,7 @@ if (!$category) {
 }
 
 //fetch the posts based on that category
-$sql = "SELECT posts.id, posts.title, posts.slug
+$sql = "SELECT posts.id, posts.title, posts.slug, posts.featured_image
         FROM posts
         WHERE posts.category_id = :id
         AND posts.status = 'published'
@@ -54,11 +54,14 @@ require_once '../includes/header.php';
 
 <section class="category-post-list">
     <?php foreach ($posts as $post): ?>
-        <h3 class="category-post">
-            <a href="post.php?slug=<?= $post['slug']; ?>">
-                <?= htmlspecialchars($post['title']); ?>
-            </a>
-        </h3>
+        <article class="category-post">
+            <img src= "<?= UPLOAD_DIR . $post['featured_image']?>" class="category-post-featured">
+            <h3 class="category-post-title">
+                <a href="post.php?slug=<?= $post['slug']; ?>">
+                    <?= htmlspecialchars($post['title']); ?>
+                </a>
+            </h3>
+        </article>
     <?php endforeach; ?>
 </section>
 

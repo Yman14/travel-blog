@@ -317,19 +317,33 @@ h1.title {
 }
 
 .category-post-list .category-post {
-    border-bottom: 2px solid #333;
-    border-radius: 20px;
-    padding-left: 1rem;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
 
-.category-post-list .category-post a{
-    padding-bottom: 1rem;
+.category-post-featured {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.category-post-title {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.category-post-title a {
+    font-size: 2rem;
     text-decoration: none;
-    color: #222; 
-}
-
-.category-post-list .category-post:hover{
-    background-color: #ddd;
+    color: #fcebb6;
 }
 
 
