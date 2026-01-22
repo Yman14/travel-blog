@@ -114,7 +114,7 @@ header {
     position: absolute;
     top: 20%;
     left: 5%;
-    font-size: 4rem;
+    font-size: 4vw;
     color: white;
     
 }
@@ -126,7 +126,7 @@ header {
     position: absolute;
     top: 75%;
     left: 5%;
-    font-size: 1rem;
+    font-size: 1.3vw;
     color: whitesmoke;
     
 }
@@ -408,4 +408,5 @@ h1.title {
     .main-layout {
         grid-template-columns: 3fr 1fr;
     }
+
 }
