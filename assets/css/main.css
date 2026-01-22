@@ -327,6 +327,8 @@ h1.title {
     display: block;
     object-fit: cover;
     border-radius: 10px;
+    filter: brightness(60%);
+    transition: filter 0.3s ease;
 }
 
 .category-post-title {
@@ -335,15 +337,24 @@ h1.title {
     left: 20px;
     right: 20px;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
     z-index: 10;
+
+    /* The "Glass" Effect */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 }
 
 .category-post-title a {
     font-size: 2rem;
     text-decoration: none;
-    color: #fcebb6;
+    color: #ffffff; /* Pure white text */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.category-post:hover .category-post-featured {
+    filter: brightness(80%);
 }
 
 
