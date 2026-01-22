@@ -346,10 +346,10 @@ h1.title {
     border-radius: 10px;
 }
 
-.category-post-title a {
+.category-post-title .text {
     font-size: 2rem;
     text-decoration: none;
-    color: #ffffff; /* Pure white text */
+    color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 

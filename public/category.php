@@ -62,12 +62,13 @@ require_once '../includes/header.php';
             }
         ?>
         <article class="category-post">
-            <img src= "<?= $image?>" class="category-post-featured">
-            <h3 class="category-post-title">
-                <a href="post.php?slug=<?= $post['slug']; ?>">
-                    <?= htmlspecialchars($post['title']); ?>
-                </a>
-            </h3>
+            <a href="post.php?slug=<?= $post['slug']; ?>">
+                <img src= "<?= $image?>" class="category-post-featured">
+                <!-- <h3 class="category-post-title"><?= htmlspecialchars($post['title']); ?></h3> -->
+                <div class="category-post-title">
+                    <h3 class="text"><?= htmlspecialchars($post['title']); ?></h3>
+                </div>
+            </a>
         </article>
     <?php endforeach; ?>
 </section>
