@@ -34,7 +34,11 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </small>
                 <div class="post-featured">
                     <?php
-                    $image = UPLOAD_DIR . $post['featured_image'] ?: '/assets/images/default-post.jpg';
+                        if($post['featured_image']){
+                            $image = UPLOAD_DIR . $post['featured_image'];
+                        }else{
+                            $image = '/travel-blog/assets/images/default-post.jpg';
+                        }
                     ?>
                     <a href="/travel-blog/post/<?= $post['slug']; ?>">
                         <img src="<?= $image; ?>" class="image">
