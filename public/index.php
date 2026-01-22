@@ -22,7 +22,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="hero-section">
     <img src= "/travel-blog/assets/images/hero.jpg" class="hero-image">
     <div class="hero-content">
-        <div class="hero-title">Hero Title</div>
+        <h1 class="hero-title">Discover the world with me in this lifetime.</h1>
         <p class="hero-description">about blog</p>
     </div>
 </div>
