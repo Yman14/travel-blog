@@ -99,14 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([...$ids, $postId]);
                 $toDelete = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                foreach ($toDelete as $img) {
-                    // $fullPath = $_SERVER['DOCUMENT_ROOT'] . $img['file_path'];
-                    $fullPath = realpath(__DIR__ . '/../assets/images/uploads/' . $img['file_path']);
-                    if ($fullPath && file_exists($fullPath)) {
-                        unlink($fullPath);
-                    }
-                }
-
+                //delete db entries
                 $delStmt = $pdo->prepare("DELETE FROM post_images WHERE id IN ($in)");
                 $delStmt->execute($ids);
             }
@@ -156,10 +149,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $pdo->commit();
+
+            //only unlink the files from storage after transaction passed
+            foreach ($toDelete as $img) {
+                // $fullPath = $_SERVER['DOCUMENT_ROOT'] . $img['file_path'];
+                $fullPath = realpath(__DIR__ . '/../assets/images/uploads/' . $img['file_path']);
+                if ($fullPath && file_exists($fullPath)) {
+                    unlink($fullPath);
+                }
+            }
             $success = 'Post updated successfully.';
             $_SESSION['flash_success'] = "Post updated successfully.";
             header('Location: posts.php');
-            exit;  
+            exit;
+
         }catch (Exception $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -204,10 +207,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php foreach ($galleryImages as $img): ?>
                 <li>
                     <img src="<?= htmlspecialchars(UPLOAD_DIR . $img['file_path']); ?>" style="max-width:120px;">
-                    <!-- <a href="delete-image.php?id=<?= $img['id']; ?>&post=<?= $postId; ?>"
-                    onclick="return confirm('Delete this image?')">
-                    Delete
-                    </a> -->
                     <label class="image-remove">
                         <input type="checkbox" name="remove_images[]" value="<?= $img['id']; ?>">
                         Remove
