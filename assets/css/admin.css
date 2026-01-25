@@ -60,6 +60,11 @@ body {
     padding: 20px;
 }
 
+.image-remove input:checked ~ img {
+    opacity: 0.4;
+    filter: grayscale(100%);
+}
+
 
 /* FOOTER */
 .admin-footer {
@@ -114,11 +119,20 @@ ul {
 
 
 
-/* alert */
+/* notification */
 .alert-error {
     background-color: #d9534f;
     color: white;
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 4px;
+}
+
+.notify-success {
+    background-color: #7bd94f;
+    color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    margin: 10px 0;
 }
