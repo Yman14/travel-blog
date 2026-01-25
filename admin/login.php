@@ -18,11 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //verify password and redirect to the dashboard 
     if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin_id'] = $admin['id'];
+        session_regenerate_id(true);
+
+        $_SESSION['admin_id']  = $admin['id'];
         $_SESSION['user_role'] = 'admin';
+        $_SESSION['csrf'] = bin2hex(random_bytes(32));
+
         header('Location: dashboard.php');
         exit;
-    } else {
+    }else {
         $error = 'Invalid login credentials';
     }
 }
