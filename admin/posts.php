@@ -20,6 +20,15 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <p><a href="create-post.php">Create New Post</a></p>
 
+<!-- check for success notifcation -->
+<?php if (isset($_SESSION['flash_success'])): ?>
+    <div class="notify-success">
+        <?= htmlspecialchars($_SESSION['flash_success']); ?>
+    </div>
+    <?php unset($_SESSION['flash_success']); ?>
+<?php endif; ?>
+
+<!-- table -->
 <table border="1" cellpadding="8">
     <tr>
         <th>Title</th>
