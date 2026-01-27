@@ -43,7 +43,8 @@ $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) {
-            $error = 'Invalid request. Please refresh and try again.';
+            http_response_code(403);
+            exit('Invalid CSRF token');
         }
 
     $title = trim($_POST['title']);
@@ -181,14 +182,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($error): ?><p style="color:red;"><?php echo $error; ?></p><?php endif; ?>
 <?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
 
-<?php if ($post['featured_image']): ?>
-<img src="<?= UPLOAD_DIR .  $post['featured_image']; ?>" class="post-featured">
-<?php endif; ?>
 
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" name="csrf" value="<?= $_SESSION['csrf']; ?>">
     <input type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
+    <label>Featured Image</label><br>
+    <?php if ($post['featured_image']): ?>
+    <img src="<?= UPLOAD_DIR .  $post['featured_image']; ?>" class="post-featured">
+    <?php endif; ?>
+    <input type="file" name="featured_image" accept="image/jpeg,image/png,image/webp"><br><br>
 
+    <label for="category_id">Category</label><br><br>
     <select name="category_id">
         <?php foreach ($cats as $cat): ?>
             <option value="<?php echo $cat['id']; ?>"
