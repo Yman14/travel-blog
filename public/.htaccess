@@ -1,23 +1,5 @@
 # ----------------------------------------------------------------------
-# 1. PHP Error Handling
-# ----------------------------------------------------------------------
-
-# Hide errors from visitors (Security)
-php_flag display_errors Off
-php_flag display_startup_errors Off
-
-# Enable internal logging for developers
-php_flag log_errors On
-
-# Log ALL errors (32767 is E_ALL in PHP 8.x)
-php_value error_reporting 32767
-
-# Optional: Specify your own log file name
-# php_value error_log /home/username/public_html/php_error.log
-
-
-# ----------------------------------------------------------------------
-# 2. Security: Protect Sensitive Files
+# Security: Protect Sensitive Files
 # ----------------------------------------------------------------------
 
 <FilesMatch "\.(env|sql|ini|log)$">
@@ -31,7 +13,7 @@ php_value error_reporting 32767
 </Files>
 
 # ----------------------------------------------------------------------
-# 3. URL Rewriting (Clean URLs)
+# URL Rewriting (Clean URLs)
 # ----------------------------------------------------------------------
 RewriteEngine On
 
@@ -39,10 +21,13 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite /post/my-title to /public/post.php?slug=my-title
-RewriteRule ^post/([a-zA-Z0-9-]+)/?$ public/post.php?slug=$1 [L,QSA]
+# Rewrite /post/my-title to post.php?slug=my-title
+RewriteRule ^post/([a-zA-Z0-9-]+)/?$ post.php?slug=$1 [L,QSA]
+
+# Route /admin/... to admin.php
+RewriteRule ^admin(/.*)?$ admin.php [QSA,L]
 
 
 # ----------------------------------------------------------------------
-# 4.
+#
 # ----------------------------------------------------------------------

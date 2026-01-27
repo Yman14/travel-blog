@@ -20,7 +20,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="hero-section">
-    <img src= "/travel-blog/assets/images/hero.jpg" class="hero-image">
+    <img src= "<?= BASE_URL ?>assets/images/hero.jpg" class="hero-image">
     <div class="hero-content">
         <h1 class="hero-title">One life. Let’s go.</h1>
         <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p>
@@ -32,7 +32,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach ($posts as $post): ?>
             <article class="post-preview">
                 <h2 class="post-title">
-                    <a href="/travel-blog/post/<?= $post['slug']; ?>">
+                    <a href="<?= BASE_URL ?>post/<?= $post['slug']; ?>">
                         <?= htmlspecialchars($post['title']); ?>
                     </a>
                 </h2>
@@ -44,10 +44,10 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         if($post['featured_image']){
                             $image = UPLOAD_DIR . $post['featured_image'];
                         }else{
-                            $image = '/travel-blog/assets/images/default-post.jpg';
+                            $image = BASE_URL . 'assets/images/default-post.jpg';
                         }
                     ?>
-                    <a href="/travel-blog/post/<?= $post['slug']; ?>">
+                    <a href="<?= BASE_URL ?>post/<?= $post['slug']; ?>">
                         <img src="<?= $image; ?>" class="image">
                     </a>
                 </div>
@@ -59,7 +59,9 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         echo htmlspecialchars($snippet, ENT_QUOTES, 'UTF-8');
                         // Logic: Only show link if the actual text is longer than the limit
                         if (mb_strlen($plainText) > $limit): ?>
-                            <a href="/travel-blog/post/<?= $post['slug']; ?>" class="post-readmore"> Read more</a>
+                            <a href="<?= BASE_URL ?>post/<?= htmlspecialchars($post['slug'], ENT_QUOTES, 'UTF-8'); ?>" class="post-readmore">
+                                Read more
+                            </a>
                         <?php endif; 
                     ?>
                 </p>

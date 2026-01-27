@@ -28,6 +28,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title><?= htmlspecialchars($title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
     <!-- <link rel="stylesheet" href="/travel-blog/assets/css/style.css"> -->
@@ -37,22 +38,22 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <header class="site-header container">
     <div class="site-brand">
-        <h1><a href="/travel-blog/public/index.php">Travel Blog</a></h1>
+        <h1><a href="<?= BASE_URL ?>index.php">Travel Blog</a></h1>
     </div>
     <nav class="site-nav">   
         <div class="dropdown">
             <span>Categories ▾</span>
             <div class="dropdown-content">
                 <?php foreach ($navCategories as $cat): ?>
-                    <a href="<?= BASE_URL ?>/public/category.php?id=<?php echo $cat['id']; ?>">
+                    <a href="<?= BASE_URL ?>category.php?id=<?php echo $cat['id']; ?>">
                         <?php echo htmlspecialchars($cat['name']); ?>
                     </a>
                 <?php endforeach; ?>
             </div>
         </div>
-        
-        <a href="/travel-blog/public/about.php">About</a>
-        <a href="/travel-blog/public/contact.php">Contact</a>
+    
+        <a href="<?= BASE_URL ?>about.php">About</a>
+        <a href="<?= BASE_URL ?>contact.php">Contact</a>
     </nav>
 </header>
 

@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_role'] = 'admin';
         $_SESSION['csrf'] = bin2hex(random_bytes(32));
 
-        header('Location: dashboard.php');
+        header('Location: ' . BASE_URL . 'admin/dashboard');
         exit;
     }else {
         $error = 'Invalid login credentials';
@@ -32,7 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $page_title = 'Admin Login';
-require_once '../includes/header.php';
+
+require_once 'includes/admin-header.php';
 ?>
 
 <!-- html -->
@@ -49,5 +50,5 @@ require_once '../includes/header.php';
 </form>
 
 <?php
-require_once '../includes/footer.php';
+require_once 'includes/admin-footer.php';
 ?>

@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Define Paths
-define('BASE_URL', '/travel-blog/');
+define('BASE_URL', '/');
 define('UPLOAD_DIR', BASE_URL . 'assets/images/uploads/');
 
 // Database Credentials

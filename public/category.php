@@ -58,7 +58,7 @@ require_once '../includes/header.php';
             if($post['featured_image']){
                 $image = UPLOAD_DIR . $post['featured_image'];
             }else{
-                $image = '/travel-blog/assets/images/default-post.jpg';
+                $image = BASE_URL . 'assets/images/default-post.jpg';
             }
         ?>
         <article class="category-post">
