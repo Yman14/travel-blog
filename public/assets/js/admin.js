@@ -1,3 +1,25 @@
+//render feature image uploaded
+(function () {
+    const featureInput = document.getElementById('featureInput');
+    const preview = document.getElementById('featurePreview');
+
+    if (!featureInput || !preview) return;
+
+    featureInput.addEventListener('change', function (e) {
+        preview.innerHTML = '';
+        Array.from(e.target.files).forEach(file => {
+            if (!file.type.startsWith('image/')) return;
+
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.classList.add("post-featured");
+            preview.appendChild(img);
+        });
+    });
+})();
+
+
+//render gallery images uploaded
 (function () {
     const galleryInput = document.getElementById('galleryInput');
     const preview = document.getElementById('galleryPreview');
@@ -18,6 +40,8 @@
     });
 })();
 
+
+//darken if image is check tobe remove
 document.querySelectorAll('.image-remove input').forEach(cb => {
     cb.addEventListener('change', e => {
         const img = e.target.closest('li').querySelector('img');

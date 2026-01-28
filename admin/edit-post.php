@@ -188,14 +188,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" name="csrf" value="<?= $_SESSION['csrf']; ?>">
-    <input type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
-    <label>Featured Image</label><br>
-    <?php if ($post['featured_image']): ?>
-    <img src="<?= UPLOAD_URL .  $post['featured_image']; ?>" class="post-featured">
-    <?php endif; ?>
-    <input type="file" name="featured_image" accept="image/jpeg,image/png,image/webp"><br><br>
+    
+    <br><br><label for="title"><h3>Title</h3></label><br>
+    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
 
-    <label for="category_id">Category</label><br><br>
+    <h3>Featured Image</h3>
+    <div id="featurePreview">
+        <?php if ($post['featured_image']): ?>
+        <img src="<?= UPLOAD_URL .  $post['featured_image']; ?>" class="post-featured">
+        <?php endif; ?>
+    </div>
+    <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
+
+    <label for="category_id"><h3>Category</h3></label><br>
     <select name="category_id">
         <?php foreach ($cats as $cat): ?>
             <option value="<?php echo $cat['id']; ?>"
@@ -206,6 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </select><br><br>
 
     <textarea name="content" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
+
     <input type="file" name="gallery_images[]" multiple id="galleryInput">
     <div id="galleryPreview"></div>
     <?php if ($galleryImages): ?>
@@ -222,6 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
+
     <select name="status">
         <option value="draft" <?php if ($post['status'] === 'draft') echo 'selected'; ?>>Draft</option>
         <option value="published" <?php if ($post['status'] === 'published') echo 'selected'; ?>>Published</option>

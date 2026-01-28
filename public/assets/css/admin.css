@@ -98,8 +98,13 @@ ul {
 }
 
 /* Edit Post */
+#featurePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .post-featured {
-    max-width: 400px;
+    max-width: 80%;
     padding: 20px;
 }
 
