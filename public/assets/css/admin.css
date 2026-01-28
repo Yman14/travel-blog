@@ -19,6 +19,10 @@ body {
     background: #f6f6f6;
 }
 
+ul {
+    list-style-type: none;
+}
+
 /* HEADER */
 
 .admin-header {
@@ -42,6 +46,13 @@ body {
     margin: 2rem auto;
     background: #fff;
     padding: 2rem;
+}
+
+.admin-section {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 2rem;
     border-radius: 20px;
 }
 
@@ -52,6 +63,38 @@ body {
 .admin-section-header p {
     font-size: 0.9rem;
     color: var(--muted);
+}
+
+
+/* Admin Login  */
+.admin-login {
+    max-width: 400px;
+    background-color: #0a0a24;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.admin-login .admin-section-header {
+    margin-inline: auto;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.admin-login input {
+    font-size: 1rem;
+}
+
+.admin-login button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 /* Edit Post */
@@ -106,15 +149,14 @@ input, textarea, select {
     width: 100%;
     padding: 0.6rem;
     margin-bottom: 1rem;
+    outline: none;
 }
 
 input, textarea {
     border: 1px solid var(--border);
     border-radius: 4px;
 }
-ul {
-    list-style-type: none;
-}
+
 
 
 
