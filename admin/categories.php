@@ -9,21 +9,28 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll(PD
 
 <h1>Manage Categories</h1>
 
-<p><a href="create-category.php">Add Category</a></p>
+<p><a href="<?=BASE_URL?>admin/create-category">Add Category</a></p>
 
-<!-- check for error -->
+<!-- check for alert notifi -->
 <?php if (isset($_SESSION['flash_error'])): ?>
     <div class="alert-error">
         <?= htmlspecialchars($_SESSION['flash_error']); ?>
     </div>
     <?php unset($_SESSION['flash_error']); ?>
 <?php endif; ?>
+<?php if (isset($_SESSION['flash_success'])): ?>
+    <div class="notify-success">
+        <?= htmlspecialchars($_SESSION['flash_success']); ?>
+    </div>
+    <?php unset($_SESSION['flash_success']); ?>
+<?php endif; ?>
+
 
 <ul>
 <?php foreach ($categories as $cat): ?>
     <li>
         <?php echo htmlspecialchars($cat['name']); ?>
-        <form method="post" action="delete-category.php" style="display:inline;">
+        <form method="post" action="<?=BASE_URL?>admin/delete-category" style="display:inline;">
             <input type="hidden" name="id" value="<?php echo $cat['id']; ?>">
             <button type="submit" onclick="return confirm('Delete category?')">Delete</button>
         </form>

@@ -21,7 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindValue(':name', $name);
             $stmt->bindValue(':slug', $slug);
             $stmt->execute();
-            header('Location: categories.php');
+
+            $_SESSION['flash_success'] = "Category created successfully.";
+            header('Location:' . BASE_URL . 'admin/categories');
         exit;
         }
     }

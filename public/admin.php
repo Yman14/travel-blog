@@ -18,18 +18,26 @@ if ($request === '') {
 }
 
 // Routing
-switch ($request) {
-    case '/':
-    case '/login':
-        require_once __DIR__ . '/../admin/login.php';
-        break;
+$routes = [
+    '/' => 'login.php',
+    '/login' => 'login.php',
+    '/dashboard' => 'dashboard.php',
+    '/posts' => 'posts.php',
+    '/create-post' => 'create-post.php',
+    '/edit-post' => 'edit-post.php',
+    '/delete-post' => 'delete-post.php',
+    '/categories' => 'categories.php',
+    '/create-category' => 'create-category.php',
+    '/delete-category' => 'delete-category.php',
+    '/logout' => 'logout.php',
+];
 
-    case '/dashboard':
-        require_once __DIR__ . '/../admin/dashboard.php';
-        break;
 
-    default:
-        http_response_code(404);
-        echo "Admin page not found";
-        break;
+
+
+if (isset($routes[$request])) {
+    require_once __DIR__ . '/../admin/' . $routes[$request];
+} else {
+    http_response_code(404);
+    echo "Admin page not found";
 }

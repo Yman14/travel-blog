@@ -18,7 +18,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <!-- html -->
 <h1>All Posts</h1>
 
-<p><a href="create-post.php">Create New Post</a></p>
+<p><a href="<?=BASE_URL?>admin/create-post">Create New Post</a></p>
 
 <!-- check for success notifcation -->
 <?php if (isset($_SESSION['flash_success'])): ?>
@@ -45,8 +45,8 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?= htmlspecialchars($post['status']); ?></td>
             <td><?= htmlspecialchars($post['created_at']); ?></td>
             <td>
-                <a href="edit-post.php?id=<?= $post['id']; ?>">Edit</a> |
-                <a href="delete-post.php?id=<?= $post['id']; ?>"
+                <a href="<?=BASE_URL?>admin/edit-post?id=<?= $post['id']; ?>">Edit</a> |
+                <a href="<?=BASE_URL?>admin/delete-post?id=<?= $post['id']; ?>"
                    onclick="return confirm('Delete this post?');">
                    Delete
                 </a>
@@ -55,7 +55,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endforeach; ?>
 </table>
 
-<p><a href="dashboard.php">Back to dashboard</a></p>
+<p><a href="<?=BASE_URL?>admin/dashboard">Back to dashboard</a></p>
 
 
 <?php

@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //image upload
     //create new directory if dont exist
-    $uploadDir =  '../assets/images/uploads/' . date('Y/m/') ;
+    $uploadDir =  'assets/images/uploads/' . date('Y/m/') ;
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
@@ -133,11 +133,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //successful process
             $pdo->commit();
             $success = 'Post created successfully.';
+            $_SESSION['flash_success'] = "Post created successfully.";
+            header('Location:' . BASE_URL . 'admin/posts');
+
         } catch (Throwable $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
                 if (!empty($featuredPath)) {
-                    @unlink(UPLOAD_DIR . $featuredPath);
+                    @unlink(UPLOAD_URL . $featuredPath);
                 }
             }
             //error_log($e->getMessage());
@@ -201,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </form>
 
-<p><a href="dashboard.php">Back to dashboard</a></p>
+<p><a href="<?=BASE_URL?>admin/dashboard">Back to dashboard</a></p>
 
 </body>
 </html>

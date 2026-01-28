@@ -14,5 +14,6 @@ $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $postId, PDO::PARAM_INT);
 $stmt->execute();
 
-header('Location: posts.php');
+$_SESSION['flash_success'] = "Post deleted successfully.";
+header('Location:' . BASE_URL . 'admin/posts');
 exit;

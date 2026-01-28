@@ -21,10 +21,10 @@ $categoryCount = $pdo->query("SELECT COUNT(*) FROM categories")->fetchColumn();
             <li>Total Categories: <?php echo $categoryCount; ?></li>
         </ul>
         <div class="feature-section">
-            <a href="create-post.php">Create New Post</a> |
-            <a href="categories.php">Manage Categories</a>
-            <a href="posts.php">Manage Posts</a>
-            <a href="logout.php">Logout</a>
+            <a href="<?=BASE_URL?>admin/create-post">Create New Post</a> |
+            <a href="<?=BASE_URL?>admin/categories">Manage Categories</a>
+            <a href="<?=BASE_URL?>admin/posts">Manage Posts</a>
+            <a href="<?=BASE_URL?>admin/logout">Logout</a>
         </div>
     </div>
 </section>

@@ -9,10 +9,10 @@
 
 <header class="admin-header">
     <nav>
-        <a href="dashboard.php">Dashboard</a>
-        <a href="posts.php">Posts</a>
-        <a href="categories.php">Categories</a>
-        <a href="logout.php">Logout</a>
+        <a href="<?=BASE_URL?>admin/dashboard">Dashboard</a>
+        <a href="<?=BASE_URL?>admin/posts">Posts</a>
+        <a href="<?=BASE_URL?>admin/categories">Categories</a>
+        <a href="<?=BASE_URL?>admin/logout">Logout</a>
     </nav>
 </header>
 

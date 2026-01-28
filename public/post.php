@@ -62,7 +62,7 @@ require_once '../includes/header.php';
         </header>
         <div class="post-featured">
             <?php
-            $image = UPLOAD_DIR . $post['featured_image'] ?: '/assets/images/default-post.jpg';
+            $image = UPLOAD_URL . $post['featured_image'] ?: '/assets/images/default-post.jpg';
             ?>
             <img src="<?= $image; ?>" class="image">
         </div>
@@ -70,7 +70,7 @@ require_once '../includes/header.php';
         <?php if ($gallery): ?>
         <div class="post-gallery">
             <?php foreach ($gallery as $img): ?>
-                <img src="<?=UPLOAD_DIR . $img['file_path']; ?>" loading="lazy">
+                <img src="<?=UPLOAD_URL . $img['file_path']; ?>" loading="lazy">
             <?php endforeach; ?>
         </div>
         <?php endif; ?>

@@ -57,7 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //create new directory if dont exist
-    $uploadDir =  '../assets/images/uploads/' . date('Y/m/') ;
+    $relativePath = date('Y/m/');
+    $uploadDir = UPLOAD_PATH . '/' . $relativePath;
+
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
@@ -132,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
                     $name = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-                    move_uploaded_file($tmp, $uploadDir . $name);
+                    move_uploaded_file($tmp, $uploadDir . '/' . $name);
 
                     $stmt = $pdo->prepare("
                         INSERT INTO post_images (post_id, file_path)
@@ -140,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ");
                     $stmt->execute([
                         ':post_id' => $postId,
-                        ':path' => date('Y/m/') . $name
+                        ':path' => $relativePath . $name
                     ]);
                 }
 
@@ -152,16 +154,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->commit();
 
             //only unlink the files from storage after transaction passed
-            foreach ($toDelete as $img) {
-                // $fullPath = $_SERVER['DOCUMENT_ROOT'] . $img['file_path'];
-                $fullPath = realpath(__DIR__ . '/../assets/images/uploads/' . $img['file_path']);
-                if ($fullPath && file_exists($fullPath)) {
-                    unlink($fullPath);
+            if (!empty($toDelete)) {
+                foreach ($toDelete as $img) {
+                    $fullPath = UPLOAD_PATH . '/' . $img['file_path'];
+                    if (is_file($fullPath)) {
+                        unlink($fullPath);
+                    }
                 }
             }
             $success = 'Post updated successfully.';
             $_SESSION['flash_success'] = "Post updated successfully.";
-            header('Location: posts.php');
+            header('Location:' . BASE_URL . 'admin/posts');
             exit;
 
         }catch (Exception $e) {
@@ -188,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
     <label>Featured Image</label><br>
     <?php if ($post['featured_image']): ?>
-    <img src="<?= UPLOAD_DIR .  $post['featured_image']; ?>" class="post-featured">
+    <img src="<?= UPLOAD_URL .  $post['featured_image']; ?>" class="post-featured">
     <?php endif; ?>
     <input type="file" name="featured_image" accept="image/jpeg,image/png,image/webp"><br><br>
 
@@ -210,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <ul>
             <?php foreach ($galleryImages as $img): ?>
                 <li>
-                    <img src="<?= htmlspecialchars(UPLOAD_DIR . $img['file_path']); ?>" style="max-width:120px;">
+                    <img src="<?= htmlspecialchars(UPLOAD_URL . $img['file_path']); ?>" style="max-width:120px;">
                     <label class="image-remove">
                         <input type="checkbox" name="remove_images[]" value="<?= $img['id']; ?>">
                         Remove
@@ -227,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Update Post</button>
 </form>
 
-<p><a href="posts.php">Back to posts</a></p>
+<p><a href="<?=BASE_URL?>admin/posts">Back to posts</a></p>
 
 <?php
 require_once 'includes/admin-footer.php';

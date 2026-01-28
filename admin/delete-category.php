@@ -4,7 +4,8 @@ require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/admin-header.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: categories.php');
+    $_SESSION['flash_error'] = "Delete not successful.";
+    header('Location:' . BASE_URL .  'admin/categories');
     exit;
 }
 
@@ -23,5 +24,5 @@ if ($count > 0) {
 
 $pdo->prepare("DELETE FROM categories WHERE id = :id")->execute([':id' => $id]);
 
-header('Location: categories.php');
+header('Location:' . BASE_URL .  'admin/categories');
 exit;

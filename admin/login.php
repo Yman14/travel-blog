@@ -40,7 +40,7 @@ require_once 'includes/admin-header.php';
 <h1>Admin Login</h1>
 
 <?php if ($error): ?>
-    <p style="color:red;"><?php echo $error; ?></p>
+    <p class="alert-error"><?php echo $error; ?></p>
 <?php endif; ?>
 
 <form method="post">

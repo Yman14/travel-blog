@@ -56,7 +56,7 @@ require_once '../includes/header.php';
     <?php foreach ($posts as $post): ?>
         <?php
             if($post['featured_image']){
-                $image = UPLOAD_DIR . $post['featured_image'];
+                $image = UPLOAD_URL . $post['featured_image'];
             }else{
                 $image = BASE_URL . 'assets/images/default-post.jpg';
             }

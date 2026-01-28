@@ -4,8 +4,14 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Define Paths
+// URL paths (for HTML)
 define('BASE_URL', '/');
-define('UPLOAD_DIR', BASE_URL . 'assets/images/uploads/');
+define('UPLOAD_URL', BASE_URL . 'assets/images/uploads/');
+
+// Filesystem paths (for PHP)
+define('ROOT_PATH', dirname(__DIR__));
+define('PUBLIC_PATH', ROOT_PATH . '/public');
+define('UPLOAD_PATH', PUBLIC_PATH . '/assets/images/uploads');
 
 // Database Credentials
 define('DB_HOST', 'localhost');
