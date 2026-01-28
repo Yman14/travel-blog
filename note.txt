@@ -5,9 +5,11 @@ SEO & LEGAL PAGES,
 PERFORMANCE & SECURITY CHECKS
 
 bug found
-can access login page even if log in
-no handler for the same category name in create new category
-error message in create Post
+create post not fixed yet
+fix bug in create new post where if the image uploaded exceeds size limit it deletes all the inputs the user typed in
+fix create post path based on edit post path
+
+unlink old feature image if a new one is uploaded
 
 missing
 gallery unlink
