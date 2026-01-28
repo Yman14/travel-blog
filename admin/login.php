@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ' . BASE_URL . 'admin/dashboard');
         exit;
     }else {
-        $error = 'Invalid login credentials';
+        $_SESSION['flash_error'] = 'Invalid login credentials';
     }
 }
 
@@ -38,9 +38,11 @@ require_once 'includes/admin-header.php';
 
 <!-- html -->
 <h1>Admin Login</h1>
-
-<?php if ($error): ?>
-    <p class="alert-error"><?php echo $error; ?></p>
+<?php if(isset($_SESSION['flash_error'])):?>
+    <div class="alert-error">
+        <?= htmlspecialchars($_SESSION['flash_error'])?>
+    </div>
+    <?php unset($_SESSION['flash_error']); ?>
 <?php endif; ?>
 
 <form method="post">
