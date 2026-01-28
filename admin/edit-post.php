@@ -64,6 +64,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mkdir($uploadDir, 0755, true);
     }
     
+    //feature image upload process
+    //variable for image path
+    $featuredPath = null;
+    if (!empty($_FILES['featured_image']['name'])) {
+        if ($_FILES['featured_image']['error'] !== UPLOAD_ERR_OK) {
+            $error .= 'Featured image upload failed.<br>';
+        } else {
+            if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
+                $error .= 'Featured image too large.';
+            } else {
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime  = finfo_file($finfo, $_FILES['featured_image']['tmp_name']);
+                finfo_close($finfo);
+                if (!in_array($mime, ['image/jpeg','image/png','image/webp'], true)) {
+                    $error .= 'Invalid featured image type.';
+                }
+            }
+        }
+
+        if (empty($error)) {
+            $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
+            $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
+            move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDir . '/' . $filename);
+            $featuredPath = $relativePath . $filename;
+        }
+    }
     
     if(empty($error)) {
         try{
@@ -74,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     SET title = :title,
                         slug = :slug,
                         content = :content,
+                        featured_image = :featured_image,
                         category_id = :category_id,
                         status = :status
                     WHERE id = :id";
@@ -83,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':title' => $title,
                 ':slug' => $slug,
                 ':content' => $content,
+                'featured_image' => $featuredPath,
                 ':category_id' => $category_id,
                 ':status' => $status,
                 ':id' => $postId
@@ -200,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
 
-    <label for="category_id"><h3>Category</h3></label><br>
+    <h3>Category</h3><br>
     <select name="category_id">
         <?php foreach ($cats as $cat): ?>
             <option value="<?php echo $cat['id']; ?>"
