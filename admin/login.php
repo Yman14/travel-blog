@@ -2,7 +2,11 @@
 session_start();
 require_once '../includes/config.php';
 
-$error = '';
+//verify if the user is already loggoed in
+if (isset($_SESSION['admin_id']) || ($_SESSION['user_role'] ?? '') === 'admin') {
+    header('Location:' . BASE_URL . 'admin/dashboard');
+    exit;
+}
 
 //fetch the data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
