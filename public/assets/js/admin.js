@@ -40,7 +40,7 @@
 
             //set the file and htmlelement
             filesMap.set(id, file);
-            addNode(id, file);
+            await addNode(id, file);
         }
         //syncInput();
     });
@@ -66,8 +66,8 @@
 
         const img = document.createElement('img');
         img.src = URL.createObjectURL(file);
-        await img.decode();
-        img.onload = () => URL.revokeObjectURL(img.src);
+        try { await img.decode(); } catch {}
+        URL.revokeObjectURL(img.src);
 
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -89,7 +89,6 @@
 
         const img = node.querySelector('img');
         // URL.revokeObjectURL(img.src);
-        img.onload = () => URL.revokeObjectURL(img.src);
 
         node.remove();
         nodesMap.delete(id);
