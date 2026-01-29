@@ -96,6 +96,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->beginTransaction();
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
+            //check slug for duplicate
+            $check = $pdo->prepare("SELECT id FROM posts WHERE slug = :slug LIMIT 1");
+            $check->execute([':slug' => $slug]);
+            if ($check->fetch()) {
+                throw new Exception('Duplicate title');
+            }
+
             $sql = "UPDATE posts
                     SET title = :title,
                         slug = :slug,
@@ -179,6 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }      
             }
 
+            //successful process
             $pdo->commit();
 
             //only unlink the files from storage after transaction passed
