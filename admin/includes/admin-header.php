@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8'); ?></title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
     <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css">
 </head>
 <body>
