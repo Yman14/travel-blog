@@ -195,9 +195,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <textarea name="content" rows="8" required></textarea><br><br>
 
     <label>Featured Image</label><br>
-    <input type="file" name="featured_image" accept="image/jpeg,image/png,image/webp"><br><br>
+    <div id="featurePreview"></div>
+    <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
 
     <label>Gallery Images</label><br>
+
     <input type="file" name="gallery_images[]" multiple
         accept="image/jpeg,image/png,image/webp"><br><br>
 
