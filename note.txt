@@ -11,6 +11,8 @@ fix create post path based on edit post path
 
 unlink old feature image if a new one is uploaded
 
+alert notification for create post
+
 missing
 gallery unlink
 
