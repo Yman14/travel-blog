@@ -56,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Title and content are required.';
     }
 
+    //get the old featured image before a new one is uploaded for unlinking later
+    $oldFeaturedImage = $post['featured_image'] ?? null;
+
     //create new directory if dont exist
     $relativePath = date('Y/m/');
     $uploadDir = UPLOAD_PATH . '/' . $relativePath;
@@ -96,33 +99,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->beginTransaction();
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
-            //check slug for duplicate
-            $check = $pdo->prepare("SELECT id FROM posts WHERE slug = :slug LIMIT 1");
-            $check->execute([':slug' => $slug]);
-            if ($check->fetch()) {
-                throw new Exception('Duplicate title');
-            }
-
             $sql = "UPDATE posts
                     SET title = :title,
                         slug = :slug,
                         content = :content,
-                        featured_image = :featured_image,
                         category_id = :category_id,
-                        status = :status
-                    WHERE id = :id";
+                        status = :status";
 
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
+            //check if the new image is uploaded and if not dont include in the SET
+            if($featuredPath !== null){
+                $sql .= ", featured_image = :featured_image";
+            }
+            $sql .= " WHERE id = :id";
+            
+            //preparation so that new featured_image can be added later on
+            $params = [
                 ':title' => $title,
                 ':slug' => $slug,
                 ':content' => $content,
-                'featured_image' => $featuredPath,
                 ':category_id' => $category_id,
                 ':status' => $status,
                 ':id' => $postId
-            ]);
+            ];
+            if ($featuredPath !== null) {
+                $params[':featured_image'] = $featuredPath;
+            }
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
             
+
             //DELETE GALLERY
             if (!empty($_POST['remove_images'])) {
                 $ids = array_map('intval', $_POST['remove_images']);
@@ -190,6 +196,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->commit();
 
             //only unlink the files from storage after transaction passed
+            //for featured iamge
+            if ($featuredPath !== null && $oldFeaturedImage) {
+                $oldPath = UPLOAD_PATH . '/' . $oldFeaturedImage;
+
+                if (is_file($oldPath)) {
+                    unlink($oldPath);
+                }
+            }
+            //for gallery image
             if (!empty($toDelete)) {
                 foreach ($toDelete as $img) {
                     $fullPath = UPLOAD_PATH . '/' . $img['file_path'];
