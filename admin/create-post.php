@@ -11,6 +11,7 @@ $stmt->execute();
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
+
 //handle form submission
 $error = '';
 $success = '';
@@ -29,13 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error .= 'Title and content are required.<br>';
     }
 
-    //image upload
+    //path of saved image
     //create new directory if dont exist
-    $uploadDir =  'assets/images/uploads/' . date('Y/m/') ;
+    $relativePath = date('Y/m/');
+    $uploadDir = UPLOAD_PATH . '/' . $relativePath;
+
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
 
+    //feature image upload process
     $featuredPath = null;
     if (!empty($_FILES['featured_image']['name'])) {
         if ($_FILES['featured_image']['error'] !== UPLOAD_ERR_OK) {
@@ -44,7 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
                 $error .= 'Featured image too large.';
             } else {
-                $mime = mime_content_type($_FILES['featured_image']['tmp_name']);
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime  = finfo_file($finfo, $_FILES['featured_image']['tmp_name']);
+                finfo_close($finfo);
                 if (!in_array($mime, ['image/jpeg','image/png','image/webp'], true)) {
                     $error .= 'Invalid featured image type.';
                 }
@@ -54,10 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($error)) {
             $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
             $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
-            move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDir . $filename);
-            $featuredPath = date('Y/m/') . $filename;
+            move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDir . '/' . $filename);
+            $featuredPath = $relativePath . $filename;
         }
     }
+
     if(empty($error)){
         try{
             $pdo->beginTransaction();
@@ -85,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt->execute();
 
-            //for gallery
+            //for insert gallery images
             $postId = $pdo->lastInsertId();
             if (!empty($_FILES['gallery_images']['name'][0])) {
                 $galleryErrors = [];
@@ -113,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
                     $name = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-                    move_uploaded_file($tmp, $uploadDir . $name);
+                    move_uploaded_file($tmp, $uploadDir . '/' . $name);
 
                     $stmt = $pdo->prepare("
                         INSERT INTO post_images (post_id, file_path)
@@ -121,13 +128,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ");
                     $stmt->execute([
                         ':post_id' => $postId,
-                        ':path' => date('Y/m/') . $name
+                        ':path' => $relativePath . $name
                     ]);
                 }
 
                 if (!empty($galleryErrors)) {
                     throw new Exception(implode('; ', $galleryErrors));
-                }
+                }      
             }
 
             //successful process
