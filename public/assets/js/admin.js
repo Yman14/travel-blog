@@ -21,23 +21,52 @@
 
 //render gallery images uploaded
 (function () {
-    const galleryInput = document.getElementById('galleryInput');
+    const input = document.getElementById('galleryInput');
     const preview = document.getElementById('galleryPreview');
 
-    if (!galleryInput || !preview) return;
+    if (!input || !preview) return;
 
-    galleryInput.addEventListener('change', function (e) {
+    let files = [];
+
+    input.addEventListener('change', () => {
+        for (const file of input.files) {
+            if (!file.type.startsWith('image/')) continue;
+            files.push(file);
+        }
+        render();
+        syncInput();
+    });
+
+    function render() {
         preview.innerHTML = '';
-        Array.from(e.target.files).forEach(file => {
-            if (!file.type.startsWith('image/')) return;
+
+        files.forEach((file, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'media-item';
 
             const img = document.createElement('img');
             img.src = URL.createObjectURL(file);
-            img.style.maxWidth = '120px';
-            img.style.margin = '6px';
-            preview.appendChild(img);
+
+            const btn = document.createElement('button');
+            btn.className = 'media-remove';
+            btn.innerHTML = '×';
+            btn.onclick = () => {
+                files.splice(index, 1);
+                render();
+                syncInput();
+            };
+
+            wrapper.appendChild(img);
+            wrapper.appendChild(btn);
+            preview.appendChild(wrapper);
         });
-    });
+    }
+
+    function syncInput() {
+        const dt = new DataTransfer();
+        files.forEach(f => dt.items.add(f));
+        input.files = dt.files;
+    }
 })();
 
 
