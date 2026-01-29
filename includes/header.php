@@ -31,8 +31,8 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title><?= htmlspecialchars($title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
-    <!-- <link rel="stylesheet" href="/travel-blog/assets/css/style.css"> -->
-     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css">
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/images/favicon.ico">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css">
 </head>
 <body>
 
