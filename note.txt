@@ -6,6 +6,7 @@ PERFORMANCE & SECURITY CHECKS
 
 bug found
 delete post dont unlink file
+single post broken if not images
 
 alert notification for create post
 
