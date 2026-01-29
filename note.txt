@@ -5,11 +5,7 @@ SEO & LEGAL PAGES,
 PERFORMANCE & SECURITY CHECKS
 
 bug found
-create post not fixed yet
-fix bug in create new post where if the image uploaded exceeds size limit it deletes all the inputs the user typed in
-fix create post path based on edit post path
-
-unlink old feature image if a new one is uploaded
+delete post dont unlink file
 
 alert notification for create post
 
