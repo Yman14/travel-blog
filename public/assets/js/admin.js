@@ -23,48 +23,86 @@
 (function () {
     const input = document.getElementById('galleryInput');
     const preview = document.getElementById('galleryPreview');
+    const form = document.getElementById('form');
 
-    if (!input || !preview) return;
+    if (!form || !input || !preview) return;
 
-    let files = [];
+    // id, file/HTMLElement
+    const filesMap = new Map();
+    const nodesMap = new Map();
 
-    input.addEventListener('change', () => {
+    input.addEventListener('change', async () => {
         for (const file of input.files) {
             if (!file.type.startsWith('image/')) continue;
-            files.push(file);
+            
+            //create id for each file for easy tracking using map
+            const id = crypto.randomUUID();
+
+            //set the file and htmlelement
+            filesMap.set(id, file);
+            addNode(id, file);
         }
-        render();
-        syncInput();
+        //syncInput();
     });
 
-    function render() {
-        preview.innerHTML = '';
+    //reset input value so same image can be re select 
+    input.addEventListener('click', () => {
+        input.value = null;
+    });
 
-        files.forEach((file, index) => {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'media-item';
+    //only update the input files if the form is being submit
+    form.addEventListener('submit', () => {
+        const dt = new DataTransfer();
+        for (const file of filesMap.values()) {
+            dt.items.add(file);
+        }
+        input.files = dt.files;
+    });
 
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(file);
+    async function addNode(id, file) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'media-item';
+        wrapper.dataset.id = id;
 
-            const btn = document.createElement('button');
-            btn.className = 'media-remove';
-            btn.innerHTML = '×';
-            btn.onclick = () => {
-                files.splice(index, 1);
-                render();
-                syncInput();
-            };
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        await img.decode();
+        img.onload = () => URL.revokeObjectURL(img.src);
 
-            wrapper.appendChild(img);
-            wrapper.appendChild(btn);
-            preview.appendChild(wrapper);
-        });
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'media-remove';
+        btn.textContent = '×';
+
+        btn.addEventListener('click', () => removeNode(id));
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(btn);
+
+        preview.appendChild(wrapper);
+        nodesMap.set(id, wrapper);
+    }
+
+    function removeNode(id) {
+        const node = nodesMap.get(id);
+        if (!node) return;
+
+        const img = node.querySelector('img');
+        // URL.revokeObjectURL(img.src);
+        img.onload = () => URL.revokeObjectURL(img.src);
+
+        node.remove();
+        nodesMap.delete(id);
+        filesMap.delete(id);
+
+        //syncInput();
     }
 
     function syncInput() {
         const dt = new DataTransfer();
-        files.forEach(f => dt.items.add(f));
+        for (const file of filesMap.values()) {
+            dt.items.add(file);
+        }
         input.files = dt.files;
     }
 })();
