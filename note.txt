@@ -8,6 +8,7 @@ bug found
 delete post dont unlink file
 single post broken if not images
 single post paths not fixed yet
+delete gallery in edit post is broken
 
 alert notification for create post
 
