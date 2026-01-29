@@ -199,9 +199,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
 
     <label>Gallery Images</label><br>
-
+    <div id="galleryPreview"></div>
     <input type="file" name="gallery_images[]" multiple
-        accept="image/jpeg,image/png,image/webp"><br><br>
+        accept="image/jpeg,image/png,image/webp" multiple id="galleryInput"><br><br>
 
     <label>Status</label><br>
     <select name="status">
