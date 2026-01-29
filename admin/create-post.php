@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p style="color:green;"><?php echo $success; ?></p>
 <?php endif; ?>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" id="form">
 
     <label>Title</label><br>
     <input type="text" name="title" required><br><br>
