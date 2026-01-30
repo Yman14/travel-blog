@@ -8,6 +8,7 @@ bug found
 delete post dont unlink file
 delete gallery in edit post is broken
 large amount of images upload will cause lag (more than 10) - fragment it first
+content of create post reset if an error occured
 
 alert notification for create post
 
