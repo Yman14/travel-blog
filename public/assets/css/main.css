@@ -359,15 +359,9 @@ input, textarea {
 
 .post-gallery img {
   width: 100%;
-  max-width: 350px;
-  height: 300px;
+  max-width: 40%;
   object-fit: contain;
   border-radius: 10px;
-}
-
-.post-gallery::after {
-  content: "";
-  width: 350px;
 }
 
 
