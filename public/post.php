@@ -31,6 +31,9 @@ $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':slug', $slug, PDO::PARAM_STR);
 $stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
+if(empty($post)){
+    header('Location:' . BASE_URL . '404.php');
+}
 
 //fetch category
 $catsql = "SELECT name FROM categories WHERE id = :id";
@@ -88,7 +91,6 @@ require_once '../includes/header.php';
         <?php endif; ?>
     </article>
 <?php else: ?>
-    <?php http_response_code(404); ?>
     <div class="empty-state">
         <p>Post not found.</p>
     </div>
