@@ -19,3 +19,11 @@ gallery unlink
 fixed images upload
 pre deployment hardening (policy, about, contact)
 additional css
+
+
+admin
+manage categories(add, delete)
+manage posts(add, delete, edit)
+change hero content
+change contact
+manage social media links
