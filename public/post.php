@@ -70,7 +70,11 @@ require_once '../includes/header.php';
         </header>
         <div class="post-featured">
             <?php
-            $image = UPLOAD_URL . $post['featured_image'] ?: '/assets/images/default-post.jpg';
+                if($post['featured_image']){
+                    $image = UPLOAD_URL . $post['featured_image'];
+                }else{
+                    $image = BASE_URL . 'assets/images/default-post.jpg';
+                }
             ?>
             <img src="<?= $image; ?>" class="image">
         </div>
