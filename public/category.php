@@ -44,7 +44,8 @@ require_once '../includes/header.php';
 ?>
 
 <!-- display -->
-<h1 class="title"><?= htmlspecialchars($category['name']); ?> Category Posts</h1>
+ <div class="main-content">
+<h1 class="title"><?= htmlspecialchars($category['name']); ?></h1>
 
 <?php if (!$posts): ?>
     <div class="empty-state">
@@ -72,5 +73,5 @@ require_once '../includes/header.php';
         </article>
     <?php endforeach; ?>
 </section>
-
+</div>
 <?php require_once '../includes/footer.php'; ?>
