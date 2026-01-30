@@ -5,11 +5,10 @@ SEO & LEGAL PAGES,
 PERFORMANCE & SECURITY CHECKS
 
 bug found
-delete post dont unlink file
 delete gallery in edit post is broken
 large amount of images upload will cause lag (more than 10) - fragment it first
 content of create post reset if an error occured
-gallery images even if the post is not successful due to error in create post
+create post gallery images is save even if the post is not successful due to error
 
 alert notification for create post
 
