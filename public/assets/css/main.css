@@ -100,6 +100,27 @@ header {
     color: var(--accent);
 }
 
+.social-media {
+    width: min-content;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-media .icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+}
+
+.icon:hover {
+    cursor: pointer;
+    background-color: var(--primary);
+}
+
 
 /* MAIN CONTENT */
 .main-layout {
