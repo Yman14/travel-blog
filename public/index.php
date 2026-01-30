@@ -26,6 +26,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p>
     </div>
 </div>
+<div class="main-content">
 <!-- rendering the fetch data -->
 <section class="post-list" role="main">
     <?php if ($posts): ?>
@@ -93,7 +94,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- recent posts -->
     </section>
 </aside>
-
+</div>
 <?php
 require_once '../includes/footer.php';
 ?>

@@ -48,9 +48,11 @@ ul {
 
 /* GLOBAL LAYOUT */
 .container {
-    max-width: 1400px;
+    max-width: 100dvw;
     margin-inline: auto;
-    padding: 1rem;
+}
+.main-content {
+    padding-inline: 20%;
 }
 
 header {
@@ -59,10 +61,27 @@ header {
 
 /* HEADER NAV */
 .site-header {
+    height: 90px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 0;
+    padding: 1.5rem 20%;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+
+    background-color: transparent;
+  
+    /* Modern Scroll-Driven Animation */
+    animation: fill-background linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0px 100px;
+}
+@keyframes fill-background {
+  to {
+    background-color: rgba(255, 255, 255, 0.9); /* Your desired color */
+    backdrop-filter: blur(10px);
+  }
 }
 
 .site-brand h1 a {
@@ -86,16 +105,19 @@ header {
 .main-layout {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: min-content auto;
     gap: 2rem;
 }
 
 .hero-section {
     grid-column: 1 / -1;
     position: relative;
+    margin-top: -90px;
 }
 
 .hero-image {
     width: 100%;
+    height: 100dvh;
     object-fit: cover;
 }
 
@@ -135,6 +157,7 @@ header {
 /* HOMEPAGE POSTS LIST */
 .post-list {
     grid-column: 1;
+    grid-row: 2;
 }
 .post-list article {
     border-bottom: 1px solid #e5e5e5;
@@ -308,10 +331,6 @@ nav {
 
 
 /* Single POst */
-.post-full {
-    max-width: 100%;
-    grid-area: 1 / -1;
-}
 
 .post-body p {
     margin-bottom: 1.25rem;
@@ -405,8 +424,8 @@ h1.title {
 
 /* RESPONSIVE */
 @media (min-width: 768px) {
-    .main-layout {
+    /* .main-layout {
         grid-template-columns: 3fr 1fr;
-    }
+    } */
 
 }
