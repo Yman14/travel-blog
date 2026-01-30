@@ -27,6 +27,12 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <?php unset($_SESSION['flash_success']); ?>
 <?php endif; ?>
+<?php if (isset($_SESSION['flash_error'])): ?>
+    <div class="alert-error">
+        <?= htmlspecialchars($_SESSION['flash_error']); ?>
+    </div>
+    <?php unset($_SESSION['flash_error']); ?>
+<?php endif; ?>
 
 <!-- table -->
 <table border="1" cellpadding="8">
