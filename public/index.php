@@ -20,7 +20,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="hero-section">
-    <img src= "<?= BASE_URL ?>assets/images/hero.jpg" class="hero-image">
+    <img src= "<?= BASE_URL ?>assets/images/lamitan.jpg" class="hero-image">
     <div class="hero-content">
         <h1 class="hero-title">One life. Let’s go.</h1>
         <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p>
