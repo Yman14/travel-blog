@@ -28,7 +28,6 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title><?= htmlspecialchars($title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/images/favicon.ico">
