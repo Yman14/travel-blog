@@ -32,6 +32,13 @@ $stmt->bindValue(':slug', $slug, PDO::PARAM_STR);
 $stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
+//fetch category
+$catsql = "SELECT name FROM categories WHERE id = :id";
+$stmt = $pdo->prepare($catsql);
+$stmt->bindValue(':id', $post['category_id'], PDO::PARAM_INT);
+$stmt->execute();
+$cat = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 //Fetcj gallery this time
 $stmt = $pdo->prepare("
@@ -51,12 +58,13 @@ require_once '../includes/header.php';
 
 <!-- html -->
 <!-- display result -->
+<div class="main-content">
 <?php if ($post): ?>
-    <article class="post-full">
+    <article class="post-list">
         <header>
             <h1><?= htmlspecialchars($post['title']); ?></h1>
             <small class="post-meta">
-                    <a href="/travel-blog/public/category.php?id=<?= $post['category_id']; ?>">[Category]</a>
+                    <a href="<?=BASE_URL?>category.php?id=<?= $post['category_id']; ?>"><?= htmlspecialchars($cat['name']); ?></a>
                      · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?>
             </small>
         </header>
@@ -82,6 +90,7 @@ require_once '../includes/header.php';
     </div>
 <?php endif; ?>
 
+</div>
 <?php
 require_once '../includes/footer.php';
 ?>
