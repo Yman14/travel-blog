@@ -1,7 +1,10 @@
-# ----------------------------------------------------------------------
-# Security: Protect Sensitive Files
-# ----------------------------------------------------------------------
+# http -> htpps
+# <IfModule mod_headers.c>
+#     Header set Content-Security-Policy "upgrade-insecure-requests"
+# </IfModule>
 
+
+# Security: Protect Sensitive Files
 <FilesMatch "\.(env|sql|ini|log)$">
     # Modern Apache 2.4 syntax
     Require all denied
@@ -12,9 +15,9 @@
     Require all denied
 </Files>
 
-# ----------------------------------------------------------------------
+
 # URL Rewriting (Clean URLs)
-# ----------------------------------------------------------------------
+
 RewriteEngine On
 
 # Ensure images, CSS, and JS files load normally
@@ -28,6 +31,5 @@ RewriteRule ^post/([a-zA-Z0-9-]+)/?$ post.php?slug=$1 [L,QSA]
 RewriteRule ^admin(/.*)?$ admin.php [QSA,L]
 
 
-# ----------------------------------------------------------------------
+
 #
-# ----------------------------------------------------------------------
