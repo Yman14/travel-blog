@@ -97,6 +97,39 @@ ul {
     cursor: pointer;
 }
 
+
+/* Manage Posts(posts.php) */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 24px;
+    width: 420px;
+    border-radius: 12px;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+}
+
+button.danger {
+    background: #d92d20;
+    color: #fff;
+}
+
+
+
 /* Create Post */
 .media-grid {
     display: grid;
