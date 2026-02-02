@@ -10,7 +10,13 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
+// cache input
+$old = [
+    'title' => '',
+    'content' => '',
+    'category_id' => '',
+    'status' => 'draft'
+];
 
 //handle form submission
 $error = '';
@@ -21,6 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = trim($_POST['content']);
     $category_id = (int) $_POST['category_id'];
     $status = $_POST['status'];
+    
+    // cache input
+    $old = [
+        'title' => $_POST['title'],
+        'content' => $_POST['content'],
+        'category_id' => $_POST['category_id'],
+        'status' => $_POST['status']
+    ];
 
     //validation
     if (!in_array($status, ['draft', 'published'], true)) {
@@ -146,9 +160,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (Throwable $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
+
+                //unlink images if transaction fail
                 if (!empty($featuredPath)) {
-                    @unlink(UPLOAD_URL . $featuredPath);
+                    @unlink(UPLOAD_PATH . '/' . $featuredPath);
                 }
+
+                // foreach ($tmpUploads as $tmpFile) {
+                //     @unlink($tmpFile);
+                // }
             }
             //error_log($e->getMessage());
             $error = $e->getMessage() ?: 'Failed to create post.';
@@ -180,19 +200,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="post" enctype="multipart/form-data" id="form">
 
     <label>Title</label><br>
-    <input type="text" name="title" required><br><br>
+    <input type="text" name="title" value="<?= htmlspecialchars($old['title']) ?>" required><br><br>
 
     <label>Category</label><br>
     <select name="category_id" required>
         <?php foreach ($categories as $cat): ?>
-            <option value="<?php echo $cat['id']; ?>">
-                <?php echo htmlspecialchars($cat['name']); ?>
+            <option value="<?= $cat['id'] ?>" <?= $old['category_id']==$cat['id']?'selected':'' ?>>
+                <?= htmlspecialchars($cat['name']); ?>
             </option>
         <?php endforeach; ?>
     </select><br><br>
 
     <label>Content</label><br>
-    <textarea name="content" rows="8" required></textarea><br><br>
+    <textarea name="content" rows="8" required><?= htmlspecialchars($old['content']) ?></textarea><br><br>
 
     <label>Featured Image</label><br>
     <div id="featurePreview"></div>
@@ -208,8 +228,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <label>Status</label><br>
     <select name="status">
-        <option value="draft">Draft</option>
-        <option value="published">Published</option>
+        <option value="draft" <?= $old['status']==='draft'?'selected':'' ?>>Draft</option>
+        <option value="published" <?= $old['status']==='published'?'selected':''?>>Published</option>
     </select><br><br>
 
     <button type="submit">Create Post</button>
