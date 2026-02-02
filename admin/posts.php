@@ -52,14 +52,32 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?= htmlspecialchars($post['created_at']); ?></td>
             <td>
                 <a href="<?=BASE_URL?>admin/edit-post?id=<?= $post['id']; ?>">Edit</a> |
-                <a href="<?=BASE_URL?>admin/delete-post?id=<?= $post['id']; ?>"
-                   onclick="return confirm('Delete this post?');">
-                   Delete
-                </a>
+                <button
+                    class="btn-delete"
+                    data-id="<?= $post['id']; ?>"
+                    data-title="<?= htmlspecialchars($post['title']); ?>"
+                >
+                    Delete
+                </button>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
+<div id="deleteModal" class="modal hidden">
+    <div class="modal-content">
+        <h3>Delete post</h3>
+        <p id="deleteMessage"></p>
+
+        <form method="post" action="<?=BASE_URL?>admin/delete-post" id="deleteForm">
+            <input type="hidden" name="post_id" id="deletePostId">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+
+            <button type="submit" class="danger">Delete</button>
+            <button type="button" id="cancelDelete">Cancel</button>
+        </form>
+    </div>
+</div>
+
 
 <p><a href="<?=BASE_URL?>admin/dashboard">Back to dashboard</a></p>
 
