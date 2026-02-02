@@ -131,13 +131,13 @@ button.danger {
 
 
 /* Create Post */
+
 .media-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 10px;
     margin-bottom: 10px;
     contain: layout paint;
-
 }
 
 .media-item {
@@ -173,10 +173,10 @@ button.danger {
     justify-content: center;
     align-items: center;
 }
-.post-featured {
+/* .post-featured {
     max-width: 80%;
     padding: 20px;
-}
+} */
 
 .image-remove input:checked ~ img {
     opacity: 0.4;
