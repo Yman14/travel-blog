@@ -124,6 +124,8 @@ document.querySelectorAll('.image-remove input').forEach(cb => {
     const postIdInput = document.getElementById('deletePostId');
     const cancelBtn = document.getElementById('cancelDelete');
 
+    if(!modal) return;
+
     document.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', () => {
             postIdInput.value = btn.dataset.id;
