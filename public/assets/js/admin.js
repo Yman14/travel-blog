@@ -34,6 +34,10 @@
     input.addEventListener('change', async () => {
         for (const file of input.files) {
             if (!file.type.startsWith('image/')) continue;
+            if (filesMap.size >= 10) {
+                alert('Maximum 10 images');
+                return;
+            }
             
             //create id for each file for easy tracking using map
             const id = crypto.randomUUID();
