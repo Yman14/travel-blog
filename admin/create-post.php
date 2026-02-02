@@ -83,7 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Upload gallery images to a temporary folder
         $tmpUploads = [];
         $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
-        mkdir($tmpDir, 0755, true);
+        if (!is_dir($tmpDir)) {
+            mkdir($tmpDir, 0755, true);
+        }
+        if (!is_dir($tmpDir) && !mkdir($tmpDir, 0755, true)) {
+            throw new RuntimeException('Failed to create temporary upload directory.');
+        }
 
         try{
             $pdo->beginTransaction();
@@ -175,10 +180,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 //unlink images if transaction fail
                 if (!empty($featuredPath)) {
-                    @unlink(UPLOAD_PATH . '/' . $featuredPath);
+                    unlink(UPLOAD_PATH . '/' . $featuredPath);
                 }
-                foreach ($tmpUploads as $tmpFile) {
-                    @unlink($tmpFile);
+                if (!empty($tmpUploads)) {
+                    foreach ($tmpUploads as $file) {
+                        unlink($file);
+                    }
                 }
             }
             //error_log($e->getMessage());
