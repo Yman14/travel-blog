@@ -43,10 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //validation
     if (!in_array($status, ['draft', 'published'], true)) {
-        $error .= 'Invalid post status.<br>';
+        $error = 'Invalid post status.<br>';
     }
     if ($title === '' || $content === '') {
-        $error .= 'Title and content are required.<br>';
+        $error = 'Title and content are required.<br>';
     }
 
     //path of saved image
@@ -62,16 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $featuredPath = null;
     if (!empty($_FILES['featured_image']['name'])) {
         if ($_FILES['featured_image']['error'] !== UPLOAD_ERR_OK) {
-            $error .= 'Featured image upload failed.<br>';
+            $error = 'Featured image upload failed.<br>';
         } else {
             if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
-                $error .= 'Featured image too large.';
+                $error = 'Featured image too large.';
             } else {
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
                 $mime  = finfo_file($finfo, $_FILES['featured_image']['tmp_name']);
                 finfo_close($finfo);
                 if (!in_array($mime, ['image/jpeg','image/png','image/webp'], true)) {
-                    $error .= 'Invalid featured image type.';
+                    $error = 'Invalid featured image type.';
+                }
+                if (!getimagesize($_FILES['featured_image']['tmp_name'])) {
+                    $error = 'Corrupted image.';
                 }
             }
         }
@@ -117,6 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             //for insert gallery images
             $postId = $pdo->lastInsertId();
+            if (count($_FILES['gallery_images']['name']) > 10) {
+                throw new Exception('Maximum 10 images allowed');
+            }
+
             if (!empty($_FILES['gallery_images']['name'][0])) {
                 $galleryErrors = [];
 
@@ -175,30 +182,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['flash_success'] = "Post created successfully.";
             header('Location:' . BASE_URL . 'admin/posts');
 
-        } catch (PDOException $e) {
-            if ($e->errorInfo[1] === 1062) {
-                $error .= ' Post title already exists. ';
-            }
         } catch (Throwable $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
+            }
 
-                //unlink images if transaction fail
-                if (!empty($featuredPath)) {
-                    unlink(UPLOAD_PATH . '/' . $featuredPath);
-                }
-                if (!empty($tmpUploads)) {
-                    foreach ($tmpUploads as $file) {
-                        unlink($file);
-                    }
+            // Check for MySQL Duplicate Entry code (1062)
+            if (isset($e->errorInfo) && $e->errorInfo[1] === 1062) {
+                $error = 'Post title already exists. ';
+            } else {
+                $error = 'Failed to create post. ';
+            }
+
+            //unlink images if transaction fail
+            if (!empty($featuredPath)) {
+                unlink(UPLOAD_PATH . '/' . $featuredPath);
+            }
+            if (!empty($tmpUploads)) {
+                foreach ($tmpUploads as $file) {
+                    unlink($file);
                 }
             }
             //error_log($e->getMessage());
-            $error .=  ' Failed to create post. ' . $e->getMessage();
+            $error .= $e->getMessage();
         }
-        
-        
-    }
+    }   
 }
 ?>
 
