@@ -5,16 +5,42 @@
 
     if (!featureInput || !preview) return;
 
-    featureInput.addEventListener('change', function (e) {
-        preview.innerHTML = '';
-        Array.from(e.target.files).forEach(file => {
-            if (!file.type.startsWith('image/')) return;
+    let objectUrl = null;
 
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(file);
-            img.classList.add("post-featured");
-            preview.appendChild(img);
+    featureInput.addEventListener('change', () => {
+        preview.innerHTML = '';
+
+        const file = featureInput.files[0];
+        if (!file || !file.type.startsWith('image/')) {
+            featureInput.value = '';
+            return;
+        }
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'media-item';
+
+        const img = document.createElement('img');
+        objectUrl = URL.createObjectURL(file);
+        img.src = objectUrl;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'media-remove';
+        btn.setAttribute('aria-label', 'Remove featured image');
+        btn.textContent = '×';
+
+        btn.addEventListener('click', () => {
+            if (objectUrl) {
+                URL.revokeObjectURL(objectUrl);
+                objectUrl = null;
+            }
+            featureInput.value = '';
+            preview.innerHTML = '';
         });
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(btn);
+        preview.appendChild(wrapper);
     });
 })();
 
