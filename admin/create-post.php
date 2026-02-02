@@ -80,17 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if(empty($error)){
+        // Upload gallery images to a temporary folder
+        $tmpUploads = [];
+        $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
+        mkdir($tmpDir, 0755, true);
+
         try{
             $pdo->beginTransaction();
             // slug generation
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
-            //check slug for duplicate
-            $check = $pdo->prepare("SELECT id FROM posts WHERE slug = :slug LIMIT 1");
-            $check->execute([':slug' => $slug]);
-            if ($check->fetch()) {
-                throw new Exception('Duplicate title');
-            }
 
             //For post
             $sql = "INSERT INTO posts (title, slug, content, featured_image, category_id, status)
@@ -109,11 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //for insert gallery images
             $postId = $pdo->lastInsertId();
             if (!empty($_FILES['gallery_images']['name'][0])) {
-                // Upload gallery images to a temporary folder
-                $tmpUploads = [];
-                $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
-                mkdir($tmpDir, 0755, true);
-
                 $galleryErrors = [];
 
                 foreach ($_FILES['gallery_images']['tmp_name'] as $i => $tmp) {
@@ -171,6 +165,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['flash_success'] = "Post created successfully.";
             header('Location:' . BASE_URL . 'admin/posts');
 
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] === 1062) {
+                $error .= ' Post title already exists. ';
+            }
         } catch (Throwable $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -184,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
             //error_log($e->getMessage());
-            $error = $e->getMessage() ?: 'Failed to create post.';
+            $error .=  ' Failed to create post. ' . $e->getMessage();
         }
         
         
