@@ -23,6 +23,11 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //check csrf toekn
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
+        throw new Exception('Invalid CSRF token');
+    }
+
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     $category_id = (int) $_POST['category_id'];
@@ -216,6 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 
 <form method="post" enctype="multipart/form-data" id="form">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
     <label>Title</label><br>
     <input type="text" name="title" value="<?= htmlspecialchars($old['title']) ?>" required><br><br>
