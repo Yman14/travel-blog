@@ -181,6 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $success = 'Post created successfully.';
             $_SESSION['flash_success'] = "Post created successfully.";
             header('Location:' . BASE_URL . 'admin/posts');
+            exit;
 
         } catch (Throwable $e) {
             if ($pdo->inTransaction()) {
