@@ -109,6 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //for insert gallery images
             $postId = $pdo->lastInsertId();
             if (!empty($_FILES['gallery_images']['name'][0])) {
+                // Upload gallery images to a temporary folder
+                $tmpUploads = [];
+                $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
+                mkdir($tmpDir, 0755, true);
+
                 $galleryErrors = [];
 
                 foreach ($_FILES['gallery_images']['tmp_name'] as $i => $tmp) {
@@ -134,7 +139,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
                     $name = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-                    move_uploaded_file($tmp, $uploadDir . '/' . $name);
+                    $tmpPath = $tmpDir . '/' . $name;
+                    move_uploaded_file($tmp, $tmpPath);
+                    $tmpUploads[] = $tmpPath;
+                    // move_uploaded_file($tmp, $uploadDir . '/' . $name);
 
                     $stmt = $pdo->prepare("
                         INSERT INTO post_images (post_id, file_path)
@@ -153,6 +161,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             //successful process
             $pdo->commit();
+
+            //save uploaded images
+            foreach ($tmpUploads as $tmpFile) {
+                rename($tmpFile, $uploadDir . '/' . basename($tmpFile));
+            }   
+
             $success = 'Post created successfully.';
             $_SESSION['flash_success'] = "Post created successfully.";
             header('Location:' . BASE_URL . 'admin/posts');
@@ -165,10 +179,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!empty($featuredPath)) {
                     @unlink(UPLOAD_PATH . '/' . $featuredPath);
                 }
-
-                // foreach ($tmpUploads as $tmpFile) {
-                //     @unlink($tmpFile);
-                // }
+                foreach ($tmpUploads as $tmpFile) {
+                    @unlink($tmpFile);
+                }
             }
             //error_log($e->getMessage());
             $error = $e->getMessage() ?: 'Failed to create post.';
