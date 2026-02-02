@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $_SESSION['admin_id']  = $admin['id'];
         $_SESSION['user_role'] = 'admin';
-        $_SESSION['csrf'] = bin2hex(random_bytes(32));
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
         header('Location: ' . BASE_URL . 'admin/dashboard');
         exit;
