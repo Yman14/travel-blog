@@ -115,3 +115,25 @@ document.querySelectorAll('.image-remove input').forEach(cb => {
         img.style.filter = e.target.checked ? 'grayscale(100%)' : 'none';
     });
 });
+
+
+//delete modal in manage posts(posts.php)
+(function () {
+    const modal = document.getElementById('deleteModal');
+    const message = document.getElementById('deleteMessage');
+    const postIdInput = document.getElementById('deletePostId');
+    const cancelBtn = document.getElementById('cancelDelete');
+
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+            postIdInput.value = btn.dataset.id;
+            message.textContent = `Are you sure you want to delete “${btn.dataset.title}”?`;
+            modal.classList.remove('hidden');
+        });
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        postIdInput.value = '';
+    });
+})();
