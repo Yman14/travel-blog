@@ -42,7 +42,7 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) {
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
             http_response_code(403);
             exit('Invalid CSRF token');
         }
@@ -238,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <form method="post" enctype="multipart/form-data">
-    <input type="hidden" name="csrf" value="<?= $_SESSION['csrf']; ?>">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
     
     <br><br><label for="title"><h3>Title</h3></label><br>
     <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
