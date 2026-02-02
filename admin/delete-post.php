@@ -2,12 +2,25 @@
 require_once '../includes/config.php';
 require_once __DIR__ . '/includes/auth.php';
 
-if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    exit('Method not allowed');
+}
+
+if (
+    empty($_POST['csrf_token']) ||
+    !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+) {
+    http_response_code(403);
+    exit('Invalid CSRF token');
+}
+
+if (empty($_POST['post_id']) || !ctype_digit($_POST['post_id'])) {
     http_response_code(400);
     exit('Invalid post ID');
 }
 
-$postId = (int) $_GET['id'];
+$postId = (int) $_POST['post_id'];
 
 try {
     $pdo->beginTransaction();
@@ -69,8 +82,8 @@ try {
         $pdo->rollBack();
     }
 
-    $_SESSION['flash_error'] = 'Failed to delete post.';
-    // error_log($e->getMessage());
+    $_SESSION['flash_error'] = 'Failed to delete post. ' . $e->getMessage();
+    error_log($e->getMessage());
 }
 
 header('Location: ' . BASE_URL . 'admin/posts');
