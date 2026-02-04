@@ -67,9 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //create new directory if dont exist
     $relativePath = date('Y/m/');
     $uploadDir = UPLOAD_PATH . '/' . $relativePath;
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
+    if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true) && !is_dir($uploadDir)) {
+        throw new RuntimeException('Failed to create upload directory');
     }
     
     //feature image upload process
