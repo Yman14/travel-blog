@@ -244,9 +244,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
 
     <h3>Featured Image</h3>
-    <div id="featurePreview">
+    <div id="featurePreview" class="media-item">
         <?php if ($post['featured_image']): ?>
-        <img src="<?= UPLOAD_URL .  $post['featured_image']; ?>" class="post-featured">
+        <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>">
         <?php endif; ?>
     </div>
     <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
@@ -267,14 +267,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="galleryPreview"></div>
     <?php if ($galleryImages): ?>
         <h3>Gallery Images</h3>
-        <ul>
+        <ul class="media-grid">
             <?php foreach ($galleryImages as $img): ?>
-                <li>
-                    <img src="<?= htmlspecialchars(UPLOAD_URL . $img['file_path']); ?>" style="max-width:120px;">
-                    <label class="image-remove">
-                        <input type="checkbox" name="remove_images[]" value="<?= $img['id']; ?>">
-                        Remove
-                    </label>
+                <li class="media-item">
+                    <img src="<?= htmlspecialchars(UPLOAD_URL . $img['file_path']); ?>">
+                    <input type="checkbox" name="remove_images[]" value="<?= $img['id']; ?>" class="image-remove">
                 </li>
             <?php endforeach; ?>
         </ul>

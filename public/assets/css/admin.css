@@ -178,9 +178,16 @@ button.danger {
     padding: 20px;
 } */
 
-.image-remove input:checked ~ img {
+/* .image-remove input:checked ~ img {
     opacity: 0.4;
     filter: grayscale(100%);
+} */
+
+.image-remove {
+    position:absolute;
+    top: 5px;
+    left: 5px;
+    width: min-content;
 }
 
 

@@ -138,7 +138,7 @@
 
 
 //darken if image is check tobe remove
-document.querySelectorAll('.image-remove input').forEach(cb => {
+document.querySelectorAll('.image-remove').forEach(cb => {
     cb.addEventListener('change', e => {
         const img = e.target.closest('li').querySelector('img');
         img.style.opacity = e.target.checked ? '0.4' : '1';
