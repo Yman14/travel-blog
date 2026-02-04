@@ -70,7 +70,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true) && !is_dir($uploadDir)) {
         throw new RuntimeException('Failed to create upload directory');
     }
-    
+    // Upload featured and gallery images to a temporary folder
+    //temp file
+    $tmpFeatured = null;
+    $tmpUploads = [];
+    $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
+    if (!is_dir($tmpDir)) {
+        mkdir($tmpDir, 0755, true);
+    }
+    if (!is_dir($tmpDir) && !mkdir($tmpDir, 0755, true)) {
+        throw new RuntimeException('Failed to create temporary upload directory.');
+    }
+
+
     //feature image upload process
     //variable for image path
     $featuredPath = null;
@@ -93,23 +105,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($error)) {
             $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
             $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
-            move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDir . '/' . $filename);
+            $tmpFeatured = $tmpDir . '/' . $filename;
+            move_uploaded_file($_FILES['featured_image']['tmp_name'], $tmpFeatured);
             $featuredPath = $relativePath . $filename;
         }
     }
     
     if(empty($error)) {
         try{
-            // Upload gallery images to a temporary folder
-            $tmpUploads = [];
-            $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
-            if (!is_dir($tmpDir)) {
-                mkdir($tmpDir, 0755, true);
-            }
-            if (!is_dir($tmpDir) && !mkdir($tmpDir, 0755, true)) {
-                throw new RuntimeException('Failed to create temporary upload directory.');
-            }
-            
             $pdo->beginTransaction();
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
@@ -224,6 +227,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //successful process
             $pdo->commit();
 
+            //save featured images
+            if ($tmpFeatured) {
+                rename($tmpFeatured, $uploadDir . '/' . basename($tmpFeatured));
+            }
+
             //save uploaded images
             foreach ($tmpUploads as $tmpFile) {
                 rename($tmpFile, $uploadDir . '/' . basename($tmpFile));
@@ -255,6 +263,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }catch (Exception $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
+            }
+            
+            //unlinking temp files
+            if ($tmpFeatured && is_file($tmpFeatured)) {
+                unlink($tmpFeatured);
             }
 
             if (!empty($tmpUploads)) {
