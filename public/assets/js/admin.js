@@ -140,7 +140,7 @@
 //darken if image is check tobe remove
 document.querySelectorAll('.image-remove').forEach(cb => {
     cb.addEventListener('change', e => {
-        const img = e.target.closest('li').querySelector('img');
+        const img = e.target.closest('.media-item').querySelector('img');
         img.style.opacity = e.target.checked ? '0.4' : '1';
         img.style.filter = e.target.checked ? 'grayscale(100%)' : 'none';
     });

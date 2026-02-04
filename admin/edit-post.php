@@ -40,6 +40,7 @@ $cats = $pdo->query("SELECT id, name FROM categories")->fetchAll(PDO::FETCH_ASSO
 
 $error = '';
 $success = '';
+$toDelete = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
@@ -54,6 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($title === '' || $content === '') {
         $error = 'Title and content are required.';
+    }
+
+    if (!in_array($status, ['draft','published'], true)) {
+        throw new Exception('Invalid status');
     }
 
     //get the old featured image before a new one is uploaded for unlinking later
@@ -127,6 +132,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
+
+            //delete featured image
+            if (!empty($_POST['remove_featured'])) {
+                $stmt = $pdo->prepare("
+                    UPDATE posts
+                    SET featured_image = NULL
+                    WHERE id = :id
+                ");
+                $stmt->execute([':id' => $postId]);
+            }
             
 
             //DELETE GALLERY
@@ -244,10 +259,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
 
     <h3>Featured Image</h3>
-    <div id="featurePreview" class="media-item">
-        <?php if ($post['featured_image']): ?>
-        <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>">
-        <?php endif; ?>
+    <div id="featurePreview">
+        <div class="media-item">
+            <?php if ($post['featured_image']): ?>
+            <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>">
+            <input type="checkbox" name="remove_featured" value="<?= $post['id']; ?>" class="image-remove">
+            <?php endif; ?>
+        </div>
     </div>
     <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
 
@@ -263,7 +281,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <textarea name="content" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
 
-    <input type="file" name="gallery_images[]" multiple id="galleryInput">
     <div id="galleryPreview"></div>
     <?php if ($galleryImages): ?>
         <h3>Gallery Images</h3>
@@ -276,6 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
+    <input type="file" name="gallery_images[]" multiple id="galleryInput">
 
     <select name="status">
         <option value="draft" <?php if ($post['status'] === 'draft') echo 'selected'; ?>>Draft</option>
