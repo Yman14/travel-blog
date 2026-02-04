@@ -40,7 +40,6 @@ $cats = $pdo->query("SELECT id, name FROM categories")->fetchAll(PDO::FETCH_ASSO
 
 $error = '';
 $success = '';
-$toDelete = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (
@@ -67,6 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //get the old featured image before a new one is uploaded for unlinking later
     $oldFeaturedImage = $post['featured_image'] ?? null;
 
+    //delete files holder
+    $toDelete = [];
+
     //create new directory if dont exist
     $relativePath = date('Y/m/');
     $uploadDir = UPLOAD_PATH . '/' . $relativePath;
@@ -78,9 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tmpFeatured = null;
     $tmpUploads = [];
     $tmpDir = UPLOAD_PATH . '/tmp/' . session_id() . '/' . $postId;
-    if (!is_dir($tmpDir)) {
-        mkdir($tmpDir, 0755, true);
-    }
     if (!is_dir($tmpDir) && !mkdir($tmpDir, 0755, true)) {
         throw new RuntimeException('Failed to create temporary upload directory.');
     }
@@ -108,6 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($error)) {
             $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
             $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
+            if (!is_uploaded_file($_FILES['featured_image']['tmp_name'])) {
+                throw new RuntimeException('Invalid upload source');
+            }
             $tmpFeatured = $tmpDir . '/' . $filename;
             move_uploaded_file($_FILES['featured_image']['tmp_name'], $tmpFeatured);
             $featuredPath = $relativePath . $filename;
@@ -116,6 +118,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if(empty($error)) {
         try{
+            //temp untewsted
+            if (!empty($_POST['remove_featured']) && $featuredPath !== null) {
+                throw new Exception('Cannot remove and upload featured image simultaneously.');
+            }
+
             $pdo->beginTransaction();
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
@@ -149,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute($params);
 
             //delete featured image
-            if (!empty($_POST['remove_featured'])) {
+            if (!empty($_POST['remove_featured']) && $featuredPath === null) {
                 $stmt = $pdo->prepare("
                     UPDATE posts
                     SET featured_image = NULL
@@ -179,11 +186,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             //insert new gallery images
-            if (count($_FILES['gallery_images']['name']) > 10) {
-                throw new Exception('Maximum 10 images allowed');
-            }
             if (!empty($_FILES['gallery_images']['name'][0])) {
                 $galleryErrors = [];
+
+                //cehck numbers of uploaded imags
+                if (count($_FILES['gallery_images']['name']) > 10) {
+                    throw new Exception('Maximum 10 images allowed');
+                }
 
                 foreach ($_FILES['gallery_images']['tmp_name'] as $i => $tmp) {
                     //prevents corrupted temp files reads
@@ -241,12 +250,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } 
 
             //only unlink the files from storage after transaction passed
-            //for featured iamge
-            if ($featuredPath !== null && $oldFeaturedImage) {
+
+            // FEATURED IMAGE CLEANUP (post-commit)
+            if ($oldFeaturedImage) {
                 $oldPath = UPLOAD_PATH . '/' . $oldFeaturedImage;
 
-                if (is_file($oldPath)) {
-                    unlink($oldPath);
+                //replaced by new image
+                if ($featuredPath !== null) {
+                    if (is_file($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
+
+                //explicitly removed without replacement
+                elseif (!empty($_POST['remove_featured'])) {
+                    if (is_file($oldPath)) {
+                        unlink($oldPath);
+                    }
                 }
             }
             //for gallery image
@@ -258,6 +278,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
             }
+            if($tmpDir){
+                @rmdir($tmpDir);
+                @rmdir(dirname($tmpDir));
+            }
+            
             $success = 'Post updated successfully.';
             $_SESSION['flash_success'] = "Post updated successfully.";
             header('Location:' . BASE_URL . 'admin/posts');
@@ -294,7 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
 
 
-<form method="post" enctype="multipart/form-data">
+<form id="form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
     
     <br><br><label for="title"><h3>Title</h3></label><br>
@@ -305,7 +330,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="media-item">
             <?php if ($post['featured_image']): ?>
             <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>">
-            <input type="checkbox" name="remove_featured" value="<?= $post['id']; ?>" class="image-remove">
+            <input type="checkbox" name="remove_featured" value="1" class="image-remove">
             <?php endif; ?>
         </div>
     </div>
