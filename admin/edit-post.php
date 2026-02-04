@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //temp file
     $tmpFeatured = null;
     $tmpUploads = [];
-    $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
+    $tmpDir = UPLOAD_PATH . '/tmp/' . session_id() . '/' . $postId;
     if (!is_dir($tmpDir)) {
         mkdir($tmpDir, 0755, true);
     }
