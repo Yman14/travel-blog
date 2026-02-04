@@ -173,6 +173,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             //insert new gallery images
+            if (count($_FILES['gallery_images']['name']) > 10) {
+                throw new Exception('Maximum 10 images allowed');
+            }
             if (!empty($_FILES['gallery_images']['name'][0])) {
                 $galleryErrors = [];
 
