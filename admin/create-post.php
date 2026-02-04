@@ -91,9 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Upload gallery images to a temporary folder
         $tmpUploads = [];
         $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
-        if (!is_dir($tmpDir)) {
-            mkdir($tmpDir, 0755, true);
-        }
         if (!is_dir($tmpDir) && !mkdir($tmpDir, 0755, true)) {
             throw new RuntimeException('Failed to create temporary upload directory.');
         }
