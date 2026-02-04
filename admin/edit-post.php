@@ -101,6 +101,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if(empty($error)) {
         try{
+            // Upload gallery images to a temporary folder
+            $tmpUploads = [];
+            $tmpDir = UPLOAD_PATH . '/tmp/' . session_id();
+            if (!is_dir($tmpDir)) {
+                mkdir($tmpDir, 0755, true);
+            }
+            if (!is_dir($tmpDir) && !mkdir($tmpDir, 0755, true)) {
+                throw new RuntimeException('Failed to create temporary upload directory.');
+            }
+            
             $pdo->beginTransaction();
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
 
@@ -190,7 +200,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
                     $name = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-                    move_uploaded_file($tmp, $uploadDir . '/' . $name);
+                    $tmpPath = $tmpDir . '/' . $name;
+                    move_uploaded_file($tmp, $tmpPath);
+                    $tmpUploads[] = $tmpPath;
 
                     $stmt = $pdo->prepare("
                         INSERT INTO post_images (post_id, file_path)
@@ -209,6 +221,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             //successful process
             $pdo->commit();
+
+            //save uploaded images
+            foreach ($tmpUploads as $tmpFile) {
+                rename($tmpFile, $uploadDir . '/' . basename($tmpFile));
+            } 
 
             //only unlink the files from storage after transaction passed
             //for featured iamge
