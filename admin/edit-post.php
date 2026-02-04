@@ -254,6 +254,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
             }
+
+            if (!empty($tmpUploads)) {
+                foreach ($tmpUploads as $file) {
+                    unlink($file);
+                }
+            }
+
             //error_log($e->getMessage());
             $error = $e->getMessage() ?: 'Failed to create post.';
         }
