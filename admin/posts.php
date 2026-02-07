@@ -4,14 +4,27 @@ require_once '../includes/config.php';
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/admin-header.php';
 
-//fetch datas
+// handle filter status logic
+$statusFilter = $_GET['status'] ?? 'all';
+$whereClauses = [];
+$params = [];
+
+if (in_array($statusFilter, ['draft', 'published'], true)) {
+    $whereClauses[] = 'posts.status = :status';
+    $params[':status'] = $statusFilter;
+}
+
+$whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';
+
+// sql qyery
 $sql = "SELECT posts.id, posts.title, posts.status, posts.created_at, categories.name AS category
         FROM posts
-        JOIN categories ON posts.category_id = categories.id
+        LEFT JOIN categories ON posts.category_id = categories.id
+        $whereSql
         ORDER BY posts.created_at DESC";
 
 $stmt = $pdo->prepare($sql);
-$stmt->execute();
+$stmt->execute($params);
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -33,6 +46,13 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <?php unset($_SESSION['flash_error']); ?>
 <?php endif; ?>
+
+<!-- filter status -->
+<nav class="admin-filters">
+    <a href="?status=all" class="<?= $statusFilter === 'all' ? 'active' : '' ?>">All</a>
+    <a href="?status=published" class="<?= $statusFilter === 'published' ? 'active' : '' ?>">Published</a>
+    <a href="?status=draft" class="<?= $statusFilter === 'draft' ? 'active' : '' ?>">Draft</a>
+</nav>
 
 <!-- table -->
 <table border="1" cellpadding="8">
