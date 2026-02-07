@@ -33,14 +33,16 @@ $stmt->execute();
 $post = $stmt->fetch(PDO::FETCH_ASSOC);
 if(empty($post)){
     header('Location:' . BASE_URL . '404.php');
+    exit;
 }
 
+
 //fetch category
-$catsql = "SELECT name FROM categories WHERE id = :id";
+$catsql = "SELECT * FROM categories WHERE id = :id";
 $stmt = $pdo->prepare($catsql);
 $stmt->bindValue(':id', $post['category_id'], PDO::PARAM_INT);
 $stmt->execute();
-$cat = $stmt->fetch(PDO::FETCH_ASSOC);
+$category = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 //Fetcj gallery this time
@@ -67,7 +69,7 @@ require_once '../includes/header.php';
         <header>
             <h1><?= htmlspecialchars($post['title']); ?></h1>
             <small class="post-meta">
-                    <a href="<?=BASE_URL?>category.php?id=<?= $post['category_id']; ?>"><?= htmlspecialchars($cat['name']); ?></a>
+                    <a href="<?=BASE_URL?>category.php?id=<?= $post['category_id']; ?>"><?= htmlspecialchars($category['name']); ?></a>
                      · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?>
             </small>
         </header>
