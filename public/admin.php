@@ -22,6 +22,7 @@ $routes = [
     '/' => 'login.php',
     '/login' => 'login.php',
     '/dashboard' => 'dashboard.php',
+    '/posts-bulk' => 'posts-bulk.php',
     '/posts' => 'posts.php',
     '/create-post' => 'create-post.php',
     '/edit-post' => 'edit-post.php',
