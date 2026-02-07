@@ -7,7 +7,6 @@ PERFORMANCE & SECURITY CHECKS
 bug found
 large amount of images upload will cause lag (more than 10) - fragment it first
 change get to post for create post, 
-cattegory in post is broken
  
 alert notification for create post
 
