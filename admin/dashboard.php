@@ -63,18 +63,23 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h2>Recent Posts</h2>
 
         <?php if ($recentPosts): ?>
+            <form method="post" action="posts-bulk">
             <table class="admin-table">
                 <thead>
                     <tr>
+                        <th><input type="checkbox" id="check-all"></th>
                         <th>Title</th>
                         <th>Status</th>
                         <th>Date</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($recentPosts as $post): ?>
                     <tr>
+                        <td>
+                            <input type="checkbox" name="post_ids[]" value="<?= $post['id'] ?>">
+                        </td>
                         <td><?= htmlspecialchars($post['title']) ?></td>
                         <td>
                             <span class="status <?= $post['status'] ?>">
@@ -89,6 +94,16 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            <div class="bulk-actions">
+                <select name="action" required>
+                    <option value="">Bulk actions</option>
+                    <option value="publish">Publish</option>
+                    <option value="draft">Move to Draft</option>
+                    <option value="delete">Delete</option>
+                </select>
+                <button type="submit">Apply</button>
+            </div>
+            </form>
         <?php else: ?>
             <p class="empty-state">No posts yet.</p>
         <?php endif; ?>
