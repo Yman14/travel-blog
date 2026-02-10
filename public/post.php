@@ -73,6 +73,7 @@ require_once '../includes/header.php';
                      · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?>
             </small>
         </header>
+        <p class="post-body"><?= nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
         <div class="post-featured">
             <?php
                 if($post['featured_image']){
@@ -83,7 +84,6 @@ require_once '../includes/header.php';
             ?>
             <img src="<?= $image; ?>" class="image">
         </div>
-        <p class="post-body"><?= nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
         <?php if ($gallery): ?>
         <div class="post-gallery">
             <?php foreach ($gallery as $img): ?>

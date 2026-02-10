@@ -335,8 +335,13 @@ input, textarea {
 
 /* Single POst */
 
-.post-body p {
-    margin-bottom: 1.25rem;
+.post-body {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+    max-width: 90%;
+    font-weight: 400;
+    margin: 1.5rem auto;
 }
 
 .post-body img {
@@ -458,5 +463,9 @@ h1.title {
     .site-nav {
         justify-content: center;
         font-size: 0.8rem;      /* Slightly smaller text for mobile */
+    }
+
+    .post-body {
+        font-size: 16px;
     }
 }
