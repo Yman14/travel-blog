@@ -33,13 +33,14 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <p><a href="<?=BASE_URL?>admin/create-post">Create New Post</a></p>
 
-<!-- check for success notifcation -->
+<!-- check for notifcation -->
 <?php if (isset($_SESSION['flash_success'])): ?>
     <div class="notify-success">
         <?= htmlspecialchars($_SESSION['flash_success']); ?>
     </div>
     <?php unset($_SESSION['flash_success']); ?>
 <?php endif; ?>
+
 <?php if (isset($_SESSION['flash_error'])): ?>
     <div class="alert-error">
         <?= htmlspecialchars($_SESSION['flash_error']); ?>
