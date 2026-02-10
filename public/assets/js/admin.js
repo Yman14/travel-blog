@@ -156,7 +156,7 @@ document.querySelectorAll('.image-remove').forEach(cb => {
 
     if(!modal) return;
 
-    document.querySelectorAll('.btn-delete').forEach(btn => {
+    document.querySelectorAll('.btn-delete-trigger').forEach(btn => {
         btn.addEventListener('click', () => {
             postIdInput.value = btn.dataset.id;
             message.textContent = `Are you sure you want to delete “${btn.dataset.title}”?`;

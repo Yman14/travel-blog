@@ -106,7 +106,7 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <a href="<?= BASE_URL ?>admin/edit-post?id=<?= $post['id'] ?>">Edit</a>
                                 <button
                                     type="button"
-                                    class="btn-delete"
+                                    class="btn-delete-trigger"
                                     data-id="<?= $post['id']; ?>"
                                     data-title="<?= htmlspecialchars($post['title']); ?>"
                                 >
