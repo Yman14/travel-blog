@@ -75,7 +75,7 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <?php unset($_SESSION['flash_error']); ?>
         <?php endif; ?>
-        
+
         <?php if ($recentPosts): ?>
             <form method="post" action="posts-bulk">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
@@ -93,7 +93,7 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($recentPosts as $post): ?>
                         <tr>
                             <td>
-                                <input type="checkbox" name="post_ids[]" value="<?= $post['id'] ?>">
+                                <input type="checkbox" name="post_ids[]" value="<?= $post['id'] ?>" class="post-checkbox">
                             </td>
                             <td><?= htmlspecialchars($post['title']) ?></td>
                             <td>

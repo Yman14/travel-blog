@@ -169,3 +169,9 @@ document.querySelectorAll('.image-remove').forEach(cb => {
         postIdInput.value = '';
     });
 })();
+
+
+// 1. Check/Uncheck All
+document.getElementById('check-all').addEventListener('change', function() {
+    document.querySelectorAll('.post-checkbox').forEach(cb => cb.checked = this.checked);
+});
