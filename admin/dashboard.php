@@ -89,11 +89,33 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= date('M j, Y', strtotime($post['created_at'])) ?></td>
                         <td>
                             <a href="<?= BASE_URL ?>admin/edit-post?id=<?= $post['id'] ?>">Edit</a>
+                            <button
+                                type="button"
+                                class="btn-delete"
+                                data-id="<?= $post['id']; ?>"
+                                data-title="<?= htmlspecialchars($post['title']); ?>"
+                            >
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            <div id="deleteModal" class="modal hidden">
+                <div class="modal-content">
+                    <h3>Delete post</h3>
+                    <p id="deleteMessage"></p>
+
+                    <form method="post" action="<?=BASE_URL?>admin/delete-post" id="deleteForm">
+                        <input type="hidden" name="post_id" id="deletePostId">
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+
+                        <button type="submit" class="danger">Delete</button>
+                        <button type="button" id="cancelDelete">Cancel</button>
+                    </form>
+                </div>
+            </div>
             <div class="bulk-actions">
                 <select name="action" required>
                     <option value="">Bulk actions</option>
