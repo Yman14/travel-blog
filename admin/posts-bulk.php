@@ -7,9 +7,25 @@ if (
     empty($_POST['post_ids']) ||
     empty($_POST['action'])
 ) {
-    header('Location: posts');
+    $_SESSION['flash_error'] = 'Bulk action failed.';
+    header('Location: dashboard');
     exit;
 }
+
+if (
+    empty($_POST['csrf_token']) ||
+    !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+) {
+    // http_response_code(403);
+    // exit('Invalid CSRF token');
+    $_SESSION['flash_error'] = 'Invalid CSRF token.';
+    header('Location: dashboard');
+    exit;
+}
+
+// notifi
+$_SESSION['flash_success'] = '';
+
 
 $ids = array_map('intval', $_POST['post_ids']);
 $action = $_POST['action'];
@@ -37,5 +53,6 @@ switch ($action) {
 $stmt = $pdo->prepare($sql);
 $stmt->execute($ids);
 
-header('Location: posts');
+$_SESSION['flash_success'] = 'Bulk action ' . $_SESSION['flash_success'] . 'successfully.';
+header('Location: dashboard');
 exit;
