@@ -209,13 +209,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!-- //admin form html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Post</title>
-</head>
-<body>
-
 <h1>Create New Post</h1>
 
 <?php if (!empty($error)): ?>
