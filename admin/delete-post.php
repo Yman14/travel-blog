@@ -84,6 +84,8 @@ try {
 
     $_SESSION['flash_error'] = 'Failed to delete post. ' . $e->getMessage();
     error_log($e->getMessage());
+    header('Location: ' . BASE_URL . 'admin/posts');
+    exit;
 }
 
 header('Location: ' . BASE_URL . 'admin/posts');
