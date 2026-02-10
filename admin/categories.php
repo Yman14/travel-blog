@@ -4,7 +4,15 @@ require_once '../includes/config.php';
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/admin-header.php';
 
-$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
+// $categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
+$sql = "
+    SELECT c.id, c.name, COUNT(p.id) AS post_count
+    FROM categories c
+    LEFT JOIN posts p ON p.category_id = c.id
+    GROUP BY c.id
+    ORDER BY c.name ASC
+";
+$categories = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <h1>Manage Categories</h1>
@@ -25,17 +33,48 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll(PD
     <?php unset($_SESSION['flash_success']); ?>
 <?php endif; ?>
 
+<table class="admin-table">
+<thead>
+<tr>
+    <th>Name</th>
+    <th>Posts</th>
+    <th>Actions</th>
+</tr>
+</thead>
+<tbody>
 
-<ul>
 <?php foreach ($categories as $cat): ?>
-    <li>
-        <?php echo htmlspecialchars($cat['name']); ?>
-        <form method="post" action="<?=BASE_URL?>admin/delete-category" style="display:inline;">
-            <input type="hidden" name="id" value="<?php echo $cat['id']; ?>">
-            <button type="submit" onclick="return confirm('Delete category?')">Delete</button>
+<tr>
+    <td>
+        <form method="post" action="category-update.php" class="inline-form">
+            <input type="hidden" name="id" value="<?= $cat['id'] ?>">
+            <input type="text" name="name"
+                   value="<?= htmlspecialchars($cat['name']) ?>"
+                   required>
+            <button type="submit">Save</button>
         </form>
-    </li>
+    </td>
+
+    <td><?= $cat['post_count'] ?></td>
+
+    <td>
+        <?php if ($cat['post_count'] == 0): ?>
+            <form method="post" action="category-delete.php" class="inline-form">
+                <input type="hidden" name="id" value="<?= $cat['id'] ?>">
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                <button class="danger"
+                    onclick="return confirm('Delete this category?')">
+                    Delete
+                </button>
+            </form>
+        <?php else: ?>
+            <span class="muted">In use</span>
+        <?php endif; ?>
+    </td>
+</tr>
 <?php endforeach; ?>
-</ul>
+
+</tbody>
+</table>
 
 <?php require_once 'includes/admin-footer.php'; ?>
