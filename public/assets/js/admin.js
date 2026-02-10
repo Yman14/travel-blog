@@ -172,6 +172,12 @@ document.querySelectorAll('.image-remove').forEach(cb => {
 
 
 // 1. Check/Uncheck All
-document.getElementById('check-all').addEventListener('change', function() {
+(function() {
+    const checkAll = document.getElementById('check-all');
+    if(!checkAll) return;
+
+    checkAll.addEventListener('change', function() {
     document.querySelectorAll('.post-checkbox').forEach(cb => cb.checked = this.checked);
-});
+    });
+})();
+
