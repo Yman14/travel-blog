@@ -88,5 +88,6 @@ try {
     exit;
 }
 
-header('Location: ' . BASE_URL . 'admin/posts');
+$redirect = $_POST['return_url'] ?? (BASE_URL . 'admin/posts');
+header("Location: " . $redirect);
 exit;

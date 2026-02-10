@@ -139,6 +139,7 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p id="deleteMessage"></p>
 
             <form method="post" action="<?=BASE_URL?>admin/delete-post" id="deleteForm">
+                <input type="hidden" name="return_url" value="<?= $_SERVER['REQUEST_URI']; ?>">
                 <input type="hidden" name="post_id" id="deletePostId">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
 
