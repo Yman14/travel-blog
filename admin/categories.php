@@ -17,7 +17,11 @@ $categories = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 <h1>Manage Categories</h1>
 
-<p><a href="<?=BASE_URL?>admin/create-category">Add Category</a></p>
+<!-- create new category -->
+<form method="post" action="<?=BASE_URL?>admin/create-category" class="create-category">
+    <input type="text" name="name" placeholder="New category name" required>
+    <button>Add</button>
+</form>
 
 <!-- check for notifcation -->
 <?php if (isset($_SESSION['flash_success'])): ?>
