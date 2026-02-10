@@ -19,18 +19,19 @@ $categories = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 <p><a href="<?=BASE_URL?>admin/create-category">Add Category</a></p>
 
-<!-- check for alert notifi -->
-<?php if (isset($_SESSION['flash_error'])): ?>
-    <div class="alert-error">
-        <?= htmlspecialchars($_SESSION['flash_error']); ?>
-    </div>
-    <?php unset($_SESSION['flash_error']); ?>
-<?php endif; ?>
+<!-- check for notifcation -->
 <?php if (isset($_SESSION['flash_success'])): ?>
     <div class="notify-success">
         <?= htmlspecialchars($_SESSION['flash_success']); ?>
     </div>
     <?php unset($_SESSION['flash_success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['flash_error'])): ?>
+    <div class="alert-error">
+        <?= htmlspecialchars($_SESSION['flash_error']); ?>
+    </div>
+    <?php unset($_SESSION['flash_error']); ?>
 <?php endif; ?>
 
 <table class="admin-table">
