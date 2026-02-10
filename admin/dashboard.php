@@ -64,53 +64,54 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <?php if ($recentPosts): ?>
             <form method="post" action="posts-bulk">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" id="check-all"></th>
-                        <th>Title</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($recentPosts as $post): ?>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="post_ids[]" value="<?= $post['id'] ?>">
-                        </td>
-                        <td><?= htmlspecialchars($post['title']) ?></td>
-                        <td>
-                            <span class="status <?= $post['status'] ?>">
-                                <?= ucfirst($post['status']) ?>
-                            </span>
-                        </td>
-                        <td><?= date('M j, Y', strtotime($post['created_at'])) ?></td>
-                        <td>
-                            <a href="<?= BASE_URL ?>admin/edit-post?id=<?= $post['id'] ?>">Edit</a>
-                            <button
-                                type="button"
-                                class="btn-delete"
-                                data-id="<?= $post['id']; ?>"
-                                data-title="<?= htmlspecialchars($post['title']); ?>"
-                            >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-            <div class="bulk-actions">
-                <select name="action" required>
-                    <option value="">Bulk actions</option>
-                    <option value="publish">Publish</option>
-                    <option value="draft">Move to Draft</option>
-                    <option value="delete">Delete</option>
-                </select>
-                <button type="submit">Apply</button>
-            </div>
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="check-all"></th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($recentPosts as $post): ?>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="post_ids[]" value="<?= $post['id'] ?>">
+                            </td>
+                            <td><?= htmlspecialchars($post['title']) ?></td>
+                            <td>
+                                <span class="status <?= $post['status'] ?>">
+                                    <?= ucfirst($post['status']) ?>
+                                </span>
+                            </td>
+                            <td><?= date('M j, Y', strtotime($post['created_at'])) ?></td>
+                            <td>
+                                <a href="<?= BASE_URL ?>admin/edit-post?id=<?= $post['id'] ?>">Edit</a>
+                                <button
+                                    type="button"
+                                    class="btn-delete"
+                                    data-id="<?= $post['id']; ?>"
+                                    data-title="<?= htmlspecialchars($post['title']); ?>"
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="bulk-actions">
+                    <select name="action" required>
+                        <option value="">Bulk actions</option>
+                        <option value="publish">Publish</option>
+                        <option value="draft">Move to Draft</option>
+                        <option value="delete">Delete</option>
+                    </select>
+                    <button type="submit" onclick="return confirm('Apply bulk action to selected items?')">Apply</button>
+                </div>
             </form>
         <?php else: ?>
             <p class="empty-state">No posts yet.</p>
