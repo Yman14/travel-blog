@@ -46,13 +46,14 @@ switch ($action) {
         break;
 
     default:
-        header('Location: posts');
+        $_SESSION['flash_error'] = 'Failed action.';
+        header('Location: dashboard');
         exit;
 }
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($ids);
 
-$_SESSION['flash_success'] = 'Bulk action ' . $_SESSION['flash_success'] . 'successfully.';
+$_SESSION['flash_success'] = 'Bulk action updated successfully.';
 header('Location: dashboard');
 exit;
