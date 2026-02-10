@@ -18,7 +18,7 @@ $count = $stmt->fetchColumn();
 
 if ($count > 0) {
     $_SESSION['flash_error'] = "Cannot delete: This category still has active posts.";
-    header('Location: categories.php');
+    header('Location:' . BASE_URL .  'admin/categories');
     exit;
 }
 
