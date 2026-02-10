@@ -46,7 +46,7 @@ $categories = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 <?php foreach ($categories as $cat): ?>
 <tr>
     <td>
-        <form method="post" action="category-update.php" class="inline-form">
+        <form method="post" action="update-category" class="inline-form">
             <input type="hidden" name="id" value="<?= $cat['id'] ?>">
             <input type="text" name="name"
                    value="<?= htmlspecialchars($cat['name']) ?>"
