@@ -61,7 +61,21 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Recent Posts -->
     <section class="dashboard-panel">
         <h2>Recent Posts</h2>
+        <!-- check for notifcation -->
+        <?php if (isset($_SESSION['flash_success'])): ?>
+            <div class="notify-success">
+                <?= htmlspecialchars($_SESSION['flash_success']); ?>
+            </div>
+            <?php unset($_SESSION['flash_success']); ?>
+        <?php endif; ?>
 
+        <?php if (isset($_SESSION['flash_error'])): ?>
+            <div class="alert-error">
+                <?= htmlspecialchars($_SESSION['flash_error']); ?>
+            </div>
+            <?php unset($_SESSION['flash_error']); ?>
+        <?php endif; ?>
+        
         <?php if ($recentPosts): ?>
             <form method="post" action="posts-bulk">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
