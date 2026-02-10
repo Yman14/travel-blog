@@ -60,7 +60,7 @@ $categories = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
     <td>
         <?php if ($cat['post_count'] == 0): ?>
-            <form method="post" action="category-delete.php" class="inline-form">
+            <form method="post" action="<?=BASE_URL?>admin/delete-category" class="inline-form">
                 <input type="hidden" name="id" value="<?= $cat['id'] ?>">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 <button class="danger"
