@@ -81,6 +81,7 @@ ul {
 }
 
 .admin-login input {
+    width: 100%;
     font-size: 1rem;
 }
 
@@ -209,6 +210,7 @@ table {
 td, th {
     padding: 0.75rem;
     border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 /* form normalization */
@@ -226,7 +228,7 @@ button:hover {
 }
 
 input, textarea, select {
-    width: 100%;
+    width: 50%;
     padding: 0.6rem;
     margin-bottom: 1rem;
     outline: none;
