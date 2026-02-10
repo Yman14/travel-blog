@@ -29,6 +29,7 @@ $routes = [
     '/delete-post' => 'delete-post.php',
     '/categories' => 'categories.php',
     '/create-category' => 'create-category.php',
+    '/update-category' => 'update-category.php',
     '/delete-category' => 'delete-category.php',
     '/logout' => 'logout.php',
 ];
