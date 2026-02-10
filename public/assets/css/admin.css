@@ -192,6 +192,12 @@ button.danger {
 }
 
 
+/* MANAGE CATEGORIES */
+.create-category {
+    margin: 1rem auto;
+}
+
+
 /* FOOTER */
 .admin-footer {
     text-align: center;
