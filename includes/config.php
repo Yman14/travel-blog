@@ -37,3 +37,6 @@ function getSettings(PDO $pdo): array {
     $stmt = $pdo->query("SELECT `key`, `value` FROM settings");
     return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 }
+
+//fetch settings
+$settings = getSettings($pdo);

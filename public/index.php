@@ -3,27 +3,24 @@ require_once '../includes/config.php';
 require_once '../includes/header.php';
 //echo "Database connected successfully";
 
-//the data target to be fetch
+//Fetch posts
 $sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.featured_image, posts.created_at, posts.category_id
         FROM posts
         WHERE posts.status = 'published'
         ORDER BY posts.created_at DESC";
 
-//for security
 $stmt = $pdo->prepare($sql);
-
-//actual excecution
 $stmt->execute();
-
-//fetch result
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="hero-section">
     <img src= "<?= BASE_URL ?>assets/images/hero.jpg" class="hero-image">
     <div class="hero-content">
-        <h1 class="hero-title">One life. Let’s go.</h1>
-        <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p>
+        <!-- <h1 class="hero-title">One life. Let’s go.</h1>
+        <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p> -->
+        <h1 class="hero-title"><?= htmlspecialchars($settings['hero_title']) ?></h1>
+        <p class="hero-description"><?= htmlspecialchars($settings['hero_subtitle']) ?></p>
     </div>
 </div>
 <div class="main-content">
