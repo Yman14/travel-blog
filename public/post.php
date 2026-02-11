@@ -105,6 +105,21 @@ require_once '../includes/header.php';
 <?php endif; ?>
 
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "<?= htmlspecialchars($post['title'], ENT_QUOTES) ?>",
+  "datePublished": "<?= date('c', strtotime($post['created_at'])) ?>",
+  "image": "<?= htmlspecialchars($og_image) ?>",
+  "author": {
+    "@type": "Person",
+    "name": "<?= htmlspecialchars($settings['site_author'] ?? 'Admin') ?>"
+  }
+}
+</script>
+
 <?php
 require_once '../includes/footer.php';
 ?>
