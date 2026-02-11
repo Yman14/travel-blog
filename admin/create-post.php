@@ -254,6 +254,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <option value="draft" <?= $old['status']==='draft'?'selected':'' ?>>Draft</option>
         <option value="published" <?= $old['status']==='published'?'selected':''?>>Published</option>
     </select><br><br>
+    <!-- <div class="seo-section">
+        <h3>SEO Settings (Optional)</h3>
+        
+        <label for="meta_title">Custom Meta Title</label><br>
+        <input type="text" name="meta_title" id="meta_title" 
+            value="<?= htmlspecialchars($post['meta_title'] ?? '') ?>" 
+            placeholder="Leave blank to use post title"><br>
+
+        <label for="meta_description">Meta Description</label><br>
+        <textarea name="meta_description" id="meta_description" rows="3" 
+                placeholder="Brief summary for search engines"><?= htmlspecialchars($post['meta_description'] ?? '') ?></textarea><br>
+    </div> -->
 
     <button type="submit">Create Post</button>
 

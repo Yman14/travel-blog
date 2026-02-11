@@ -47,6 +47,12 @@ CREATE TABLE settings (
     `value` TEXT NOT NULL
 );
 
+-- add for SEO
+ALTER TABLE posts
+ADD meta_title VARCHAR(255) NULL,
+ADD meta_description VARCHAR(255) NULL;
+
+
 --------------------------------------------------
 -- create sample data
 INSERT INTO categories (name, slug)

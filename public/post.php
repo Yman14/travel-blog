@@ -57,6 +57,9 @@ $stmt->execute([':slug' => $slug]);
 $gallery = $stmt->fetchAll();
 
 
+$canonical = BASE_URL . $slug;
+
+
 //display
 require_once '../includes/header.php';
 ?>

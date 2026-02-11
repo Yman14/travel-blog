@@ -1,21 +1,11 @@
 <?php 
 // Use the post title if it exists, otherwise use a default
-if (isset($post['title'])) {
-    $title = $post['title'];
-} elseif (isset($page_title)) {
-    // Otherwise, use the custom variable set in the file
-    $title = $page_title;
-} else {
-    // Default title if nothing else is found
-    $title = "Travel Blog";
-}
+$title = $post['title'] ?? $page_title ?? "Travel Blog"  . " | Travel Blog";
         
 // Use the post content for description if it exists, otherwise use a default
-if (isset($post['content'])) {
-    $desc = mb_strimwidth(strip_tags($post['content']), 0, 155, "...");
-} else {
-    $desc = "Welcome to my travel blog where I share my latest adventures.";
-}
+$desc = isset($post['content']) 
+        ? mb_strimwidth(strip_tags($post['content']), 0, 155, "...") 
+        : "Welcome to my travel blog where I share my latest adventures.";
 
 $sql = "SELECT id, name FROM categories ORDER BY name ASC";
 $stmt = $pdo->prepare($sql);
@@ -30,6 +20,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
+    <link rel="canonical" href="<?= htmlspecialchars($canonical ?? BASE_URL) ?>">
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/images/favicon.ico">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css">
 </head>
