@@ -30,6 +30,6 @@ RewriteRule ^post/([a-zA-Z0-9-]+)/?$ post.php?slug=$1 [L,QSA]
 # Route /admin/... to admin.php
 RewriteRule ^admin(/.*)?$ admin.php [QSA,L]
 
+#sitemap php
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
-
-#

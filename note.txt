@@ -24,3 +24,7 @@ manage posts(add, delete, edit)
 change hero content
 change contact
 manage social media links
+
+
+Submit sitemap Google Search Console after deployment
+change robots.txt
