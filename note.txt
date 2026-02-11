@@ -15,6 +15,7 @@ alert notification for create post
 fixed images upload
 pre deployment hardening (policy, about, contact)
 additional css
+seting site author for schema markup
 
 
 admin
