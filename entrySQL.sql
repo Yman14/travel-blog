@@ -42,6 +42,11 @@ CREATE TABLE post_images (
         ON DELETE CASCADE
 );
 
+CREATE TABLE settings (
+    `key` VARCHAR(50) PRIMARY KEY,
+    `value` TEXT NOT NULL
+);
+
 --------------------------------------------------
 -- create sample data
 INSERT INTO categories (name, slug)
@@ -64,6 +69,14 @@ VALUES (
   1,
   'published'
 );
+
+INSERT INTO settings (`key`, `value`) VALUES
+('hero_title', 'Explore the World'),
+('hero_subtitle', 'Stories, guides, and travel inspiration'),
+('contact_email', 'hello@example.com'),
+('facebook', ''),
+('instagram', ''),
+('twitter', '');
 
 
 --------------------------------------------------
