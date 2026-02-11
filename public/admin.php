@@ -31,6 +31,8 @@ $routes = [
     '/create-category' => 'create-category.php',
     '/update-category' => 'update-category.php',
     '/delete-category' => 'delete-category.php',
+    '/settings' => 'settings.php',
+    '/settings-save' => 'settings-save.php',
     '/logout' => 'logout.php',
 ];
 
