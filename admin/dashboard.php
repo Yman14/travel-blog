@@ -56,6 +56,7 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a class="btn primary" href="<?= BASE_URL ?>admin/create-post">+ New Post</a>
         <a class="btn" href="<?= BASE_URL ?>admin/posts">Manage Posts</a>
         <a class="btn" href="<?= BASE_URL ?>admin/categories">Manage Categories</a>
+        <a class="btn" href="<?=BASE_URL?>admin/settings">Site Settings</a>
     </div>
 
     <!-- Recent Posts -->
