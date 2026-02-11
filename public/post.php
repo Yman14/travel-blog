@@ -56,8 +56,11 @@ $stmt = $pdo->prepare("
 $stmt->execute([':slug' => $slug]);
 $gallery = $stmt->fetchAll();
 
-
+//SEO | SMO
 $canonical = BASE_URL . $slug;
+$og_image = $post['featured_image']
+    ? UPLOAD_URL . $post['featured_image']
+    : BASE_URL . 'assets/images/default-post.jpg';
 
 
 //display
