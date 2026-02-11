@@ -31,3 +31,9 @@ try {
     error_log($e->getMessage()); 
     die("Database connection failed. Please try again later.");
 }
+
+//settings
+function getSettings(PDO $pdo): array {
+    $stmt = $pdo->query("SELECT `key`, `value` FROM settings");
+    return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+}
