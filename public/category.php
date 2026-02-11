@@ -64,7 +64,7 @@ require_once '../includes/header.php';
         ?>
         <article class="category-post">
             <a href="post.php?slug=<?= $post['slug']; ?>">
-                <img src= "<?= $image?>" class="category-post-featured">
+                <img src= "<?= $image?>" class="category-post-featured" loading="lazy">
                 <!-- <h3 class="category-post-title"><?= htmlspecialchars($post['title']); ?></h3> -->
                 <div class="category-post-title">
                     <h3 class="text"><?= htmlspecialchars($post['title']); ?></h3>

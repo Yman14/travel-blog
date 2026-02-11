@@ -36,7 +36,7 @@ require_once '../includes/header.php';
 ?>
 
 <div class="hero-section">
-    <img src= "<?= BASE_URL ?>assets/images/hero.jpg" class="hero-image">
+    <img src= "<?= BASE_URL ?>assets/images/hero.jpg" class="hero-image" loading="lazy">
     <div class="hero-content">
         <!-- <h1 class="hero-title">One life. Let’s go.</h1>
         <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p> -->
@@ -67,7 +67,7 @@ require_once '../includes/header.php';
                         }
                     ?>
                     <a href="<?= BASE_URL ?>post/<?= $post['slug']; ?>">
-                        <img src="<?= $image; ?>" class="image">
+                        <img src="<?= $image; ?>" class="image" loading="lazy">
                     </a>
                 </div>
                 <p class="post-excerpt">

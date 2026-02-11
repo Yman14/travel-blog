@@ -329,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="featurePreview">
         <div class="media-item">
             <?php if ($post['featured_image']): ?>
-            <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>">
+            <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>" loading="lazy">
             <input type="checkbox" name="remove_featured" value="1" class="image-remove">
             <?php endif; ?>
         </div>
@@ -354,7 +354,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <ul class="media-grid">
             <?php foreach ($galleryImages as $img): ?>
                 <li class="media-item">
-                    <img src="<?= htmlspecialchars(UPLOAD_URL . $img['file_path']); ?>">
+                    <img src="<?= htmlspecialchars(UPLOAD_URL . $img['file_path']); ?>" loading="lazy">
                     <input type="checkbox" name="remove_images[]" value="<?= $img['id']; ?>" class="image-remove">
                 </li>
             <?php endforeach; ?>

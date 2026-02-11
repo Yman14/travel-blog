@@ -88,7 +88,7 @@ require_once '../includes/header.php';
                     $image = BASE_URL . 'assets/images/default-post.jpg';
                 }
             ?>
-            <img src="<?= $image; ?>" class="image">
+            <img src="<?= $image; ?>" class="image" loading="lazy">
         </div>
         <?php if ($gallery): ?>
         <div class="post-gallery">
