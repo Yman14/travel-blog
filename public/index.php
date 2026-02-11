@@ -1,17 +1,38 @@
 <?php
 require_once '../includes/config.php';
-require_once '../includes/header.php';
 //echo "Database connected successfully";
 
 //Fetch posts
-$sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.featured_image, posts.created_at, posts.category_id
-        FROM posts
-        WHERE posts.status = 'published'
-        ORDER BY posts.created_at DESC";
+// $sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.featured_image, posts.created_at, posts.category_id
+//         FROM posts
+//         WHERE posts.status = 'published'
+//         ORDER BY posts.created_at DESC";
 
-$stmt = $pdo->prepare($sql);
+// $stmt = $pdo->prepare($sql);
+// $stmt->execute();
+// $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//pagination
+$limit = 10;
+$page = max(1, (int)($_GET['page'] ?? 1));
+$offset = ($page - 1) * $limit;
+
+// total count needed for the Next button logic
+$totalPosts = $pdo->query("SELECT COUNT(*) FROM posts WHERE status = 'published'")->fetchColumn();
+$totalPages = ceil($totalPosts / $limit);
+
+$stmt = $pdo->prepare("
+    SELECT * FROM posts 
+    WHERE status = 'published'
+    ORDER BY created_at DESC
+    LIMIT :limit OFFSET :offset
+");
+$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+require_once '../includes/header.php';
 ?>
 
 <div class="hero-section">
@@ -91,6 +112,32 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- recent posts -->
     </section>
 </aside>
+</div>
+
+<!-- pagination -->
+<div class="pagination-container">
+    <div class="pagination-pills">
+        
+        <?php if ($page > 1): ?>
+            <a href="?page=<?= $page - 1 ?>" class="pill arrow">←</a>
+        <?php endif; ?>
+
+        <?php
+        // Only show 2 pages before and 2 pages after current page
+        $start = max(1, $page - 2);
+        $end = min($totalPages, $page + 2);
+
+        for ($i = $start; $i <= $end; $i++): ?>
+            <a href="?page=<?= $i ?>" class="pill <?= ($i == $page) ? 'active' : '' ?>">
+                <?= $i ?>
+            </a>
+        <?php endfor; ?>
+
+        <?php if ($page < $totalPages): ?>
+            <a href="?page=<?= $page + 1 ?>" class="pill arrow">→</a>
+        <?php endif; ?>
+
+    </div>
 </div>
 <?php
 require_once '../includes/footer.php';
