@@ -15,9 +15,13 @@
     Require all denied
 </Files>
 
+#Enable GZIP (The "Compressor")
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript
+</IfModule>
+
 
 # URL Rewriting (Clean URLs)
-
 RewriteEngine On
 
 # Ensure images, CSS, and JS files load normally
