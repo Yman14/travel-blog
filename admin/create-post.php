@@ -2,6 +2,7 @@
 $page_title = "Create New Post";
 require_once '../includes/config.php';
 require_once __DIR__ . '/includes/auth.php';
+require_once '../includes/functions.php';
 require_once __DIR__ . '/includes/admin-header.php';
 
 //fetch categories
@@ -82,8 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($error)) {
             $ext = pathinfo($_FILES['featured_image']['name'], PATHINFO_EXTENSION);
             $filename = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
-            move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDir . '/' . $filename);
-            $featuredPath = $relativePath . $filename;
+            $uploadDestination = $uploadDir . '/' . $filename;
+            // move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDir . '/' . $filename);
+            // $featuredPath = $relativePath . $filename;
+            if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $uploadDestination)) {
+                //optimize image
+                $db_filename = convertToWebP($uploadDestination);
+                
+                // Save $db_filename to your database
+                $featuredPath = $relativePath . $db_filename;
+            }
         }
     }
 
