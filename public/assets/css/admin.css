@@ -139,13 +139,17 @@ ul {
     font-weight: 600;
 }
 
-.card .icon {
-    width: 20%;
-    height: 70%;
+.card .icon {    
     position: absolute;
-    top: 10%;
-    right: 10%;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
     fill: white;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    border-radius: 4px;
 }
 
 .card:hover {
@@ -153,17 +157,9 @@ ul {
     transform: translateY(-2px);
 }
 
-.card:nth-child(2) {
-    background-color: #1a82fabb;
-}
-
-.card:nth-child(3) {
-    background-color: #561afabb;
-}
-
-.card:nth-child(4) {
-    background-color: #fa1ac2bb;
-}
+.card:nth-child(2) { background-color: #1a82fabb; }
+.card:nth-child(3) { background-color: #561afabb; }
+.card:nth-child(4) { background-color: #fa1ac2bb; }
 
 
 
