@@ -73,14 +73,13 @@ header {
 
     background-color: transparent;
   
-    /* Modern Scroll-Driven Animation */
     animation: fill-background linear forwards;
     animation-timeline: scroll();
     animation-range: 0px 100px;
 }
 @keyframes fill-background {
   to {
-    background-color: rgba(255, 255, 255, 0.5); /* Your desired color */
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
   }
 }
