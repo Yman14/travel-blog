@@ -171,13 +171,26 @@ document.querySelectorAll('.image-remove').forEach(cb => {
 })();
 
 
-// 1. Check/Uncheck All
+// Check/Uncheck All, count checkbox
 (function() {
     const checkAll = document.getElementById('check-all');
-    if(!checkAll) return;
+    const countDisplay = document.getElementById('selected-count');
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    if(!checkAll || !checkboxes || !countDisplay)  return;
 
     checkAll.addEventListener('change', function() {
-    document.querySelectorAll('.post-checkbox').forEach(cb => cb.checked = this.checked);
+        document.querySelectorAll('.post-checkbox').forEach(cb => cb.checked = this.checked);
     });
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            let checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            if(checkAll.checked) checkedCount = checkedCount - 1;
+            countDisplay.textContent = checkedCount;
+        });
+    });
+    
 })();
+
 

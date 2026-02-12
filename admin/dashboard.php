@@ -12,7 +12,7 @@ $totalCategories = $pdo->query("SELECT COUNT(*) FROM categories")->fetchColumn()
 
 // Recent posts
 $stmt = $pdo->prepare("
-    SELECT id, title, status, created_at
+    SELECT id, title, status, created_at, featured_image
     FROM posts
     ORDER BY created_at DESC
     LIMIT 5
@@ -82,7 +82,14 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Recent Posts -->
     <section class="dashboard-panel">
-        <h2>Recent Posts</h2>
+        <div class="panel-header">
+            <h2>Recent Posts</h2>
+            <label class="custom-checkbox">
+                <input type="checkbox" id="check-all">
+                <span class="checkmark"></span>
+            </label>
+            <span class="post-count"><?= count($recentPosts) ?> total</span>
+        </div>
         <!-- check for notifcation -->
         <?php if (isset($_SESSION['flash_success'])): ?>
             <div class="notify-success">
@@ -99,56 +106,77 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
 
         <?php if ($recentPosts): ?>
-            <form method="post" action="posts-bulk">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" id="check-all"></th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($recentPosts as $post): ?>
-                        <tr>
-                            <td>
+        <form method="post" action="posts-bulk" id="bulkActionForm">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+            
+            <div class="post-list-container">
+                <?php foreach ($recentPosts as $post): ?>
+                    <div class="post-row-card">
+                        <!-- Select & Thumbnail -->
+                        <div class="post-row-leading">
+                            <label class="custom-checkbox">
                                 <input type="checkbox" name="post_ids[]" value="<?= $post['id'] ?>" class="post-checkbox">
-                            </td>
-                            <td><?= htmlspecialchars($post['title']) ?></td>
-                            <td>
-                                <span class="status <?= $post['status'] ?>">
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="post-thumb-preview">
+                                <?php if($post['featured_image']): ?>
+                                    <img src="<?= UPLOAD_URL . $post['featured_image'] ?>" alt="preview">
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- Content Info -->
+                        <div class="post-row-main">
+                            <h4 class="post-title-link">
+                                <a href="<?= BASE_URL ?>admin/edit-post?id=<?= $post['id'] ?>">
+                                    <?= htmlspecialchars($post['title']) ?>
+                                </a>
+                            </h4>
+                            <div class="post-meta-sub">
+                                <span class="meta-item">
+                                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                    <?= date('M j, Y', strtotime($post['created_at'])) ?>
+                                </span>
+                                <span class="status-pill <?= $post['status'] ?>">
                                     <?= ucfirst($post['status']) ?>
                                 </span>
-                            </td>
-                            <td><?= date('M j, Y', strtotime($post['created_at'])) ?></td>
-                            <td>
-                                <a href="<?= BASE_URL ?>admin/edit-post?id=<?= $post['id'] ?>">Edit</a>
-                                <button
-                                    type="button"
-                                    class="btn-delete-trigger"
-                                    data-id="<?= $post['id']; ?>"
-                                    data-title="<?= htmlspecialchars($post['title']); ?>"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <div class="bulk-actions">
-                    <select name="action" required>
+                            </div>
+                        </div>
+
+                        <!-- Action Group -->
+                        <div class="post-row-actions">
+                            <a title="Edit" href="<?= BASE_URL ?>admin/edit-post?id=<?= $post['id'] ?>" class="action-icon-btn edit">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                            </a>
+                            <button 
+                                type="button" 
+                                class="action-icon-btn delete btn-delete-trigger"
+                                data-id="<?= $post['id']; ?>"
+                                data-title="<?= htmlspecialchars($post['title']); ?>"
+                            >
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Floating Bulk Action Bar -->
+            <div class="bulk-action-footer">
+                <div class="selection-info">
+                    <span id="selected-count">0</span> items selected
+                </div>
+                <div class="action-controls">
+                    <select name="action" required class="modern-select">
                         <option value="">Bulk actions</option>
                         <option value="publish">Publish</option>
                         <option value="draft">Move to Draft</option>
                         <option value="delete">Delete</option>
                     </select>
-                    <button type="submit" onclick="return confirm('Apply bulk action to selected items?')">Apply</button>
+                    <button type="submit" class="btn-apply-bulk" onclick="return confirm('Apply bulk action to selected items?')">Apply Action</button>
                 </div>
-            </form>
+            </div>
+        </form>
         <?php else: ?>
             <p class="empty-state">No posts yet.</p>
         <?php endif; ?>
