@@ -34,20 +34,36 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- KPI Cards -->
     <div class="dashboard-cards">
         <div class="card">
-            <strong><?= $totalPosts ?></strong>
-            <span>Total Posts</span>
+            <strong class="value"><?= $totalPosts ?></strong>
+            <span class="name">Total Posts</span>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>Total Posts</title>
+                <path d="M19 5V19H5V5H19M21 3H3V21H21V3M17 17H7V16H17V17M17 15H7V14H17V15M17 12H7V7H17V12Z" />
+            </svg>
         </div>
         <div class="card">
-            <strong><?= $publishedPosts ?></strong>
-            <span>Published</span>
+            <strong class="value"><?= $publishedPosts ?></strong>
+            <span class="name">Published</span>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>Published</title>
+                <path d="M5,4V6H19V4H5M5,14H9V20H15V14H19L12,7L5,14Z" />
+            </svg>
         </div>
         <div class="card">
-            <strong><?= $draftPosts ?></strong>
-            <span>Drafts</span>
+            <strong class="value"><?= $draftPosts ?></strong>
+            <span class="name">Drafts</span>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>Drafts</title>
+                <path d="M20.8 22.7L15 16.9V20H9V14H5L8.6 10.4L1.1 3L2.4 1.7L22.1 21.4L20.8 22.7M19 6V4H7.2L9.2 6H19M17.2 14H19L12 7L11.1 7.9L17.2 14Z" />
+            </svg>
         </div>
         <div class="card">
-            <strong><?= $totalCategories ?></strong>
-            <span>Categories</span>
+            <strong class="value"><?= $totalCategories ?></strong>
+            <span class="name">Categories</span>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>Categories</title>
+                <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
+            </svg>
         </div>
     </div>
 
