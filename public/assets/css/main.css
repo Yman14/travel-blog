@@ -80,7 +80,7 @@ header {
 }
 @keyframes fill-background {
   to {
-    background-color: rgba(255, 255, 255, 0.9); /* Your desired color */
+    background-color: rgba(255, 255, 255, 0.5); /* Your desired color */
     backdrop-filter: blur(10px);
   }
 }
