@@ -47,6 +47,12 @@ CREATE TABLE settings (
     `value` TEXT NOT NULL
 );
 
+CREATE TABLE login_attempts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(45),
+    attempted_at DATETIME
+);
+
 -- add for SEO
 ALTER TABLE posts
 ADD meta_title VARCHAR(255) NULL,

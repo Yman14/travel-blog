@@ -8,8 +8,26 @@ if (isset($_SESSION['admin_id']) || ($_SESSION['user_role'] ?? '') === 'admin') 
     exit;
 }
 
+//delete old records from login attempt
+$pdo->query("DELETE FROM login_attempts WHERE attempted_at < (NOW() - INTERVAL 1 HOUR)");
+
 //fetch the data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //check login attemps
+    $stmt = $pdo->prepare("
+        SELECT COUNT(*) FROM login_attempts
+        WHERE ip_address = ?
+        AND attempted_at > (NOW() - INTERVAL 5 MINUTE)
+    ");
+    $stmt->execute([$_SERVER['REMOTE_ADDR']]);
+
+    if ($stmt->fetchColumn() > 5) {
+         $_SESSION['flash_error'] = 'Too many failed attempts. Try again in 5 minutes.';
+        header('Location: ' . BASE_URL . 'admin/login');
+        exit;
+    }
+
+
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
@@ -20,8 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    //verify password and redirect to the dashboard 
     if ($admin && password_verify($password, $admin['password'])) {
+        //clear record for this ip
+        $clearStmt = $pdo->prepare("DELETE FROM login_attempts WHERE ip_address = ?");
+        $clearStmt->execute([$_SERVER['REMOTE_ADDR']]);
+
+        // replace the current session id with a new 
         session_regenerate_id(true);
 
         $_SESSION['admin_id']  = $admin['id'];
@@ -31,7 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ' . BASE_URL . 'admin/dashboard');
         exit;
     }else {
+        $stmt = $pdo->prepare("
+            INSERT INTO login_attempts (ip_address, attempted_at)
+            VALUES (?, NOW())
+        ");
+        $stmt->execute([$_SERVER['REMOTE_ADDR']]);
+
         $_SESSION['flash_error'] = 'Invalid login credentials';
+        header('Location: ' . BASE_URL . 'admin/login');
+        exit;
     }
 }
 
@@ -43,7 +73,7 @@ $page_title = 'Admin Login';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars('$page_title', ENT_QUOTES, 'UTF-8'); ?></title>
+    <title><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css">
 </head>
 <body>
