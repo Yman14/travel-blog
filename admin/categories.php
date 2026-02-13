@@ -19,6 +19,7 @@ $categories = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 <!-- create new category -->
 <form method="post" action="<?=BASE_URL?>admin/create-category" class="create-category">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input type="text" name="name" placeholder="New category name" required>
     <button>Add</button>
 </form>

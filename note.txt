@@ -17,6 +17,7 @@ pre deployment hardening (policy, about, contact)
 additional css
 seting site author for schema markup
 convert images to webp
+csrf token error - no proper ui
 
 
 admin
