@@ -53,6 +53,13 @@ CREATE TABLE login_attempts (
     attempted_at DATETIME
 );
 
+-- Cannot delete category if posts exist
+ALTER TABLE posts
+ADD CONSTRAINT fk_category
+FOREIGN KEY (category_id)
+REFERENCES categories(id)
+ON DELETE RESTRICT;
+
 -- add for SEO
 ALTER TABLE posts
 ADD meta_title VARCHAR(255) NULL,
