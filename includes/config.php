@@ -3,6 +3,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+//session security
+ini_set('session.cookie_httponly', 1);
+ini_set('session.use_only_cookies', 1);
+// Force cookies to only be sent over HTTPS
+ini_set('session.cookie_secure', 1); 
+
 // Define Paths
 // URL paths (for HTML)
 define('BASE_URL', '/');
