@@ -17,42 +17,87 @@
 body {
     font-family: system-ui, sans-serif;
     background: #f6f6f6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 ul {
     list-style-type: none;
 }
 
-/* HEADER */
+/* GLOBAL */
+.container {
+    width: 100dvw;
+    margin-inline: auto;
+}
 
+/* HEADER */
 .admin-header {
-    background: var(--primary);
+    background: var(--bg-light);
     padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-header .header-content {
+    width: 100%;
+    padding-inline: 20%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.admin-header .logo {
+    width: 35px;
+    height: 35px;
+    background-color: burlywood;
+}
+
+.admin-header nav {
+    flex: .5;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 5px;
+}
+
 .admin-header a {
-    color: #fff;
-    margin-right: 1rem;
+    color: var(--text);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 700;
+}
+
+.log a {
+    background-color: var(--accent);
+    color: #fff;
+    font-size: 1em;
+    padding: .2em .7em;
+    border-radius: 99px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    display: inline-block;
+}
+.admin-header a:hover{
+    border-radius: 99px;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
 }
 
 /* MAIN CONTENT */
 .admin-content {
-    max-width: 1000px;
-    margin: 2rem auto;
-    background: #fff;
+    flex: 1;
+    margin-inline: auto;
+    background: var(--bg-light);
     padding: 2rem;
 }
 
 .admin-section {
-    max-width: 1000px;
+    max-width: 100%;
+    padding-inline: 20%;
     margin: 2rem auto;
-    background: #fff;
-    padding: 2rem;
+    background: var(--bg-light);
     border-radius: 20px;
 }
 
@@ -476,10 +521,11 @@ button.danger {
 
 /* FOOTER */
 .admin-footer {
+    margin-top: auto;
+    height: 50px;
     text-align: center;
     font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 2rem;
+    color: var(--muted);
 }
 
 /* TABLES / LISTS */
@@ -553,4 +599,5 @@ input, textarea {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+    
 }
