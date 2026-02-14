@@ -23,7 +23,7 @@ $recentPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- html -->
- <section class="admin-dashboard">
+ <section class="admin-section admin-dashboard">
 
     <!-- Header -->
     <header class="admin-dashboard-header">
