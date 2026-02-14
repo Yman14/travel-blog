@@ -3,6 +3,7 @@ remaining task
 Ui POLSH & RESPONSVENESS, 
 SEO & LEGAL PAGES, 
 PERFORMANCE & SECURITY CHECKS
+add dark mode
 
 bug found
 large amount of images upload will cause lag (more than 10) - fragment it first
