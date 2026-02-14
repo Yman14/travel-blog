@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header class="admin-header">
+<header class="admin-header container">
     <nav>
         <a href="<?=BASE_URL?>admin/dashboard">Dashboard</a>
         <a href="<?=BASE_URL?>admin/posts">Posts</a>
@@ -17,4 +17,4 @@
     </nav>
 </header>
 
-<main class="admin-content">
+<main class="admin-content container">
