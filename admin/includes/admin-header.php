@@ -9,12 +9,15 @@
 <body>
 
 <header class="admin-header container">
-    <nav>
-        <a href="<?=BASE_URL?>admin/dashboard">Dashboard</a>
-        <a href="<?=BASE_URL?>admin/posts">Posts</a>
-        <a href="<?=BASE_URL?>admin/categories">Categories</a>
-        <a href="<?=BASE_URL?>admin/logout">Logout</a>
-    </nav>
+    <div class="header-content">
+        <div class="logo">x</div>
+        <nav>
+            <a href="<?=BASE_URL?>admin/dashboard">Dashboard</a>
+            <a href="<?=BASE_URL?>admin/posts">Posts</a>
+            <a href="<?=BASE_URL?>admin/categories">Categories</a>
+        </nav>
+        <div class="log"><a href="<?=BASE_URL?>admin/logout">Logout</a></div>
+    </div>
 </header>
 
 <main class="admin-content container">
