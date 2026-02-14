@@ -79,7 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Upload featured and gallery images to a temporary folder
     //temp file
     $tmpFeatured = null;
+    $featuredPath = null;
     $tmpUploads = [];
+    $galleryPath = null;
     $tmpDir = UPLOAD_PATH . '/tmp/' . session_id() . '/' . $postId;
     if (!is_dir($tmpDir) && !mkdir($tmpDir, 0755, true)) {
         throw new RuntimeException('Failed to create temporary upload directory.');
@@ -88,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //feature image upload process
     //variable for image path
-    $featuredPath = null;
+    
     if (!empty($_FILES['featured_image']['name'])) {
         if ($_FILES['featured_image']['error'] !== UPLOAD_ERR_OK) {
             $error .= 'Featured image upload failed.<br>';
@@ -115,6 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $tmpFeatured)) {
                 //optimize image
                 $db_filename = convertToWebP($tmpFeatured);
+
+                //update the path name
                 $tmpFeatured = $tmpDir . '/' . $db_filename;
                 
                 // Save $db_filename to your database
@@ -225,8 +229,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $ext = pathinfo($_FILES['gallery_images']['name'][$i], PATHINFO_EXTENSION);
                     $name = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
                     $tmpPath = $tmpDir . '/' . $name;
-                    move_uploaded_file($tmp, $tmpPath);
-                    $tmpUploads[] = $tmpPath;
+                    if (move_uploaded_file($tmp, $tmpPath)) {
+                        //optimize image
+                        $db_filename = convertToWebP($tmpPath);
+
+                        //update the path name
+                        $tmpPath = $tmpDir . '/' . $db_filename;
+                        $tmpUploads[] = $tmpPath;
+                        
+                        // Save $db_filename to your database
+                        $galleryPath = $relativePath . $db_filename;
+                    }
 
                     $stmt = $pdo->prepare("
                         INSERT INTO post_images (post_id, file_path)
@@ -234,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ");
                     $stmt->execute([
                         ':post_id' => $postId,
-                        ':path' => $relativePath . $name
+                        ':path' => $galleryPath
                     ]);
                 }
 
@@ -292,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $success = 'Post updated successfully.';
             $_SESSION['flash_success'] = "Post updated successfully.";
-            header('Location:' . BASE_URL . 'admin/posts');
+            header('Location:' . BASE_URL . 'admin/dashboard');
             exit;
 
         }catch (Exception $e) {
@@ -377,7 +390,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Update Post</button>
 </form>
 
-<p><a href="<?=BASE_URL?>admin/posts">Back to posts</a></p>
+<p><a href="<?=BASE_URL?>admin/posts">Manage All Posts</a></p>
 
 <?php
 require_once 'includes/admin-footer.php';
