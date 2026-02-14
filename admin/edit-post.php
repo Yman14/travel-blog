@@ -2,6 +2,7 @@
 $page_title = "Edit Post";
 require_once '../includes/config.php';
 require_once __DIR__ . '/includes/auth.php';
+require_once '../includes/functions.php';
 require_once __DIR__ . '/includes/admin-header.php';
 
 //validate id url
@@ -111,8 +112,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new RuntimeException('Invalid upload source');
             }
             $tmpFeatured = $tmpDir . '/' . $filename;
-            move_uploaded_file($_FILES['featured_image']['tmp_name'], $tmpFeatured);
-            $featuredPath = $relativePath . $filename;
+            if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $tmpFeatured)) {
+                //optimize image
+                $db_filename = convertToWebP($tmpFeatured);
+                $tmpFeatured = $tmpDir . '/' . $db_filename;
+                
+                // Save $db_filename to your database
+                $featuredPath = $relativePath . $db_filename;
+            }
         }
     }
     
