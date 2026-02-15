@@ -56,10 +56,16 @@ ul {
     position: relative;
 }
 
-.admin-header .logo {
+.admin-header .logo a {
+    display: flex;
+    align-items: center;
+    color: var(--primary);
+}
+
+.admin-header .logo a img{
     width: 35px;
     height: 35px;
-    background-color: burlywood;
+    display: inline-block;
 }
 
 .admin-header nav {

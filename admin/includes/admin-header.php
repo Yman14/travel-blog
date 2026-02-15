@@ -11,7 +11,12 @@
 
 <header class="admin-header container">
     <div class="header-content">
-        <div class="logo">x</div>
+        <div class="logo">
+            <a href="">
+                <img src="<?=BASE_URL?>assets/images/logo.png" loading="lazy">
+                <div class="website-name"><?=htmlspecialchars($settings['website_name'] ?? 'Admin') ?></div>
+            </a>
+            </div>
         <nav>
             <a href="<?=BASE_URL?>admin/dashboard">DASHBOARD</a>
             <a href="<?=BASE_URL?>admin/posts">POSTS</a>
