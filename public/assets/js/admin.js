@@ -193,4 +193,33 @@ document.querySelectorAll('.image-remove').forEach(cb => {
     
 })();
 
+//open panel for more button(dashboard mobile) 
+(function() {
+    const btn = document.querySelector('.more');
+    const header = document.querySelector('.header-content');
+    const nav = document.querySelector('nav');
+    const logout = document.querySelector('.logout');
+    const body = document.body;
+    if(!btn || !header) return;
+
+    btn.addEventListener('click', () => {
+        body.classList.add('lock-scroll');
+        const panel = document.createElement('div');
+        panel.className = "more-panel";
+        const exit = document.createElement('button');
+        exit.className = "exit-panel";
+        exit.textContent = 'x';
+        nav.style.display = "block";
+        panel.appendChild(exit);
+        panel.appendChild(nav);
+        panel.appendChild(logout);
+        header.appendChild(panel);
+        exit.addEventListener('click', () => {
+            console.log("exit");
+            body.classList.remove('lock-scroll');
+            panel.remove();
+        });
+    });
+})();
+
 
