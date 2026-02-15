@@ -198,7 +198,7 @@ document.querySelectorAll('.image-remove').forEach(cb => {
     const btn = document.querySelector('.more');
     const header = document.querySelector('.header-content');
     const nav = document.querySelector('nav');
-    const logout = document.querySelector('.logout');
+    const logout = document.querySelector('.log');
     const body = document.body;
     if(!btn || !header) return;
 
@@ -209,7 +209,8 @@ document.querySelectorAll('.image-remove').forEach(cb => {
         const exit = document.createElement('button');
         exit.className = "exit-panel";
         exit.textContent = 'x';
-        nav.style.display = "block";
+        nav.style.display = "flex";
+        logout.style.display = "flex";
         panel.appendChild(exit);
         panel.appendChild(nav);
         panel.appendChild(logout);
