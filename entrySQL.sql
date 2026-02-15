@@ -95,7 +95,10 @@ INSERT INTO settings (`key`, `value`) VALUES
 ('contact_email', 'hello@example.com'),
 ('facebook', ''),
 ('instagram', ''),
-('twitter', '');
+('twitter', ''),
+('website_name', 'Lily'),
+('site_author', 'Lily');
+
 
 
 --------------------------------------------------
