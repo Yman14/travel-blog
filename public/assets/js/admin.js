@@ -176,8 +176,9 @@ document.querySelectorAll('.image-remove').forEach(cb => {
     const checkAll = document.getElementById('check-all');
     const countDisplay = document.getElementById('selected-count');
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const panel = document.querySelector('.bulk-action-footer');
 
-    if(!checkAll || !checkboxes || !countDisplay)  return;
+    if(!checkAll || !checkboxes || !countDisplay || !panel)  return;
 
     checkAll.addEventListener('change', function() {
         document.querySelectorAll('.post-checkbox').forEach(cb => cb.checked = this.checked);
@@ -188,6 +189,7 @@ document.querySelectorAll('.image-remove').forEach(cb => {
             let checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
             if(checkAll.checked) checkedCount = checkedCount - 1;
             countDisplay.textContent = checkedCount;
+            (checkedCount <= 1) ? panel.style.display = 'none' : panel.style.display = 'flex';
         });
     });
     

@@ -386,12 +386,11 @@ input[type='checkbox'] {
 .bulk-action-footer {
     position: sticky;
     bottom: 20px;
-    /* background: #1e293b; */
     background-color: color-mix(in srgb, var(--primary), transparent 50%);
     color: white;
     padding: 12px 24px;
     border-radius: 16px;
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
