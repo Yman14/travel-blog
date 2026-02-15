@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
     <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css">
@@ -12,11 +13,11 @@
     <div class="header-content">
         <div class="logo">x</div>
         <nav>
-            <a href="<?=BASE_URL?>admin/dashboard">Dashboard</a>
-            <a href="<?=BASE_URL?>admin/posts">Posts</a>
-            <a href="<?=BASE_URL?>admin/categories">Categories</a>
+            <a href="<?=BASE_URL?>admin/dashboard">DASHBOARD</a>
+            <a href="<?=BASE_URL?>admin/posts">POSTS</a>
+            <a href="<?=BASE_URL?>admin/categories">CATEGORIES</a>
         </nav>
-        <div class="log"><a href="<?=BASE_URL?>admin/logout" class='logout'>Logout</a></div>
+        <div class="log"><a href="<?=BASE_URL?>admin/logout" class='logout'>LOGOUT</a></div>
         <div class="more">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>More</title>
