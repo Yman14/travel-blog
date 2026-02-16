@@ -12,7 +12,7 @@
 <header class="admin-header container">
     <div class="header-content">
         <div class="logo">
-            <a href="">
+            <a href="<?=BASE_URL?>admin">
                 <img src="<?=BASE_URL?>assets/images/logo.png" loading="lazy">
                 <div class="website-name"><?=htmlspecialchars($settings['website_name'] ?? 'Admin') ?></div>
             </a>
