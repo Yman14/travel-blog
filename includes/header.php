@@ -33,7 +33,10 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <header class="site-header container">
     <div class="site-brand">
-        <h1><a href="<?= BASE_URL ?>index.php">Travel Blog</a></h1>
+        <a href="<?= BASE_URL ?>">
+            <img src="<?=BASE_URL?>assets/images/logo.png" loading="lazy">
+            <div class="website-name"><?=htmlspecialchars($settings['website_name'] ?? 'Admin') ?></div>
+        </a>
     </div>
 
     <nav class="site-nav">   
