@@ -226,72 +226,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!-- //admin form html -->
-<h1>Create New Post</h1>
+<section class="admin-section">
+    <h1>Create New Post</h1>
 
-<?php if (!empty($error)): ?>
-    <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
+    <?php if (!empty($error)): ?>
+        <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
 
-<?php if ($success): ?>
-    <p style="color:green;"><?php echo $success; ?></p>
-<?php endif; ?>
+    <?php if ($success): ?>
+        <p style="color:green;"><?php echo $success; ?></p>
+    <?php endif; ?>
 
-<form method="post" enctype="multipart/form-data" id="form">
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+    <form method="post" enctype="multipart/form-data" id="form">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
-    <label>Title</label><br>
-    <input type="text" name="title" value="<?= htmlspecialchars($old['title']) ?>" required><br><br>
+        <label>Title</label><br>
+        <input type="text" name="title" value="<?= htmlspecialchars($old['title']) ?>" required><br><br>
 
-    <label>Category</label><br>
-    <select name="category_id" required>
-        <?php foreach ($categories as $cat): ?>
-            <option value="<?= $cat['id'] ?>" <?= $old['category_id']==$cat['id']?'selected':'' ?>>
-                <?= htmlspecialchars($cat['name']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select><br><br>
+        <label>Category</label><br>
+        <select name="category_id" required>
+            <?php foreach ($categories as $cat): ?>
+                <option value="<?= $cat['id'] ?>" <?= $old['category_id']==$cat['id']?'selected':'' ?>>
+                    <?= htmlspecialchars($cat['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select><br><br>
 
-    <label>Content</label><br>
-    <textarea name="content" rows="8" required><?= htmlspecialchars($old['content']) ?></textarea><br><br>
+        <label>Content</label><br>
+        <textarea name="content" rows="8" required><?= htmlspecialchars($old['content']) ?></textarea><br><br>
 
-    <label>Featured Image</label><br>
-    <div id="featurePreview"></div>
-    <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
+        <label>Featured Image</label><br>
+        <div id="featurePreview"></div>
+        <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
 
-    <label>Gallery Images</label><br>
-    <div id="galleryPreview" class="media-grid"></div>
-    <input type="file"
-        name="gallery_images[]"
-        id="galleryInput"
-        accept="image/jpeg,image/png,image/webp"
-        multiple><br><br>
+        <label>Gallery Images</label><br>
+        <div id="galleryPreview" class="media-grid"></div>
+        <input type="file"
+            name="gallery_images[]"
+            id="galleryInput"
+            accept="image/jpeg,image/png,image/webp"
+            multiple><br><br>
 
-    <label>Status</label><br>
-    <select name="status">
-        <option value="draft" <?= $old['status']==='draft'?'selected':'' ?>>Draft</option>
-        <option value="published" <?= $old['status']==='published'?'selected':''?>>Published</option>
-    </select><br><br>
-    <!-- <div class="seo-section">
-        <h3>SEO Settings (Optional)</h3>
-        
-        <label for="meta_title">Custom Meta Title</label><br>
-        <input type="text" name="meta_title" id="meta_title" 
-            value="<?= htmlspecialchars($post['meta_title'] ?? '') ?>" 
-            placeholder="Leave blank to use post title"><br>
+        <label>Status</label><br>
+        <select name="status">
+            <option value="draft" <?= $old['status']==='draft'?'selected':'' ?>>Draft</option>
+            <option value="published" <?= $old['status']==='published'?'selected':''?>>Published</option>
+        </select><br><br>
+        <!-- <div class="seo-section">
+            <h3>SEO Settings (Optional)</h3>
+            
+            <label for="meta_title">Custom Meta Title</label><br>
+            <input type="text" name="meta_title" id="meta_title" 
+                value="<?= htmlspecialchars($post['meta_title'] ?? '') ?>" 
+                placeholder="Leave blank to use post title"><br>
 
-        <label for="meta_description">Meta Description</label><br>
-        <textarea name="meta_description" id="meta_description" rows="3" 
-                placeholder="Brief summary for search engines"><?= htmlspecialchars($post['meta_description'] ?? '') ?></textarea><br>
-    </div> -->
+            <label for="meta_description">Meta Description</label><br>
+            <textarea name="meta_description" id="meta_description" rows="3" 
+                    placeholder="Brief summary for search engines"><?= htmlspecialchars($post['meta_description'] ?? '') ?></textarea><br>
+        </div> -->
 
-    <button type="submit">Create Post</button>
+        <button type="submit">Create Post</button>
 
-</form>
+    </form>
 
-<p><a href="<?=BASE_URL?>admin/dashboard">Back to dashboard</a></p>
+    <p><a href="<?=BASE_URL?>admin/dashboard">Back to dashboard</a></p>
 
-</body>
-</html>
+</section>
 
 <?php
     require_once 'includes/admin-footer.php';
