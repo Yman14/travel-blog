@@ -23,34 +23,40 @@ $settings = getSettings($pdo);
        </div>
        <?php unset($_SESSION['flash_error']); ?>
        <?php endif; ?>
-
+       
+       <!-- display -->
        <form method="post" action="settings-save">
+              <h3>Website Name</h3>
+              <input type="text" name="website_name" value="<?=htmlspecialchars($settings['website_name'] ?? '')?>"><br>
+              <h3>Owner Name</h3>
+              <input type="text" name="site_author" value="<?=htmlspecialchars($settings['site_author'] ?? '')?>"><br><br>
 
-       <h3>Homepage Title</h3>
-       <input type="text" name="hero_title"
-              value="<?= htmlspecialchars($settings['hero_title'] ?? '') ?>"><br>
 
-       <h3>Homepage Subtitle</h3>
-       <textarea name="hero_subtitle"><?= htmlspecialchars($settings['hero_subtitle'] ?? '') ?></textarea><br>
+              <h3>Homepage Title</h3>
+              <input type="text" name="hero_title"
+                     value="<?= htmlspecialchars($settings['hero_title'] ?? '') ?>"><br>
 
-       <h3>Contact Email</h3>
-       <input type="email" name="contact_email"
-              value="<?= htmlspecialchars($settings['contact_email'] ?? '') ?>"><br><br>
+              <h3>Homepage Subtitle</h3>
+              <textarea name="hero_subtitle"><?= htmlspecialchars($settings['hero_subtitle'] ?? '') ?></textarea><br><br>
 
-       <h3>Social Links</h3><br>
+              <h3>Contact Email</h3>
+              <input type="email" name="contact_email"
+                     value="<?= htmlspecialchars($settings['contact_email'] ?? '') ?>"><br><br>
 
-       <input type="url" name="facebook" placeholder="Facebook"
-              value="<?= htmlspecialchars($settings['facebook'] ?? '') ?>"><br>
+              <h3>Social Links</h3><br>
 
-       <input type="url" name="instagram" placeholder="Instagram"
-              value="<?= htmlspecialchars($settings['instagram'] ?? '') ?>"><br>
+              <input type="url" name="facebook" placeholder="Facebook"
+                     value="<?= htmlspecialchars($settings['facebook'] ?? '') ?>"><br>
 
-       <input type="url" name="twitter" placeholder="Twitter"
-              value="<?= htmlspecialchars($settings['twitter'] ?? '') ?>"><br>
+              <input type="url" name="instagram" placeholder="Instagram"
+                     value="<?= htmlspecialchars($settings['instagram'] ?? '') ?>"><br>
 
-       <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"><br>
+              <input type="url" name="twitter" placeholder="Twitter"
+                     value="<?= htmlspecialchars($settings['twitter'] ?? '') ?>"><br>
 
-       <button type="submit">Save Settings</button>
+              <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"><br>
+
+              <button type="submit">Save Settings</button>
        </form>
 </section>
 
