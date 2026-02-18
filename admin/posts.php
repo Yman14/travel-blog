@@ -183,51 +183,6 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </form>
         </div>
     </div>
-
-    <!-- table -->
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Actions</th>
-        </tr>
-
-        <?php foreach ($posts as $post): ?>
-            <tr>
-                <td><?= htmlspecialchars($post['title']); ?></td>
-                <td><?= htmlspecialchars($post['category']); ?></td>
-                <td><?= htmlspecialchars($post['status']); ?></td>
-                <td><?= htmlspecialchars($post['created_at']); ?></td>
-                <td>
-                    <a href="<?=BASE_URL?>admin/edit-post?id=<?= $post['id']; ?>">Edit</a> |
-                    <button
-                        class="btn-delete-trigger"
-                        data-id="<?= $post['id']; ?>"
-                        data-title="<?= htmlspecialchars($post['title']); ?>"
-                    >
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <div id="deleteModal" class="modal hidden">
-        <div class="modal-content">
-            <h3>Delete post</h3>
-            <p id="deleteMessage"></p>
-
-            <form method="post" action="<?=BASE_URL?>admin/delete-post" id="deleteForm">
-                <input type="hidden" name="return_url" value="<?= $_SERVER['REQUEST_URI']; ?>">
-                <input type="hidden" name="post_id" id="deletePostId">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-
-                <button type="submit" class="danger">Delete</button>
-                <button type="button" id="cancelDelete">Cancel</button>
-            </form>
-        </div>
-    </div>
     <p><a href="<?=BASE_URL?>admin/dashboard">Back to dashboard</a></p>
     </section>
 
