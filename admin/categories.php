@@ -54,6 +54,7 @@ $categories = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     <tr>
         <td>
             <form method="post" action="update-category" class="inline-form">
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 <input type="hidden" name="id" value="<?= $cat['id'] ?>">
                 <input type="text" name="name"
                     value="<?= htmlspecialchars($cat['name']) ?>"
