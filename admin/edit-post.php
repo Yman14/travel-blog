@@ -368,10 +368,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select><br><br>
 
         <textarea name="content" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
-
-        <div id="galleryPreview"></div>
+        
+        <h3>Gallery Images</h3>
+        <div id="galleryPreview" class="media-grid"></div>
         <?php if ($galleryImages): ?>
-            <h3>Gallery Images</h3>
             <ul class="media-grid">
                 <?php foreach ($galleryImages as $img): ?>
                     <li class="media-item">
