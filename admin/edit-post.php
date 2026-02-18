@@ -333,64 +333,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!-- html -->
-<h1>Edit Post</h1>
+<section class="admin-section">
+    <h1>Edit Post</h1>
 
-<?php if ($error): ?><p style="color:red;"><?php echo $error; ?></p><?php endif; ?>
-<?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
+    <?php if ($error): ?><p style="color:red;"><?php echo $error; ?></p><?php endif; ?>
+    <?php if ($success): ?><p style="color:green;"><?php echo $success; ?></p><?php endif; ?>
 
 
-<form id="form" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-    
-    <br><br><label for="title"><h3>Title</h3></label><br>
-    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
+    <form id="form" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+        
+        <br><br><label for="title"><h3>Title</h3></label><br>
+        <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br><br>
 
-    <h3>Featured Image</h3>
-    <div id="featurePreview">
-        <div class="media-item">
-            <?php if ($post['featured_image']): ?>
-            <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>" loading="lazy">
-            <input type="checkbox" name="remove_featured" value="1" class="image-remove">
-            <?php endif; ?>
+        <h3>Featured Image</h3>
+        <div id="featurePreview">
+            <div class="media-item">
+                <?php if ($post['featured_image']): ?>
+                <img src="<?= htmlspecialchars(UPLOAD_URL .  $post['featured_image']); ?>" loading="lazy">
+                <input type="checkbox" name="remove_featured" value="1" class="image-remove">
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-    <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
+        <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
 
-    <h3>Category</h3><br>
-    <select name="category_id">
-        <?php foreach ($cats as $cat): ?>
-            <option value="<?php echo $cat['id']; ?>"
-                <?php if ($cat['id'] == $post['category_id']) echo 'selected'; ?>>
-                <?php echo htmlspecialchars($cat['name']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select><br><br>
-
-    <textarea name="content" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
-
-    <div id="galleryPreview"></div>
-    <?php if ($galleryImages): ?>
-        <h3>Gallery Images</h3>
-        <ul class="media-grid">
-            <?php foreach ($galleryImages as $img): ?>
-                <li class="media-item">
-                    <img src="<?= htmlspecialchars(UPLOAD_URL . $img['file_path']); ?>" loading="lazy">
-                    <input type="checkbox" name="remove_images[]" value="<?= $img['id']; ?>" class="image-remove">
-                </li>
+        <h3>Category</h3><br>
+        <select name="category_id">
+            <?php foreach ($cats as $cat): ?>
+                <option value="<?php echo $cat['id']; ?>"
+                    <?php if ($cat['id'] == $post['category_id']) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($cat['name']); ?>
+                </option>
             <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
-    <input type="file" name="gallery_images[]" multiple id="galleryInput">
+        </select><br><br>
 
-    <select name="status">
-        <option value="draft" <?php if ($post['status'] === 'draft') echo 'selected'; ?>>Draft</option>
-        <option value="published" <?php if ($post['status'] === 'published') echo 'selected'; ?>>Published</option>
-    </select><br><br>
+        <textarea name="content" rows="8" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
 
-    <button type="submit">Update Post</button>
-</form>
+        <div id="galleryPreview"></div>
+        <?php if ($galleryImages): ?>
+            <h3>Gallery Images</h3>
+            <ul class="media-grid">
+                <?php foreach ($galleryImages as $img): ?>
+                    <li class="media-item">
+                        <img src="<?= htmlspecialchars(UPLOAD_URL . $img['file_path']); ?>" loading="lazy">
+                        <input type="checkbox" name="remove_images[]" value="<?= $img['id']; ?>" class="image-remove">
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+        <input type="file" name="gallery_images[]" multiple id="galleryInput">
 
-<p><a href="<?=BASE_URL?>admin/posts">Manage All Posts</a></p>
+        <select name="status">
+            <option value="draft" <?php if ($post['status'] === 'draft') echo 'selected'; ?>>Draft</option>
+            <option value="published" <?php if ($post['status'] === 'published') echo 'selected'; ?>>Published</option>
+        </select><br><br>
 
+        <button type="submit">Update Post</button>
+    </form>
+
+    <p><a href="<?=BASE_URL?>admin/posts">Manage All Posts</a></p>
+</section>
 <?php
 require_once 'includes/admin-footer.php';
