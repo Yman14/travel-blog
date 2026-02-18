@@ -59,6 +59,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- filter status -->
     <nav class="admin-filters">
+        <span class="display-text">FILTER: <?=$statusFilter?></span>
         <a href="?status=all" class="<?= $statusFilter === 'all' ? 'active' : '' ?>">All</a>
         <a href="?status=published" class="<?= $statusFilter === 'published' ? 'active' : '' ?>">Published</a>
         <a href="?status=draft" class="<?= $statusFilter === 'draft' ? 'active' : '' ?>">Draft</a>
