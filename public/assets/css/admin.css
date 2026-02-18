@@ -497,6 +497,62 @@ input[type='checkbox'] {
 
 
 /* Manage Posts(posts.php) */
+/* filter */
+.admin-filters {
+    width: 200px;
+    height: 40px;
+    background-color: var(--accent);
+    color: #fff;
+    border-radius: 25px;
+    text-align: center;
+    position: relative;
+    justify-self: end;
+    cursor: pointer;
+
+    & .display-text {
+        display: block;
+        height: 100%;
+        font-size: .8rem;
+        font-weight: 700;
+        line-height: 40px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    & a{
+        display: none;
+        width: 100%;
+        height: min-content;
+        padding: .5rem;
+        background-color: var(--primary);
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        position: relative;
+        z-index: 101;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+    }
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--accent) 80%, #000 20%);
+    }
+
+    &:hover a{
+        display: block;
+    }
+
+    & a:hover {
+        background-color: color-mix(in srgb, var(--primary) 80%, #fff 20%);
+        color: var(--accent);
+    }
+
+    & a:active {
+        background-color: color-mix(in srgb, var(--primary) 80%, #000 20%);
+    }
+}
+
+/* modal */
 .modal {
     position: fixed;
     inset: 0;
