@@ -71,9 +71,10 @@ require_once __DIR__ . '/includes/admin-header.php';
 
 <!-- html -->
 <section class="admin-login">
-    <img src="<?=BASE_URL?>assets/images/login-bg.jpg" class="bg">
+    <img src="<?=BASE_URL?>assets/images/login-bg.webp" class="bg">
     <div class="panel">
         <header class="panel-header">
+            <h1 class="site-name"><?=$settings['website_name'] ?? 'WELCOME'; ?></h1>
             <h1>LOGIN</h1>
         </header>
         <div class="panel-body">

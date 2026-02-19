@@ -184,6 +184,7 @@ ul {
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     z-index: 1;
+    position: relative;
 }
 
 .admin-login .panel-header {
@@ -191,6 +192,21 @@ ul {
     text-align: center;
     font-weight: 700;
     margin-bottom: 2rem;
+}
+
+.panel-header .site-name {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 80%;
+    height: 10%; */
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
 .admin-login input {
