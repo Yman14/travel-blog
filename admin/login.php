@@ -66,37 +66,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $page_title = 'Admin Login';
+require_once __DIR__ . '/includes/admin-header.php';
 ?>
 
 <!-- html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8'); ?></title>
-    <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css">
-</head>
-<body>
+<section class="admin-login">
+    <img src="<?=BASE_URL?>assets/images/login-bg.jpg" class="bg">
+    <div class="panel">
+        <header class="panel-header">
+            <h1>LOGIN</h1>
+        </header>
+        <div class="panel-body">
+            <?php if(isset($_SESSION['flash_error'])):?>
+                <div class="alert-error">
+                    <?= htmlspecialchars($_SESSION['flash_error'])?>
+                </div>
+                <?php unset($_SESSION['flash_error']); ?>
+            <?php endif; ?>
 
-<main class="admin-content">
-<section class="admin-section admin-login">
-    <header class="admin-section-header">
-        <h1>Admin Login</h1>
-    </header>
-
-    <div class="admin-section-body">
-        <?php if(isset($_SESSION['flash_error'])):?>
-            <div class="alert-error">
-                <?= htmlspecialchars($_SESSION['flash_error'])?>
-            </div>
-            <?php unset($_SESSION['flash_error']); ?>
-        <?php endif; ?>
-
-        <form method="post">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+            <form method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
     </div>
 </section>
 

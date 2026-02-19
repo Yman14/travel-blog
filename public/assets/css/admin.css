@@ -139,9 +139,7 @@ ul {
 /* MAIN CONTENT */
 .admin-content {
     flex: 1;
-    margin-inline: auto;
     background: var(--bg-light);
-    padding: 2rem;
 }
 
 .admin-section {
@@ -152,24 +150,43 @@ ul {
     border-radius: 20px;
 }
 
-.admin-section-header h1 {
-    margin-bottom: 0.25rem;
-}
-
-.admin-section-header p {
-    font-size: 0.9rem;
-    color: var(--muted);
-}
-
 
 /* Admin Login  */
 .admin-login {
-    max-width: 400px;
+    width: 100%;
+    height: 100dvh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+}
+
+.admin-login img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    filter:blur(10px)
+
+}
+
+.admin-login .panel {
+    width: 80%;
+    max-width: 450px;
+    height: 500px;
     background-color: #0a0a24;
     color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 6rem 2rem;
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
-.admin-login .admin-section-header {
+
+.admin-login .panel-header {
     margin-inline: auto;
     text-align: center;
     font-weight: 700;
