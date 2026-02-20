@@ -56,7 +56,7 @@ require_once '../includes/header.php';
                     </a>
                 </h2>
                 <small class="post-meta">
-                    [Category] · <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
+                    [Category] • <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
                 </small>
                 <div class="post-featured">
                     <?php
@@ -96,7 +96,7 @@ require_once '../includes/header.php';
 
 <aside class="sidebar" role="complementary">
     <section class="sidebar-block">
-        <h3>Categories</h3>
+        <h3>Travel</h3>
         <ul>
             <?php foreach ($navCategories as $cat): ?>
                 <li>
@@ -107,10 +107,9 @@ require_once '../includes/header.php';
             <?php endforeach; ?>
         </ul>
     </section>
-    <section class="sidebar-block">
+    <!-- <section class="sidebar-block">
         <h3>Recent Posts</h3>
-        <!-- recent posts -->
-    </section>
+    </section> -->
 </aside>
 </div>
 

@@ -71,16 +71,15 @@ require_once '../includes/header.php';
 <!-- display result -->
 <div class="main-content">
 <?php if ($post): ?>
-    <article class="post-list">
+    <article class="single-post-list">
         <header>
-            <h1><?= htmlspecialchars($post['title']); ?></h1>
+            <h1 class="post-title"><?= htmlspecialchars($post['title']); ?></h1>
             <small class="post-meta">
-                    <a href="<?=BASE_URL?>category.php?id=<?= $post['category_id']; ?>"><?= htmlspecialchars($category['name']); ?></a>
-                     · Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?>
+                <a href="<?=BASE_URL?>category.php?id=<?= $post['category_id']; ?>">[<?= htmlspecialchars($category['name']); ?>]</a>
+                • Published on <?= htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?>
             </small>
         </header>
-        <p class="post-body"><?= nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
-        <div class="post-featured">
+        <div class="single-post-feature">
             <?php
                 if($post['featured_image']){
                     $image = UPLOAD_URL . $post['featured_image'];
@@ -90,6 +89,7 @@ require_once '../includes/header.php';
             ?>
             <img src="<?= $image; ?>" class="image" loading="lazy">
         </div>
+        <p class="post-body"><?= nl2br(htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8')); ?></p>
         <?php if ($gallery): ?>
         <div class="post-gallery">
             <?php foreach ($gallery as $img): ?>
