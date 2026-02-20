@@ -375,8 +375,12 @@ input, textarea {
 
 
 /* Category page */
-h1.title {
+h1.cat-title {
     grid-column: 1 / -1;
+    font-size: 4rem;
+    padding: 1rem;
+    font-style: italic;
+    color: var(--accent);
 }
 .category-post-list {
     display: flex;
@@ -406,8 +410,6 @@ h1.title {
     right: 20px;
     padding: 1rem;
     z-index: 10;
-
-    /* The "Glass" Effect */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -415,7 +417,7 @@ h1.title {
 }
 
 .category-post-title .text {
-    font-size: 2rem;
+    font-size: 3rem;
     text-decoration: none;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -525,5 +527,17 @@ h1.title {
 
     .pill:not(.active):not(.arrow) {
         display: none;
+    }
+
+    /* manage catgory */
+    h1.cat-title {
+        font-size: 2rem;
+    }
+    .category-post-title {
+        padding: .5rem;
+        
+        & .text {
+            font-size: .7rem;
+        }
     }
 }

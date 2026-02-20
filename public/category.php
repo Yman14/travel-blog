@@ -45,7 +45,7 @@ require_once '../includes/header.php';
 
 <!-- display -->
  <div class="main-content">
-<h1 class="title"><?= htmlspecialchars($category['name']); ?></h1>
+<h1 class="cat-title"><?= htmlspecialchars($category['name']); ?></h1>
 
 <?php if (!$posts): ?>
     <div class="empty-state">
