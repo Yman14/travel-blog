@@ -1,16 +1,5 @@
 <?php
 require_once '../includes/config.php';
-//echo "Database connected successfully";
-
-//Fetch posts
-// $sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.featured_image, posts.created_at, posts.category_id
-//         FROM posts
-//         WHERE posts.status = 'published'
-//         ORDER BY posts.created_at DESC";
-
-// $stmt = $pdo->prepare($sql);
-// $stmt->execute();
-// $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //pagination
 $limit = 10;
@@ -21,10 +10,13 @@ $offset = ($page - 1) * $limit;
 $totalPosts = $pdo->query("SELECT COUNT(*) FROM posts WHERE status = 'published'")->fetchColumn();
 $totalPages = ceil($totalPosts / $limit);
 
+//fetch data
 $stmt = $pdo->prepare("
-    SELECT * FROM posts 
+    SELECT posts.*, categories.name AS category
+    FROM posts
+    LEFT JOIN categories on posts.category_id = categories.id
     WHERE status = 'published'
-    ORDER BY created_at DESC
+    ORDER BY posts.created_at DESC
     LIMIT :limit OFFSET :offset
 ");
 $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -56,7 +48,8 @@ require_once '../includes/header.php';
                     </a>
                 </h2>
                 <small class="post-meta">
-                    [Category] • <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
+                    <a href="<?=BASE_URL?>category.php?id=<?= $post['category_id']; ?>">[<?= htmlspecialchars($post['category']); ?>]</a>
+                     • <?= htmlspecialchars((new DateTime($post['created_at']))->format('M d, Y')); ?>
                 </small>
                 <div class="post-featured">
                     <?php
