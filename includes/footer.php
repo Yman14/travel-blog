@@ -9,6 +9,6 @@
 
     <p>&copy; <?= date('Y'); ?> <?=htmlspecialchars($settings['website_name'] ?? 'Travel Blog'); ?></p>
 </footer>
-
+<script src="<?=BASE_URL . 'assets/js/main.js'?>" defer></script>
 </body>
 </html>

@@ -20,6 +20,11 @@ body {
     line-height: 1.6;
 }
 
+body.locked-scroll {
+    overflow: hidden;
+    min-height: dvh;
+}
+
 h1, h2, h3 {
     line-height: 1.25;
     color: var(--primary);
@@ -100,7 +105,7 @@ header {
 .site-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: .5rem;
+    gap: 1rem;
     align-items: center;
 }
 
@@ -109,6 +114,7 @@ header {
     color: var(--text);
     font-weight: 500;
     white-space: nowrap;
+    text-transform: uppercase;
 }
 
 .site-nav a:hover {
@@ -119,6 +125,12 @@ header {
     position: relative;
 }
 
+.dropdown-header {
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -126,6 +138,7 @@ header {
     border: 1px solid #ccc;
     min-width: 160px;
     z-index: 100;
+    border-radius: 7px;
 }
 
 .dropdown-content a {
@@ -161,6 +174,47 @@ header {
 .icon:hover {
     cursor: pointer;
     background-color: var(--primary);
+}
+
+.menu-btn{
+    width: 30px;
+    height: 30px;
+    fill: var(--accent);
+    display: none;
+    cursor: pointer;
+    border-radius: 10px;
+    position: relative;
+}
+
+.menu-btn:hover {
+    fill: var(--primary);
+}
+
+.menu-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--primary);
+    width: 80%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-exit {
+    width: 35px;
+    height: 35px;
+    background-color: #000;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 99px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -507,20 +561,38 @@ h1.cat-title {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+    /* header */
     .site-header {  
         padding: 1rem;
         gap: 10px;
-    } 
+    }
 
-    .site-brand h1 a {
-        font-size: 1rem;
+    .site-header .dropdown-header,
+    .site-header .site-nav > a{
+        color: white;
     }
     
-    .site-nav {
-        justify-content: center;
-        font-size: 0.8rem;
+    .site-nav, .social-media {
+        display: none;
+        padding-left: 2rem;
+        justify-content: start;
+        align-items: start;
+        gap: 20px;
+        color: white;
+        fill: white;
     }
 
+    .site-nav {
+        flex-direction: column;
+        margin-top: 30%;
+        padding-bottom: 2rem;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+
+    /* travel */
     .post-body {
         font-size: 16px;
     }

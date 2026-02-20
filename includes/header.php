@@ -39,9 +39,19 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </a>
     </div>
 
-    <nav class="site-nav">   
+    <nav class="site-nav">  
         <div class="dropdown">
-            <span>CATEGORIES ▾</span>
+            <span class="dropdown-header"><?=$page_title ?? "CATEGORIES"; ?> ▾</span>
+            <div class="dropdown-content">
+                <a href="<?= BASE_URL ?>index.php">Travel</a>
+                <a href="<?= BASE_URL ?>">Food</a>
+                <a href="<?= BASE_URL ?>">Fashion</a>
+                <a href="<?= BASE_URL ?>">Health&Lifestyle</a>
+                <a href="<?= BASE_URL ?>">Gallery</a>
+            </div>
+        </div> 
+        <div class="dropdown">
+            <span class="dropdown-header">PLACES ▾</span>
             <div class="dropdown-content">
                 <?php foreach ($navCategories as $cat): ?>
                     <a href="<?= BASE_URL ?>category.php?id=<?php echo $cat['id']; ?>">
@@ -50,9 +60,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </div>
         </div>
-    
         <a href="<?= BASE_URL ?>about.php">ABOUT</a>
-        <a href="<?= BASE_URL ?>contact.php">CONTACT</a>
     </nav>
 
     <div class="social-media">
@@ -77,6 +85,13 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <path d="M160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 160C544 124.7 515.3 96 480 96L160 96zM457.1 180L353.3 298.6L475.4 460L379.8 460L305 362.1L219.3 460L171.8 460L282.8 333.1L165.7 180L263.7 180L331.4 269.5L409.6 180L457.1 180zM419.3 431.6L249.4 206.9L221.1 206.9L392.9 431.6L419.3 431.6z"/>
             </svg>
         </a>
+    </div>
+
+    <div class="menu-btn">
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <title>Menu</title>
+            <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+        </svg>
     </div>
 </header>
 
