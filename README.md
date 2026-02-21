@@ -1,7 +1,7 @@
 # Project overview
-    This is a custom travel blog CMS built from scratch using PHP and MySQL.<br>
-    The goal was to design something production-ready without relying on frameworks — focusing on architecture, security, and SEO rather than just basic CRUD.<br>
-    It includes a public blog and a secure admin panel for managing posts, categories, and site settings.<br><br>
+This is a custom travel blog CMS built from scratch using PHP and MySQL.<br><br>
+The goal was to design something production-ready without relying on frameworks — focusing on architecture, security, and SEO rather than just basic CRUD.<br><br>
+It includes a public blog and a secure admin panel for managing posts, categories, and site settings.<br><br><br>
 
 
 
