@@ -1,26 +1,22 @@
-# travel-blog
-Project overview
-    This is a custom travel blog CMS built from scratch using PHP and MySQL.
-
-    The goal was to design something production-ready without relying on frameworks — focusing on architecture, security, and SEO rather than just basic CRUD.
-
-    It includes a public blog and a secure admin panel for managing posts, categories, and site settings.
+# Project overview
+    This is a custom travel blog CMS built from scratch using PHP and MySQL.<br>
+    The goal was to design something production-ready without relying on frameworks — focusing on architecture, security, and SEO rather than just basic CRUD.<br>
+    It includes a public blog and a secure admin panel for managing posts, categories, and site settings.<br><br>
 
 
 
-Tech stack
+# Tech stack
     HTML / CSS
     Vanilla JavaScript
     PHP (vanilla)
     MySQL
     PDO (prepared statements)
-
     No frameworks used.
 
 
 
 
-What It Does
+# What It Does
     Create, edit, delete posts
     Manage categories
     Upload images securely
@@ -34,7 +30,7 @@ What It Does
 
 
 
-Security features
+# Security features
     Passwords hashed with password_hash
     CSRF protection on all POST forms
     Prepared statements everywhere
@@ -47,7 +43,7 @@ Security features
 
 
 
-SEO features
+# SEO features
     Custom meta title and description per post
     Canonical URLs
     Open Graph tags (for social sharing)
@@ -58,7 +54,7 @@ SEO features
 
 
 
-Admin features
+# Admin features
     Auth system
     CSRF protection
     Secure uploads
@@ -73,7 +69,7 @@ Admin features
 
 
 
-Screenshots
+# Screenshots
     Dashboard
 ![DASHBOARD](image.png)
 
@@ -97,7 +93,7 @@ Screenshots
 
 
 
-Possible Improvements
+# Possible Improvements
     Role-based access control
     Soft delete system
     Activity logging
