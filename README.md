@@ -25,7 +25,6 @@ It includes a public blog and a secure admin panel for managing posts, categorie
     Basic dashboard with site stats
     Pagination for blog posts
     Mobile responsive
-    XML sitemap generation
 
 
 
