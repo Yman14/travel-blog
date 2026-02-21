@@ -28,7 +28,9 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="canonical" href="<?= htmlspecialchars($canonical ?? BASE_URL) ?>">
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/images/favicon.ico">
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css">
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
