@@ -65,6 +65,7 @@ ul {
     margin-inline: auto;
 }
 .main-content {
+    width: 100%;
     max-width: 800px;
     margin-inline: auto;
     padding: 0 2rem;
@@ -349,6 +350,55 @@ header {
     text-decoration: underline;
 }
 
+/* PAGINATION */
+.pagination-container {
+    margin: 4rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 50%;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pill:hover {
+    background-color: #f8f9fa;
+    color: #000;
+    transform: translateY(-2px);
+}
+
+.pill.active {
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.pill.arrow {
+    font-size: 1.2rem;
+    background-color: transparent;
+}
+
 
 /* SIDEBAR */
 .sidebar {
@@ -527,53 +577,53 @@ h1.cat-title {
 }
 
 
-/* PAGINATION */
-.pagination-container {
-    margin: 4rem 0;
-    display: flex;
-    justify-content: center;
-}
+.contact-page {
+    width: 100%;
+    padding: 1rem;
+    margin-block: 1rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 12px var(--accent);
 
-.pagination-pills {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #ffffff;
-    padding: 8px 16px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid #eee;
-}
+    & .contact-container {
+        width: 100%;
+        margin: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    & .comms-link {
+        width: 80%;
+        border-bottom: 1px solid var(--muted);
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        place-items: center;
+        gap: 20px;
+    }
 
-.pill {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    text-decoration: none;
-    color: #666;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border-radius: 50%;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+    & .contact-icon {
+        grid-column: 1;
+        grid-row: 1;
+        width: 35px;
+        height: 35px;
+        fill: var(--accent);
+    }
 
-.pill:hover {
-    background-color: #f8f9fa;
-    color: #000;
-    transform: translateY(-2px);
-}
+    & .contact-text {
+        place-self: start;
 
-.pill.active {
-    background-color: #000;
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+        & h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
 
-.pill.arrow {
-    font-size: 1.2rem;
-    background-color: transparent;
+        & p {
+            font-size: .8rem;
+            color: var(--muted);
+            margin: 0;
+            margin-top: -6px;
+        }
+    }
 }
 
 
