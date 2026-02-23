@@ -34,6 +34,7 @@ $routes = [
     '/settings' => 'settings.php',
     '/settings-save' => 'settings-save.php',
     '/logout' => 'logout.php',
+    '/404-admin' => 'admin404.php',
 ];
 
 
@@ -43,5 +44,7 @@ if (isset($routes[$request])) {
     require_once __DIR__ . '/../admin/' . $routes[$request];
 } else {
     http_response_code(404);
-    echo "Admin page not found";
+    HEADER('Location: '. BASE_URL . 'admin/404-admin');
+    exit;
+    // echo "Admin page not found";
 }
