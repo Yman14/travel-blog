@@ -8,6 +8,14 @@ if (isset($_SESSION['admin_id']) || ($_SESSION['user_role'] ?? '') === 'admin') 
     exit;
 }
 
+//verify if admin exists
+$stmt = $pdo->query("SELECT COUNT(*) FROM admins WHERE role = 'admin'");
+$adminExists = $stmt->fetchColumn() > 0;
+if (!$adminExists) {
+    header('Location:' . BASE_URL . 'admin/setup');
+    exit;
+}
+
 //delete old records from login attempt
 $pdo->query("DELETE FROM login_attempts WHERE attempted_at < (NOW() - INTERVAL 1 HOUR)");
 
