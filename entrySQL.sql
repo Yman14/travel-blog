@@ -93,6 +93,7 @@ INSERT INTO settings (`key`, `value`) VALUES
 ('hero_title', 'Explore the World'),
 ('hero_subtitle', 'Stories, guides, and travel inspiration'),
 ('contact_email', 'hello@example.com'),
+('contact_number', '0912 345 6789'),
 ('facebook', ''),
 ('instagram', ''),
 ('twitter', ''),
