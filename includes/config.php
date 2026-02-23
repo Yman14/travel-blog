@@ -24,7 +24,7 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'travel_blog');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('env', 'production');
+// define('env', 'production');
 
 //PDO Connection
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
