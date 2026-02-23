@@ -26,10 +26,10 @@ CREATE TABLE posts (
     category_id INT NOT NULL,
     status ENUM('draft', 'published') DEFAULT 'draft',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (category_id) REFERENCES categories(id)
-        ON DELETE CASCADE
+    CONSTRAINT fk_category 
+    FOREIGN KEY (category_id) REFERENCES categories(id) 
+    ON DELETE RESTRICT
 );
-
 CREATE TABLE post_images (
     id INT AUTO_INCREMENT PRIMARY KEY,
     post_id INT NOT NULL,
@@ -54,13 +54,6 @@ CREATE TABLE login_attempts (
     ip_address VARCHAR(45),
     attempted_at DATETIME
 );
-
--- Cannot delete category if posts exist
-ALTER TABLE posts
-ADD CONSTRAINT fk_category
-FOREIGN KEY (category_id)
-REFERENCES categories(id)
-ON DELETE RESTRICT;
 
 -- add for SEO
 ALTER TABLE posts
