@@ -44,7 +44,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <nav class="site-nav">  
         <div class="dropdown">
-            <span class="dropdown-header"><?=$page_title ?? "CATEGORIES"; ?> ▾</span>
+            <span class="dropdown-header">CATEGORIES ▾</span>
             <div class="dropdown-content">
                 <a href="<?= BASE_URL ?>index.php">Travel</a>
                 <a href="<?= BASE_URL ?>template-page.php">Food</a>

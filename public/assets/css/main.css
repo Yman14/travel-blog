@@ -278,7 +278,7 @@ header {
     left: 5%;
     font-size: clamp(1rem, 0.8rem + 0.5vw, 1.5rem);
     color: whitesmoke;
-    
+    font-style: italic;
 }
 
 
