@@ -18,7 +18,6 @@
 
 # Security: Protect Sensitive Files
 <FilesMatch "\.(env|sql|ini|log)$">
-    # Modern Apache 2.4 syntax
     Require all denied
 </FilesMatch>
 
@@ -26,6 +25,12 @@
 <Files .htaccess>
     Require all denied
 </Files>
+
+#dont allow access to config
+<FilesMatch "config.php">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
 
 #Enable GZIP (The "Compressor")
 <IfModule mod_deflate.c>
@@ -57,4 +62,8 @@ RewriteRule ^admin(/.*)?$ admin.php [QSA,L]
 
 #sitemap php
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+#HTTPS Enforcement
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 

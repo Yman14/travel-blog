@@ -1,6 +1,6 @@
 <?php
 // Eror Display
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 //session security
@@ -24,6 +24,7 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'travel_blog');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+define('env', 'production');
 
 //PDO Connection
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
