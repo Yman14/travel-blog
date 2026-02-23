@@ -18,7 +18,7 @@ function convertToWebP($source, $quality = 80, $maxWidth = 1200) {
     $extension = strtolower($info['extension']);
 
     // Load the original
-    if ($extension === 'jpeg' || $extension === 'jpg') {
+     if (in_array($extension, ['jpeg', 'jpg', 'jfif'])) {
         $image = imagecreatefromjpeg($source);
     } elseif ($extension === 'png') {
         $image = imagecreatefrompng($source);
@@ -27,7 +27,7 @@ function convertToWebP($source, $quality = 80, $maxWidth = 1200) {
         imagealphablending($image, true);
         imagesavealpha($image, true);
     } else {
-        return $source; // sip unsupported formats
+        return $info; // sip unsupported formats
     }
 
     // reizes logic
@@ -55,5 +55,5 @@ function convertToWebP($source, $quality = 80, $maxWidth = 1200) {
         return $info['filename'] . '.webp';
     }
 
-    return false;
+    return $info['basename']; 
 }

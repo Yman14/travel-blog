@@ -255,11 +255,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Content</label><br>
         <textarea name="content" rows="8" required><?= htmlspecialchars($old['content']) ?></textarea><br><br>
 
-        <label>Featured Image</label><br>
+        <label>Featured Image (jpeg, jpg, png, webp)</label><br>
         <div id="featurePreview"></div>
         <input type="file" name="featured_image" id="featureInput" accept="image/jpeg,image/png,image/webp"><br><br>
 
-        <label>Gallery Images</label><br>
+        <label>Gallery Images (jpeg, jpg, png, webp)</label><br>
         <div id="galleryPreview" class="media-grid"></div>
         <input type="file"
             name="gallery_images[]"
