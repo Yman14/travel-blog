@@ -55,5 +55,5 @@ function convertToWebP($source, $quality = 80, $maxWidth = 1200) {
         return $info['filename'] . '.webp';
     }
 
-    return $info['basename']; 
+    return false; 
 }
