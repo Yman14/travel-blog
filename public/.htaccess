@@ -67,3 +67,7 @@ RewriteRule ^sitemap\.xml$ sitemap.php [L]
 # RewriteCond %{HTTPS} off
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# If the request doesn't already start with /public/
+RewriteCond %{REQUEST_URI} !^/public/
+#point to the public folder
+RewriteRule ^(.*)$ public/$1 [L]
