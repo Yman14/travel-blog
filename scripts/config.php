@@ -18,10 +18,11 @@ define('UPLOAD_URL', BASE_URL . 'assets/images/uploads/');
 define('ROOT_PATH', dirname(__DIR__));
 define('PUBLIC_PATH', ROOT_PATH . '/public');
 define('UPLOAD_PATH', PUBLIC_PATH . '/assets/images/uploads');
+define('INCLUDE_PATH', ROOT_PATH . '/scripts/');
 
 // Database Credentials
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'travel_blog');
+define('DB_NAME', 'lily_db');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 // define('env', 'production');

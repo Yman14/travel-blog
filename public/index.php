@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/config.php';
+require_once '../scripts/config.php';
 
 //pagination
 $limit = 10;
@@ -24,7 +24,7 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-require_once '../includes/header.php';
+require_once INCLUDE_PATH . 'header.php';
 ?>
 
 <div class="hero-section">
@@ -132,5 +132,5 @@ require_once '../includes/header.php';
     </div>
 </div>
 <?php
-require_once '../includes/footer.php';
+require_once '../scripts/footer.php';
 ?>

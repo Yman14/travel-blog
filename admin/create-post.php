@@ -1,8 +1,8 @@
 <?php
 $page_title = "Create New Post";
-require_once '../includes/config.php';
+require_once '../scripts/config.php';
 require_once __DIR__ . '/includes/auth.php';
-require_once '../includes/functions.php';
+require_once INCLUDE_PATH . 'functions.php';
 require_once __DIR__ . '/includes/admin-header.php';
 
 //fetch categories

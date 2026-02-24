@@ -1,6 +1,6 @@
 <?php
 $page_title = "404";
-require_once '../includes/config.php';
+require_once '../scripts/config.php';
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/admin-header.php';
 

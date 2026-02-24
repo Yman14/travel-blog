@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../includes/config.php';
+require_once '../scripts/config.php';
 
 //verify if the user is already loggoed in
 if (isset($_SESSION['admin_id']) || ($_SESSION['user_role'] ?? '') === 'admin') {

@@ -1,7 +1,7 @@
 <?php 
 $page_title = "Contact";
-require_once '../includes/config.php';
-require_once '../includes/header.php'; ?>
+require_once '../scripts/config.php';
+require_once INCLUDE_PATH . 'header.php'; ?>
 
 <div class="main-content">
     <div class="contact-page">
@@ -54,4 +54,4 @@ require_once '../includes/header.php'; ?>
     </div>
 </div>
 
-<?php require_once '../includes/footer.php'; ?>
+<?php require_once INCLUDE_PATH . 'footer.php'; ?>

@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/config.php';
+require_once '../scripts/config.php';
 
 header("Content-Type: application/xml; charset=utf-8");
 

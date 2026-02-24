@@ -1,10 +1,10 @@
 <?php
-require_once '../includes/config.php';
+require_once '../scripts/config.php';
 
 //verify if id from url exist
 // if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 //     echo "<p>Invalid post.</p>";
-//     require_once '../includes/footer.php';
+//     require_once INCLUDE_PATH . 'footer.php';
 //     exit;
 // }
 
@@ -14,9 +14,9 @@ $slug = $_GET['slug'] ?? '';
 // Slugs should only contain lowercase letters, numbers, and hyphens.
 if ($slug === '' || !preg_match('/^[a-z0-9-]+$/', $slug)) {
     // If invalid, show an error and stop
-    require_once '../includes/header.php';
+    require_once INCLUDE_PATH . 'header.php';
     echo "<h1>Invalid Post</h1><p>The post link is malformed.</p>";
-    require_once '../includes/footer.php';
+    require_once INCLUDE_PATH . 'footer.php';
     exit;
 }
 
@@ -64,7 +64,7 @@ $og_image = $post['featured_image']
 
 
 //display
-require_once '../includes/header.php';
+require_once INCLUDE_PATH . 'header.php';
 ?>
 
 <!-- html -->
@@ -121,5 +121,5 @@ require_once '../includes/header.php';
 </script>
 
 <?php
-require_once '../includes/footer.php';
+require_once INCLUDE_PATH . 'footer.php';
 ?>

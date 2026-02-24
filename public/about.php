@@ -1,7 +1,7 @@
 <?php 
 $page_title = "About";
-require_once '../includes/config.php';
-require_once '../includes/header.php'; ?>
+require_once '../scripts/config.php';
+require_once INCLUDE_PATH . 'header.php'; ?>
 
 <div class="main-content">
     <h1>About This Travel Blog</h1>
@@ -10,4 +10,4 @@ require_once '../includes/header.php'; ?>
 
 </div>
 
-<?php require_once '../includes/footer.php'; ?>
+<?php require_once INCLUDE_PATH . 'footer.php'; ?>

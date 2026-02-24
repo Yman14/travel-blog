@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/config.php';
+require_once '../scripts/config.php';
 // Get the path relative to /admin
 $request = $_SERVER['REQUEST_URI'];
 

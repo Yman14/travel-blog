@@ -1,10 +1,10 @@
 <?php
-require_once '../includes/config.php';
+require_once '../scripts/config.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    require_once '../includes/header.php';
+    require_once INCLUDE_PATH . 'header.php';
     echo ('Invalid category');
-    require_once '../includes/footer.php';
+    require_once INCLUDE_PATH . 'footer.php';
     exit;
 }
 
@@ -19,9 +19,9 @@ $category = $stmtCat->fetch(PDO::FETCH_ASSOC);
 
 // If category doesn't exist in DB, stop
 if (!$category) {
-    require_once '../includes/header.php';
+    require_once INCLUDE_PATH . 'header.php';
     echo "<h1>Category Not Found</h1>";
-    require_once '../includes/footer.php';
+    require_once INCLUDE_PATH . 'footer.php';
     exit;
 }
 
@@ -40,7 +40,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //set title page to category
 $page_title = $category['name'];
 
-require_once '../includes/header.php';
+require_once INCLUDE_PATH . 'header.php';
 ?>
 
 <!-- display -->
@@ -74,4 +74,4 @@ require_once '../includes/header.php';
     <?php endforeach; ?>
 </section>
 </div>
-<?php require_once '../includes/footer.php'; ?>
+<?php require_once INCLUDE_PATH . 'footer.php'; ?>
