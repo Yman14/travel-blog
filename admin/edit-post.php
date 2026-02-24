@@ -117,6 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $tmpFeatured)) {
                 //optimize image
                 $db_filename = convertToWebP($tmpFeatured);
+                if(!$db_filename) {
+                    $error = 'Invalid featured image type.';
+                    if (!empty($tmpFeatured)) {
+                        unlink($tmpFeatured);
+                    }
+                }
 
                 //update the path name
                 $tmpFeatured = $tmpDir . '/' . $db_filename;
@@ -232,6 +238,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (move_uploaded_file($tmp, $tmpPath)) {
                         //optimize image
                         $db_filename = convertToWebP($tmpPath);
+                        
+                        if(!$db_filename) {
+                            $galleryErrors[] = $_FILES['gallery_images']['name'][$i] . ' is an invalid image type.';
+                            if (!empty($tmpPath)) {
+                                unlink($tmpPath);
+                            }
+                        }
 
                         //update the path name
                         $tmpPath = $tmpDir . '/' . $db_filename;

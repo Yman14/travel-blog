@@ -20,8 +20,14 @@ function convertToWebP($source, $quality = 80, $maxWidth = 1200) {
     // Load the original
      if (in_array($extension, ['jpeg', 'jpg', 'jfif'])) {
         $image = imagecreatefromjpeg($source);
+        if (!$image) {
+            return false; 
+        }        
     } elseif ($extension === 'png') {
         $image = imagecreatefrompng($source);
+        if (!$image) {
+            return false; 
+        }
         // preserve png transparency
         imagepalettetotruecolor($image);
         imagealphablending($image, true);
