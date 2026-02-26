@@ -71,9 +71,9 @@ ul {
     padding: 0 2rem;
 }
 
-header {
+/* header {
     border-bottom: 1px solid #ddd;
-}
+} */
 
 /* HEADER NAV */
 .site-header {
@@ -84,18 +84,29 @@ header {
     padding: 1.5rem 20%;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 999;  
+}
+.site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
 
-    background-color: transparent;
-  
-    animation: fill-background linear forwards;
+    animation: reveal-header linear forwards;
     animation-timeline: scroll();
     animation-range: 0px 100px;
 }
-@keyframes fill-background {
+
+@keyframes reveal-header {
   to {
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
+    opacity: 1;
+    transform: scaleY(1);
   }
 }
 

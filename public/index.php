@@ -28,7 +28,19 @@ require_once INCLUDE_PATH . 'header.php';
 ?>
 
 <div class="hero-section">
-    <img src= "<?= BASE_URL ?>assets/images/hero.jpg" class="hero-image" loading="lazy">
+    <picture>
+        <source srcset="<?= BASE_URL ?>assets/images/hero/hero-image.avif" type="image/avif">
+        <source srcset="<?= BASE_URL ?>assets/images/hero/hero-image.webp" type="image/webp">
+        <img 
+            src="<?= BASE_URL ?>assets/images/hero/hero-image.jpg" 
+            alt="hero-content"
+            width="1920" 
+            height="1080"
+            fetchpriority="high"
+            loading="eager"
+            class="hero-image"
+        >
+    </picture>
     <div class="hero-content">
         <!-- <h1 class="hero-title">One life. Let’s go.</h1>
         <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p> -->
@@ -60,7 +72,7 @@ require_once INCLUDE_PATH . 'header.php';
                         }
                     ?>
                     <a href="<?= BASE_URL ?>post/<?= $post['slug']; ?>">
-                        <img src="<?= $image; ?>" class="image" loading="lazy">
+                        <img src="<?= $image; ?>" width="800" height="550" class="image" loading="lazy">
                     </a>
                 </div>
                 <p class="post-excerpt">
