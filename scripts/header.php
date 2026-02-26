@@ -31,6 +31,10 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <?php if (isset($is_travel) && $is_travel): ?>
+        <link rel="preload" as="image" href="<?= BASE_URL ?>assets/images/hero/hero-image.avif" type="image/avif" fetchpriority="high">
+    <?php endif; ?>
+    
 </head>
 <body>
 

@@ -24,6 +24,7 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$is_travel = true; 
 require_once INCLUDE_PATH . 'header.php';
 ?>
 
