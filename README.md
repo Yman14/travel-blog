@@ -20,7 +20,7 @@ It includes a public blog and a secure admin panel for managing posts, categorie
     Create, edit, delete posts
     Manage categories
     Upload images securely
-    Image compression
+    Image optimization
     Edit hero section, contact info, and social links
     Basic dashboard with site stats
     Pagination for blog posts
@@ -57,7 +57,7 @@ It includes a public blog and a secure admin panel for managing posts, categorie
     Auth system
     CSRF protection
     Secure uploads
-    Image compression
+    Image optimization
     SEO meta system
     Sitemap
     Settings control
