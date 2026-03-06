@@ -24,7 +24,7 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$is_travel = true; 
+$is_travel = true;
 require_once INCLUDE_PATH . 'header.php';
 ?>
 
@@ -43,8 +43,6 @@ require_once INCLUDE_PATH . 'header.php';
         >
     </picture>
     <div class="hero-content">
-        <!-- <h1 class="hero-title">One life. Let’s go.</h1>
-        <p class="hero-description">Join my journey across countries as I share the stories and hidden gems.</p> -->
         <h1 class="hero-title"><?= htmlspecialchars($settings['hero_title']) ?></h1>
         <p class="hero-description"><?= htmlspecialchars($settings['hero_subtitle']) ?></p>
     </div>
@@ -100,7 +98,7 @@ require_once INCLUDE_PATH . 'header.php';
     <?php endif; ?>
 </section>
 
-<aside class="sidebar" role="complementary">
+<aside class="sidebar">
     <section class="sidebar-block">
         <h3>Travel</h3>
         <ul>
@@ -113,9 +111,6 @@ require_once INCLUDE_PATH . 'header.php';
             <?php endforeach; ?>
         </ul>
     </section>
-    <!-- <section class="sidebar-block">
-        <h3>Recent Posts</h3>
-    </section> -->
 </aside>
 </div>
 
