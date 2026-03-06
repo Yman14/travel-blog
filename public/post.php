@@ -57,11 +57,10 @@ $stmt->execute([':slug' => $slug]);
 $gallery = $stmt->fetchAll();
 
 //SEO | SMO
-$canonical = BASE_URL . $slug;
+$canonical = BASE_URL . 'post/' . $slug;
 $og_image = $post['featured_image']
     ? UPLOAD_URL . $post['featured_image']
-    : BASE_URL . 'assets/images/default-post.jpg';
-
+    : BASE_URL . 'assets/images/hero/hero-image.webp';
 
 //display
 require_once INCLUDE_PATH . 'header.php';

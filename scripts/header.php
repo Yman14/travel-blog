@@ -1,11 +1,11 @@
-<?php 
+<?php
 // Use the post title if it exists, otherwise use a default
-$title = $post['title'] ?? $page_title ?? "Travel Blog"  . " | Travel Blog";
+$title = ($post['title'] ?? $page_title ?? $settings['website_name']) . " | " . $settings['website_name'];
         
 // Use the post content for description if it exists, otherwise use a default
-$desc = isset($post['content']) 
-        ? mb_strimwidth(strip_tags($post['content']), 0, 155, "...") 
-        : "Welcome to my travel blog where I share my latest adventures.";
+$desc = isset($post['content'])
+        ? mb_strimwidth(strip_tags($post['content']), 0, 155, "...")
+        : $settings['hero_subtitle'] ?? 'Welcome to lilypod Journal where I share my latest adventures.';
 
 $sql = "SELECT id, name FROM categories ORDER BY name ASC";
 $stmt = $pdo->prepare($sql);
@@ -18,22 +18,23 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <?php if (isset($is_travel) && $is_travel): ?>
+        <link rel="preload" as="image" href="<?= BASE_URL ?>assets/images/hero/hero-image.avif" type="image/avif" fetchpriority="high">
+    <?php endif; ?>
     <meta property="og:title" content="<?= htmlspecialchars($title ?? '') ?>">
     <meta property="og:description" content="<?= htmlspecialchars($desc ?? '') ?>">
     <meta property="og:type" content="article">
     <meta property="og:url" content="<?= htmlspecialchars($canonical ?? BASE_URL) ?>">
-    <meta property="og:image" content="<?= htmlspecialchars($og_image ?? BASE_URL . 'assets/images/default-post.jpg') ?>">
-    <title><?= htmlspecialchars($title); ?></title>
-    <meta name="description" content="<?php echo htmlspecialchars($desc, ENT_QUOTES); ?>">
+    <meta property="og:image" content="<?= htmlspecialchars($og_image ?? BASE_URL .'assets/images/hero/hero-image.webp') ?>">
     <link rel="canonical" href="<?= htmlspecialchars($canonical ?? BASE_URL) ?>">
+    <title><?= htmlspecialchars($title); ?></title>
+    <meta name="title" content="<?= htmlspecialchars($title); ?>" />
+    <meta name="description" content="<?= htmlspecialchars($desc, ENT_QUOTES); ?>">
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/images/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main-minify.css">
-    <?php if (isset($is_travel) && $is_travel): ?>
-        <link rel="preload" as="image" href="<?= BASE_URL ?>assets/images/hero/hero-image.avif" type="image/avif" fetchpriority="high">
-    <?php endif; ?>
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css">
     
 </head>
 <body>
@@ -46,7 +47,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </a>
     </div>
 
-    <nav class="site-nav">  
+    <nav class="site-nav">
         <div class="dropdown">
             <span class="dropdown-header">CATEGORIES ▾</span>
             <div class="dropdown-content">
@@ -56,7 +57,7 @@ $navCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="<?= BASE_URL ?>template-page.php">Health&Lifestyle</a>
                 <a href="<?= BASE_URL ?>template-page.php">Gallery</a>
             </div>
-        </div> 
+        </div>
         <div class="dropdown">
             <span class="dropdown-header">PLACES ▾</span>
             <div class="dropdown-content">

@@ -7,11 +7,11 @@ error_reporting(E_ALL);
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', 1);
 // Force cookies to only be sent over HTTPS
-ini_set('session.cookie_secure', 1); 
+ini_set('session.cookie_secure', 1);
 
 // Define Paths
 // URL paths (for HTML)
-define('BASE_URL', '/');
+define('BASE_URL', 'http://localhost/');
 define('UPLOAD_URL', BASE_URL . 'assets/images/uploads/');
 
 // Filesystem paths (for PHP)
@@ -25,7 +25,6 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'lily_db');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-// define('env', 'production');
 
 //PDO Connection
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
@@ -36,7 +35,7 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]);
 } catch (PDOException $e) {
-    error_log($e->getMessage()); 
+    error_log($e->getMessage());
     die("Database connection failed. Please try again later.");
 }
 
