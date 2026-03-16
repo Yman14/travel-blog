@@ -35,6 +35,7 @@ $routes = [
     '/settings-save' => 'settings-save.php',
     '/logout' => 'logout.php',
     '/404-admin' => 'admin404.php',
+    '/get_page' => 'get_page.php',
 ];
 
 

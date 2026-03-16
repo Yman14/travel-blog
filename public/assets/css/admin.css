@@ -143,8 +143,8 @@ ul {
 }
 
 .admin-section {
-    max-width: 100%;
-    padding-inline: 20%;
+    width: 100%;
+    max-width: 800px;
     margin: 2rem auto;
     background: var(--bg-light);
     border-radius: 20px;
@@ -155,7 +155,6 @@ ul {
 .admin-login {
     width: 100%;
     height: 100dvh;
-    position: absolute;
     top: 0;
     left: 0;
     display: flex;
@@ -744,6 +743,26 @@ input, textarea {
 
 
 
+/* Loading Spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--accent); /* Blue color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loader {
+  text-align: center;
+  padding: 50px;
+}
 
 
 /* notification */

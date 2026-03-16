@@ -226,3 +226,26 @@ document.querySelectorAll('.image-remove').forEach(cb => {
 })();
 
 
+//site setting load content logic
+function loadContent(pageName) {
+    const loader = document.getElementById('loader');
+    const displayArea = document.getElementById('display-area');
+
+    //default display
+    loader.style.display = 'block';
+    displayArea.style.display = 'none';
+
+    fetch('get_page?page=' + pageName)
+        .then(response => response.text())
+        .then(data => {
+            displayArea.innerHTML = data;
+            loader.style.display = 'none';
+            displayArea.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loader.innerHTML = "Failed to load content.";
+        });
+}
+
+
