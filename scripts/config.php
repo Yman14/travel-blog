@@ -13,6 +13,7 @@ ini_set('session.cookie_secure', 1);
 // URL paths (for HTML)
 define('BASE_URL', 'http://localhost/');
 define('UPLOAD_URL', BASE_URL . 'assets/images/uploads/');
+define ('APP_URL', parse_url(BASE_URL, PHP_URL_PATH));
 
 // Filesystem paths (for PHP)
 define('ROOT_PATH', dirname(__DIR__));

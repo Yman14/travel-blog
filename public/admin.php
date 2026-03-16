@@ -10,7 +10,7 @@ $request = parse_url($request, PHP_URL_PATH);
 $request = rtrim($request, '/');
 
 // Remove BASE_URL + admin prefix
-$request = str_replace(rtrim(BASE_URL, '/') . '/admin', '', $request);
+$request = str_replace(rtrim(APP_URL, '/') . '/admin', '', $request);
 
 // Ensure it starts with a leading slash
 if ($request === '') {
@@ -46,5 +46,4 @@ if (isset($routes[$request])) {
     http_response_code(404);
     HEADER('Location: '. BASE_URL . 'admin/404-admin');
     exit;
-    // echo "Admin page not found";
 }
