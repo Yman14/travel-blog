@@ -1,4 +1,4 @@
-<?php 
+<?php
 $page_title = "About";
 require_once '../scripts/config.php';
 require_once INCLUDE_PATH . 'header.php'; ?>
