@@ -1,12 +1,12 @@
 <?php
 $page = $_GET['page'];
 
-if($page == 'here'){
-    echo "Its here.";
+// Security: basic check to ensure they aren't loading system files
+$allowed = ['profile', 'contacts'];
+
+if (in_array($page, $allowed)) {
+    include_once "{$page}.php";
+} else {
+    include_once "admin/404-admin";
 }
-elseif($page == 'there'){
-    echo "No. Its there!";
-}
-?>
-<div class="greeting">Hi <?=$content?></div>
-<button>Helol</button>
+
