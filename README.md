@@ -4,12 +4,6 @@ The goal was to design something production-ready without relying on frameworks 
 It includes a public blog and a secure admin panel for managing posts, categories, and site settings.<br><br><br>
 
 
-# Key Architecture
-    Pattern: Custom MVC (Model-View-Controller) implementation.
-    Routing: Centralized routing system with clean URL slugs.
-    Data Layer: Pure PDO implementation for database abstraction and security.
-
-
 # Tech stack
     HTML / CSS
     Vanilla JavaScript
@@ -31,6 +25,15 @@ It includes a public blog and a secure admin panel for managing posts, categorie
     Pagination for blog posts
     Mobile responsive
 
+
+
+
+# Key Architecture
+    Pattern: Front-Controller & Modular Architecture (Page Controller Pattern).
+    Routing: Centralized routing system with clean URL slugs via router.php.
+    Data Layer: Pure PDO implementation for database abstraction and 100% prepared statements.
+
+    
 
 
 
