@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($_FILES['featured_image']['error'] !== UPLOAD_ERR_OK) {
             $error = 'Featured image upload failed.<br>';
         } else {
-            if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
+            if ($_FILES['featured_image']['size'] > 10 * 1024 * 1024) {
                 $error = 'Featured image too large.';
             } else {
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         continue;
                     }
                     //prevent large size image
-                    if ($_FILES['gallery_images']['size'][$i] > 5 * 1024 * 1024) {
+                    if ($_FILES['gallery_images']['size'][$i] > 10 * 1024 * 1024) {
                         //not sure yet
                         $galleryErrors[] = $_FILES['gallery_images']['name'][$i] . ' exceeds size limit.';
                         continue;
