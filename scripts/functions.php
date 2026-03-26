@@ -21,19 +21,19 @@ function convertToWebP($source, $quality = 80, $maxWidth = 1200) {
      if (in_array($extension, ['jpeg', 'jpg', 'jfif'])) {
         $image = imagecreatefromjpeg($source);
         if (!$image) {
-            return false; 
-        }        
+            return false;
+        }
     } elseif ($extension === 'png') {
         $image = imagecreatefrompng($source);
         if (!$image) {
-            return false; 
+            return false;
         }
         // preserve png transparency
         imagepalettetotruecolor($image);
         imagealphablending($image, true);
         imagesavealpha($image, true);
     } else {
-        return $info; // sip unsupported formats
+        return false; // sip unsupported formats
     }
 
     // reizes logic
@@ -54,12 +54,11 @@ function convertToWebP($source, $quality = 80, $maxWidth = 1200) {
     }
 
     // save  n free up memory
-    if (imagewebp($destImage, $destination, $quality)) {
-        imagedestroy($image);
-        if ($destImage !== $image) imagedestroy($destImage);
-        unlink($source);
-        return $info['filename'] . '.webp';
+    imagewebp($destImage, $destination, $quality);
+    if ($destImage !== $image) {
+        imagedestroy($destImage);
     }
-
-    return false; 
+    imagedestroy($image); // Destroy the original canvas
+    unlink($source);
+    return $info['filename'] . '.webp';
 }
