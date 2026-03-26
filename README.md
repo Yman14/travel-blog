@@ -31,7 +31,7 @@ It includes a public blog and a secure admin panel for managing posts, categorie
 # Key Architecture
     Pattern: Front-Controller & Modular Architecture (Page Controller Pattern).
     Routing: Centralized routing system with clean URL slugs via router.php.
-    Data Layer: Pure PDO implementation for database abstraction and 100% prepared statements.
+    Data Layer: Pure PDO implementation with optimized FETCH_KEY_PAIR for configuration management.
 
     
 
