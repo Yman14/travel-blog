@@ -234,11 +234,17 @@ function loadContent(pageName) {
     //default display
     loader.style.display = 'block';
     displayArea.style.display = 'none';
+    document.querySelectorAll('.page-btns button').forEach(btn => btn.classList.remove('active'));
 
     fetch('get_page?page=' + pageName)
         .then(response => response.text())
         .then(data => {
             displayArea.innerHTML = data;
+            const activeButton = document.querySelector(`button[onclick*='${pageName}']`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+            
             loader.style.display = 'none';
             displayArea.style.display = 'block';
         })
@@ -247,5 +253,14 @@ function loadContent(pageName) {
             loader.innerHTML = "Failed to load content.";
         });
 }
+//default page to load
+(function() {
+    const displayArea = document.getElementById('display-area');
+    if (!displayArea) return;
+    document.addEventListener('DOMContentLoaded', () => {
+        loadContent('profile');
+        document.querySelector("button[onclick*='profile']").classList.add('active');
+    });
+})();
 
 

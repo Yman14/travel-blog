@@ -9,8 +9,11 @@ $settings = getSettings($pdo);
 
 <section class="admin-section">
     <h1>Site Settings</h1><br><br>
-    <button onclick="loadContent('profile')">Profile</button>
-    <button onclick="loadContent('contacts')">Contacts</button>
+    <div class="page-btns">
+        <button onclick="loadContent('profile')">Profile</button>
+        <button onclick="loadContent('contacts')">Contacts</button>
+    </div>
+    <br><br>
     <div id="loader" style="display: none;">
         <div class="spinner"></div>
         <p>Loading...</p>

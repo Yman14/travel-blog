@@ -200,8 +200,6 @@ ul {
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    /* width: 80%;
-    height: 10%; */
     color: var(--accent);
     font-style: italic;
     font-weight: 900;
@@ -385,13 +383,10 @@ input[type='checkbox'] {
     margin-left: 4rem;
     display: flex;
     flex-wrap: wrap;
-    /* flex-direction: column; */
-    /* justify-content: center; */
     gap: 5%;
 }
 
 .post-row-main > *{
-    /* margin-right: auto; */
     flex-grow: 1;
     width: 120px;
     max-width: 120px;
@@ -400,7 +395,6 @@ input[type='checkbox'] {
 }
 
 .post-title-link {
-    /* margin-right: auto; */
     flex-grow: 1;
     width: 120px;
     max-width: 120px;
@@ -408,12 +402,10 @@ input[type='checkbox'] {
 }
 
 .status-pill {
-    /* width: 85px; */
     width: 100%;
     height: 22px;
     font-size: 0.75rem;
     font-weight: 600;
-    /* padding: 2px 10px; */
     border-radius: 99px;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -506,7 +498,7 @@ input[type='checkbox'] {
     border-color: #3b82f6;
     transform: scale(1.05);
 }
-/* 
+
 .checkmark:after {
     content: "";
     position: absolute;
@@ -522,7 +514,7 @@ input[type='checkbox'] {
 
 .custom-checkbox input:checked ~ .checkmark:after {
     display: block;
-} */
+}
 
 
 
@@ -659,15 +651,6 @@ button.danger {
     justify-content: center;
     align-items: center;
 }
-/* .post-featured {
-    max-width: 80%;
-    padding: 20px;
-} */
-
-/* .image-remove input:checked ~ img {
-    opacity: 0.4;
-    filter: grayscale(100%);
-} */
 
 .image-remove {
     position:absolute;
@@ -680,6 +663,31 @@ button.danger {
 /* MANAGE CATEGORIES */
 .create-category {
     margin: 1rem auto;
+}
+
+/* SITE SETTINGS */
+.page-btns {
+    border-bottom: 2px solid gray;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.page-btns button {
+    width: 100%;
+    font-size: 20px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: inherit;
+    border-radius: 0;
+    border-bottom: 5px solid inherit;
+
+    &.active{
+        color: var(--text);
+        border-bottom: 5px solid var(--accent);
+    }
 }
 
 
